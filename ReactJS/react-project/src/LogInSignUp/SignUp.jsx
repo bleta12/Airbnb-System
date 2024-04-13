@@ -1,7 +1,5 @@
 const SignUp = () => {
-    return (  
-        <p>Hi</p>
-    );
-}
- 
+  return <p>Hi GAJS</p>;
+};
+
 export default SignUp;
