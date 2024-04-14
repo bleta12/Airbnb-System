@@ -33,7 +33,7 @@ function Navbar(){
                             <Link className="nav-link border-start border-info mt-1 ps-2" to="/login">My Account</Link>
                         </li>
                         <li className="nav-item d-none d-md-inline">
-                            <Link className="btn btn-outline-secondary ms-3 rounded-pill mt-1" to="/login">Log in</Link>
+                            <Link className="btn btn-outline-secondary ms-3 rounded-pill mt-1" to="/LogInSignUp/Login">Log in</Link>
                         </li>
                         <li className="nav-item  d-none d-md-inline">
                             <Link className="btn btn-outline-primary ms-1 rounded-pill mt-1" to="/LogInSignUp/SignUp">Sign up</Link>
