@@ -61,6 +61,7 @@
   }
   .custom-button:hover{
       background-color: rgb(37, 37, 174);
+      color: white;
 }
 
 
