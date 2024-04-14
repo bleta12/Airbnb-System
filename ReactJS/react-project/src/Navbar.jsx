@@ -9,7 +9,7 @@ function Navbar(){
     return(             
         <nav className="navbar navbar-expand-md navbar-light bg-light">
             <div className="container-xl">
-                <Link className="navbar-brand" to="/">
+                <Link className="navbar-brand" to="/Home/Home">
                     <span className="fw-bold text-info">ExploreStay</span>
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,7 +27,7 @@ function Navbar(){
                             <Link className="nav-link border-start border-info mt-1 ps-2" to="/login">Log in</Link>
                         </li>
                         <li className="nav-item d-md-none">
-                            <Link className="nav-link border-start border-info mt-1 ps-2" to="/login">Sign up</Link>
+                            <Link className="nav-link border-start border-info mt-1 ps-2" to="/LogInSignUp/SignUp">Sign up</Link>
                         </li>
                         <li className="nav-item d-md-none">
                             <Link className="nav-link border-start border-info mt-1 ps-2" to="/login">My Account</Link>
@@ -36,7 +36,7 @@ function Navbar(){
                             <Link className="btn btn-outline-secondary ms-3 rounded-pill mt-1" to="/login">Log in</Link>
                         </li>
                         <li className="nav-item  d-none d-md-inline">
-                            <Link className="btn btn-outline-primary ms-1 rounded-pill mt-1" to="/signup">Sign up</Link>
+                            <Link className="btn btn-outline-primary ms-1 rounded-pill mt-1" to="/LogInSignUp/SignUp">Sign up</Link>
                         </li>
                         <li className="nav-item d-none d-md-inline">
                           <Link to="/profile" className="nav-link ms-3">

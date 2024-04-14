@@ -2,7 +2,8 @@
 
 import {BrowserRouter as Router, Route,Routes} from 'react-router-dom';
 import PropertyView from "./PropertyView/PropertyView";
-import Navbar from './Navbar';
+import SignUp from './LogInSignUp/SignUp';
+import Home from './Home/Home';
 
 
 function App() {
@@ -10,12 +11,13 @@ function App() {
 
    return(
     <Router>
-      <Navbar/>
-      <div className="content">
+    
       <Routes>
+        <Route exact path="/Home/Home" element={<Home />}/>  
         <Route exact path="/PropertyView/PropertyView" element={<PropertyView />}/>
+        <Route exact path="/LogInSignUp/SignUp" element={<SignUp/>}/>
       </Routes>
-      </div>
+      
 
      
    
