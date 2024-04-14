@@ -6,10 +6,10 @@ import 'bootstrap';
 
 function SignUp() {
   return (
-    <div className='signup temaplate d-flex justify-content-centre align-items-centre  vh-100 bg-primary'>
+    <div className='signup temaplate d-flex justify-content-center align-items-center  vh-100 bg-primary'>
         <div className='form_container p-5 rounded bg-white'>
 <form>
-    <h3  className='text-centre'>Sign up</h3>
+    <h3  className='text-center'>Sign up</h3>
     <div className='mb-2'>
     <label htmlFor='fname'>First Name</label>
        <input type='text' placeholder='Enter your first name' className='form-control'></input>
@@ -30,7 +30,7 @@ function SignUp() {
             <button className='btn btn-primary'>Sign up</button>
     </div>
     <p className='text-end mt-2'>
-      Already registred <Link to="/" className='ms-2'>Sign in</Link>
+      Already registred <Link to="/LogInSignUp/Login" className='ms-2'>Sign in</Link>
     </p>
 </form>
 </div>
