@@ -1,4 +1,7 @@
+import { useNavigate } from "react-router-dom";
+
 const PropertyView = () => {
+    const navigate = useNavigate();
     return ( 
         <>
         <p className="display-5 text-success ps-5 ms-5 mt-3">Hi from propertyview</p>
@@ -19,6 +22,12 @@ const PropertyView = () => {
                 <div className="col-2 bg-secondary me-2">Div 4</div>
             </div>
          </div>
+         <div>
+      
+      <button  className="custom-button" onClick={() => navigate("/Reservation/reservation")}>
+       <span>Reserve</span> 
+      </button>
+    </div>
         
         </>
      );
