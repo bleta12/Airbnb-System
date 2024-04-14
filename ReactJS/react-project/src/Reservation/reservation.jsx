@@ -9,7 +9,7 @@ function Reservation() {
     <div className="container">
       <button className="button" onClick={() => navigate(-1)}></button>
       <div>
-        <h1>Confirm and pay</h1>
+      <span><h1 className="confirm">Confirm and pay</h1></span>
       </div>
     </div>
   );
