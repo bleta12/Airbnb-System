@@ -63,10 +63,12 @@
       background-color: rgb(37, 37, 174);
       color: white;
 }
-
-
-
-
+.confirm{
+    color: black;
+    font-size: 30px;
+    text-transform: capitalize;
+    font-family: 'Times New Roman', Times, serif;
+}
 
 
 
