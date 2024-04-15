@@ -6,8 +6,8 @@ import 'bootstrap';
 
 function Login() {
   return (
-    <div className='login temaplate d-flex justify-content-center align-items-center  vh-100 bg-primary'>
-        <div className='form_container p-5 rounded bg-white'>
+    <div className='login temaplate d-flex justify-content-center align-items-center  vh-100 .bg-light'>
+        <div className='form_container p-5 rounded '>
 <form>
     <h3  className='text-center'>Log in</h3>
     <div className='mb-2'>

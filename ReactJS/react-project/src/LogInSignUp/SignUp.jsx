@@ -6,8 +6,8 @@ import 'bootstrap';
 
 function SignUp() {
   return (
-    <div className='signup temaplate d-flex justify-content-center align-items-center  vh-100 bg-primary'>
-        <div className='form_container p-5 rounded bg-white'>
+    <div className='signup temaplate d-flex justify-content-center align-items-center  vh-100 bg-light'>
+        <div className='form_container p-5 rounded '>
 <form>
     <h3  className='text-center'>Sign up</h3>
     <div className='mb-2'>
