@@ -27,10 +27,10 @@ function SignUp() {
        <input type='password' placeholder='Enter your password' className='form-control'></input>
     </div>
     <div className='d-grid mt-2' >
-            <button className='btn btn-primary'>Sign up</button>
+            <button className='btn btn-danger'>Sign up</button>
     </div>
     <p className='text-end mt-2'>
-      Already registred <Link to="/LogInSignUp/Login" className='ms-2'>Sign in</Link>
+      Already Registered? <Link to="/LogInSignUp/Login" className='ms-2'>Sign in</Link>
     </p>
 </form>
 </div>
