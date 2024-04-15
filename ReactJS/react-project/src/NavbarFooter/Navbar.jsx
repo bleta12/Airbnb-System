@@ -40,7 +40,7 @@ function Navbar(){
                         </li>
                         <li className="nav-item d-none d-md-inline">
                           <Link to="/profile" className="nav-link ms-3">
-                         <img src={require("./Navbar/icons8-account-48.png")} alt="Profile" style={{ width: '35px', height: '35px' }} />
+                         <img src={require("./icons8-account-48.png")} alt="Profile" style={{ width: '35px', height: '35px' }} />
                           </Link>
                         </li>
                     </ul>

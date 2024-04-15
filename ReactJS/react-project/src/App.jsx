@@ -7,6 +7,8 @@ import Home from './Home/Home';
 import Login from './LogInSignUp/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Reservation from './Reservation/reservation';
+import AddProperty from './AddProperty/AddProperty';
+import Footer from './NavbarFooter/Footer';
 
 
 function App() {
@@ -22,11 +24,10 @@ function App() {
         <Route exact path="/PropertyView/PropertyView" element={<PropertyView />}/>
         <Route exact path="/LogInSignUp/Login" element={<Login/>}/>
         <Route exact path="/LogInSignUp/SignUp" element={<SignUp/>}/>
+        <Route exact path="/AddProperty/AddProperty" element={<AddProperty />}/>  
+        <Route exact path="/NavbarFooter/Footer" element={<Footer/>}/>  
       </Routes>
       
-
-     
-   
      </Router>
 
    );
