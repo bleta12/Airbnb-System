@@ -2,7 +2,13 @@
 
 import {BrowserRouter as Router, Route,Routes} from 'react-router-dom';
 import PropertyView from "./PropertyView/PropertyView";
-import Navbar from './Navbar';
+import SignUp from './LogInSignUp/SignUp';
+import Home from './Home/Home';
+import Login from './LogInSignUp/Login';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Reservation from './Reservation/reservation';
+import AddProperty from './AddProperty/AddProperty';
+import Footer from './NavbarFooter/Footer';
 
 
 function App() {
@@ -10,15 +16,18 @@ function App() {
 
    return(
     <Router>
-      <Navbar/>
-      <div className="content">
+    
       <Routes>
-        <Route exact path="/PropertyView/PropertyView" element={<PropertyView />}/>
-      </Routes>
-      </div>
+      <Route exact path="/Reservation/reservation" element={<Reservation />}/>  
 
-     
-   
+        <Route exact path="/Home/Home" element={<Home />}/>  
+        <Route exact path="/PropertyView/PropertyView" element={<PropertyView />}/>
+        <Route exact path="/LogInSignUp/Login" element={<Login/>}/>
+        <Route exact path="/LogInSignUp/SignUp" element={<SignUp/>}/>
+        <Route exact path="/AddProperty/AddProperty" element={<AddProperty />}/>  
+        <Route exact path="/NavbarFooter/Footer" element={<Footer/>}/>  
+      </Routes>
+      
      </Router>
 
    );
