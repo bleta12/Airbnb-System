@@ -6,8 +6,8 @@ import 'bootstrap';
 
 function SignUp() {
   return (
-    <div className='signup temaplate d-flex justify-content-center align-items-center  vh-100 bg-primary'>
-        <div className='form_container p-5 rounded bg-white'>
+    <div className='signup temaplate d-flex justify-content-center align-items-center  vh-100 bg-light'>
+        <div className='form_container p-5 rounded '>
 <form>
     <h3  className='text-center'>Sign up</h3>
     <div className='mb-2'>
@@ -27,10 +27,10 @@ function SignUp() {
        <input type='password' placeholder='Enter your password' className='form-control'></input>
     </div>
     <div className='d-grid mt-2' >
-            <button className='btn btn-primary'>Sign up</button>
+            <button className='btn btn-danger'>Sign up</button>
     </div>
     <p className='text-end mt-2'>
-      Already registred <Link to="/LogInSignUp/Login" className='ms-2'>Sign in</Link>
+      Already Registered? <Link to="/LogInSignUp/Login" className='ms-2'>Sign in</Link>
     </p>
 </form>
 </div>

@@ -6,8 +6,8 @@ import 'bootstrap';
 
 function Login() {
   return (
-    <div className='login temaplate d-flex justify-content-center align-items-center  vh-100 bg-primary'>
-        <div className='form_container p-5 rounded bg-white'>
+    <div className='login temaplate d-flex justify-content-center align-items-center  vh-100 .bg-light'>
+        <div className='form_container p-5 rounded '>
 <form>
     <h3  className='text-center'>Log in</h3>
     <div className='mb-2'>
@@ -18,21 +18,21 @@ function Login() {
     <label htmlFor='password'>Password</label>
        <input type='password' placeholder='Enter your password' className='form-control'></input>
     </div>
-    <div className='mb-2'>
-    <label htmlFor='check' className='custom-input-label ms-2'> Remember me</label>
-       <input type='checkbox'  className='custom-control custom-checkbox' id='check'></input>
+    <div className='form-check mb-3'>
+    <label htmlFor='check' className='form-check-label'> Remember me</label>
+       <input type='checkbox'  className=' form-check-input  ' id='check'></input>
       
     </div>
     <div className='d-grid'>
-            <button className='btn btn-primary'>Sign in</button>
+            <button className='btn btn-danger'>Sign in</button>
     </div>
     <p className='text-end mt-2'>
-        Forgot your <a href='#'> Password?</a> <Link to="/LogInSignUp/SignUp" className='ms-2'>Sign Up</Link>
+        Forgot your <Link to="" className='ms-2'>password?</Link> 
+        Dont have an account? <Link to="/LogInSignUp/SignUp" className='ms-2'>Sign Up</Link>
     </p>
 </form>
 </div>
     </div>
   )
 }
-
 export default Login;
