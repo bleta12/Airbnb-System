@@ -1,20 +1,12 @@
-package airbnbProperty.models;
+package com.example.Spring.airbnbProperty.models;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 
 
+@Table(name="Test")
 
-@Getter
-@Setter
 @Entity
-
-
-
-@Table(name="REVIEW")
-public class ReviewProperty {
-
+public class Test {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -27,4 +19,3 @@ public class ReviewProperty {
 
 
 }
-

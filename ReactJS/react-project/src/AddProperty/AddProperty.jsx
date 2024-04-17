@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+
 import Navbar from "../NavbarFooter/Navbar";
 /*import Footer from "../NavbarFooter/Footer";*/
 import { useState } from "react";
@@ -45,11 +45,11 @@ function AddProperty () {
                     <div className="col">
                 <div className="mb-5">
                     <label htmlFor="PropertyTitle">Write youre Property name:</label>
-                    <input type="text" className="form-control w-50 mt-2" value={propertyTitle} />
+                    <input type="text" className="form-control w-50 mt-2" value={propertyTitle}  onChange={(e) => setPropertyTitle(e.target.value)} />
                 </div>
                 <div class="form-floating">
-                    <textarea class="form-control w-100 mt-1 me-3" placeholder="Leave a comment here" id="floatingTextarea" value={propertyDescription}></textarea>
-                    <label for="floatingTextarea">What makes youre property special😃?</label>
+                    <textarea class="form-control w-100 mt-1 me-3" placeholder="Leave a comment here" id="floatingTextarea" value={propertyDescription}  onChange={(e) => setPropertyDescription(e.target.value)}></textarea>
+                    <label for="floatingTextarea" className="container-fluid">What makes youre property special😃?</label>
                </div>
 
                <div className="mb-5 mt-5">
@@ -134,6 +134,7 @@ function AddProperty () {
                 </div>
                 </div>
                </div>
+               <button type="submit">Submit</button>
               </form>
            </div>
          </div>

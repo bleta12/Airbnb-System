@@ -18,7 +18,7 @@ function Navbar(){
                 <div className="collapse navbar-collapse" id="main-nav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item mt-1">
-                            <Link className="nav-link" to="/contact">Favorites</Link>
+                            <Link className="nav-link" to="/FavoriteList/Favorit">Favorites</Link>
                         </li>
                         <li className="nav-item mt-1">
                             <Link className="nav-link" to="/contact">Contact Us</Link>

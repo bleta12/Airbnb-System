@@ -39,7 +39,7 @@ const AddFavoriteForm = ({ onAdd, editIndex, favorites }) => {
       </div>
       <button type="submit" className="btn btn-primary">{editIndex !== null ? 'Update' : 'Add'}</button>
       {editIndex !== null && (
-        <button type="button" className="btn btn-secondary ml-2" onClick={() => setEditIndex(null)}>Cancel</button>
+        <button type="button" className="btn btn-secondary ml-2" /*onClick={() => setEditIndex(null)}*/>Cancel</button>
       )}
     </form>
   );

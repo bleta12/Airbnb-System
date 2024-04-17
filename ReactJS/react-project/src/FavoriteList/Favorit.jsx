@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import FavoriteItem from './FavoriteItem';
 import AddFavoriteForm from './AddFavoriteForm';
 
-const App = () => {
+const Favorit = () => {
   const [favorites, setFavorites] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
 
@@ -45,4 +45,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Favorit;
