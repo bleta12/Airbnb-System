@@ -14,7 +14,6 @@ function Reservation() {
   };
 
   return (
-<<<<<<< Updated upstream
     <div className="reservation-container">
       <div className="reservation-header">
         <button className="back-button" onClick={() => navigate(-1)}>
@@ -73,30 +72,9 @@ function Reservation() {
         <hr />
         <h3>Pay With</h3>
         
-=======
-    <>
-    <div class="main-container">
-
-    <div className="container ms-10">
-      <button className="button" onClick={() => navigate(-1)}></button>
-      <h1> Confirm and pay</h1>
->>>>>>> Stashed changes
       </div>
-      <div className="container ps-5">
-        <div>
-     <span><h5>Your Trip</h5></span> 
-      <span><h5>Dates</h5></span>
-      <span><h5>Guests</h5></span>
-      </div>
-      </div>
-      <div className='container mt-5'>
-        <form action="">
-          <label htmlFor="GuestNumber">Check the number of guests:</label>
-          <input type="text" name="" id="" className='form-control' />
-        </form>
-      </div>
-      </div>
-      </>
+     </div>
+      
   );
 }
 
