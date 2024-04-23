@@ -3,9 +3,11 @@ import { Button } from "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"
 const Home = () => {
     return ( 
-        <>
         <Navbar/>
         
+     );
+}
+<>
 <button>this is <button></button></button>
 <main>
     <Container>
@@ -73,7 +75,4 @@ const Home = () => {
     </Row>
     </Container>
 </main>
-</>
-    );
-}
 export default Home;
