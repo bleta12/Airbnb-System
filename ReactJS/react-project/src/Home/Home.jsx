@@ -1,14 +1,13 @@
 import Navbar from "../NavbarFooter/Navbar";
-import { Button } from "bootstrap";
+import { Button,Card,Col,Row,Container,Image } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css"
+
 const Home = () => {
     return ( 
+        <>
         <Navbar/>
         
-     );
-}
-<>
-<button>this is <button></button></button>
+<button>this is</button>
 <main>
     <Container>
         <Row className="px-4 my-5">
@@ -75,4 +74,8 @@ const Home = () => {
     </Row>
     </Container>
 </main>
+        </>
+     );
+
+    }
 export default Home;
