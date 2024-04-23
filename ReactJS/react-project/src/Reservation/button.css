@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 .reservation-container {
   max-width: 600px;
   margin: 0 auto;
@@ -119,3 +120,79 @@ hr{
   margin-top:10%;
 }
 /*  color: #888;*/
+=======
+.container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .button {
+    background-color: transparent;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 40px;
+    cursor: pointer;
+    border: 2px solid #ffffff;
+    margin-top: 44px;
+  }
+  
+  .button::before {
+    content: '\2039'; 
+    margin-right: 5px;
+   
+  }
+  
+  .button:hover::before {
+    font-size: 50px; 
+  }
+  
+  .button:hover {
+    color: red;
+    border-radius: 50%; 
+  }
+  
+  h1 {
+    color: black;
+    margin-top: 50px;
+    text-transform: capitalize;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  /*-----Reservebutton---*/
+  .custom-button {
+    background-color: rgb(97, 195, 227);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px; /*me bo si ovale*/
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .custom-button {
+     color: rgb(243, 236, 226);
+  }
+  
+  .custom-button span {
+    
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: capitalize;
+  }
+  .custom-button:hover{
+      background-color: rgb(37, 37, 174);
+      color: white;
+}
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  height: 70vh; 
+  margin-left: 20%;
+}
+>>>>>>> Stashed changes
