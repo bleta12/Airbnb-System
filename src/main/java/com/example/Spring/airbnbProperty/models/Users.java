@@ -18,8 +18,9 @@ public class Users {
     private String lastname;
     private String email;
     private String password;
+    private String username;
 
-
+///ghhhhhh
 
 }
 
