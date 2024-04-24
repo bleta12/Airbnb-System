@@ -1,8 +1,11 @@
 package com.example.Spring.airbnbProperty.models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "reservation")
 public class Reservation {
@@ -16,7 +19,7 @@ public class Reservation {
     private int checkin;
     private int checkout;
     private String password;
-    
+
 
 }
 
