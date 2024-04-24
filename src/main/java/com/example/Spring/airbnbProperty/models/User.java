@@ -11,7 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "Users")
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +21,8 @@ public class Users {
     private String email;
     private String password;
     private String username;
+    private String phoneNumber;
+
 
 
 }
