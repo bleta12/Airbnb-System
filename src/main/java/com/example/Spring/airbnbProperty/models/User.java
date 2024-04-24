@@ -1,4 +1,4 @@
-package airbnbProperty.models;
+package com.example.Spring.airbnbProperty.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,8 +8,10 @@ import java.util.Set;
 
 
 @Entity
+@Getter
+@Setter
 @Table(name = "Users")
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,6 +20,8 @@ public class Users {
     private String lastname;
     private String email;
     private String password;
+    private String username;
+    private String phoneNumber;
 
 
 
