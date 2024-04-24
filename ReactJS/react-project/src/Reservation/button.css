@@ -1,75 +1,122 @@
-.container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .button {
-    background-color: transparent;
-    border: none;
-    color: black;
-    text-align: center;
-    text-decoration: none;
-    font-size: 40px;
-    cursor: pointer;
-    border: 2px solid #ffffff;
-    margin-top: 44px;
-  }
-  
-  .button::before {
-    content: '\2039'; 
-    margin-right: 5px;
-   
-  }
-  
-  .button:hover::before {
-    font-size: 50px; 
-  }
-  
-  .button:hover {
-    color: red;
-    border-radius: 50%; 
-  }
-  
-  h1 {
-    color: black;
-    margin-left: 10px; 
-    margin-top: 50px;
-  }
-  /*-----Reservebutton---*/
-  .custom-button {
-    background-color: rgb(97, 195, 227);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 30px; /*me bo si ovale*/
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    transition: background-color 0.3s ease;
-  }
-  
-  .custom-button {
-     color: rgb(243, 236, 226);
-  }
-  
-  .custom-button span {
-    
-    font-size: 16px;
-    font-weight: bold;
-    text-transform: capitalize;
-  }
-  .custom-button:hover{
-      background-color: rgb(37, 37, 174);
-      color: white;
+
+.reservation-container {
+  max-width: 600px;
+  margin: 0 auto;
+  height: 850px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(9, 5, 249, 0.1);
+  margin-top:10%;
+  margin-left: 150px;
 }
-.confirm{
-    color: black;
-    font-size: 30px;
-    text-transform: capitalize;
-    font-family: 'Times New Roman', Times, serif;
+
+.reservation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 
 
-  
+.txt {
+  margin: 0;
+  font-size: 14px;
+  color: #888;
+}
+
+.date-container {
+  margin-top: 20px;
+  margin-bottom: 40px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.calendar-container {
+  display: flex;
+}
+
+.date-picker {
+  margin-right: 10px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.guests-container {
+  margin-top: 20px;
+  font-family: 'Times New Roman', Times, serif;
+}
+
+.custom-select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.reserve-button {
+  display: block;
+  width: 50%;
+  padding: 10px;
+  margin: 0 auto; 
+  margin-top: 30px;
+  font-size: 18px;
+  background-color: white-space;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.reserve-button:hover {
+  background-color: #e8f1fa;
+}
+
+
+.reservation-footer {
+  margin-top:15%;
+  text-align: center;
+}
+
+.reservation-footer h3 {
+  margin: 0;
+  font-size: 20px;
+  color:black;
+  position: absolute;
+  margin-left: 100px;
+}
+.back-button {
+  background-color: transparent;
+  border: none;
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  font-size: 40px;
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  margin-top: -2vh;
+  border: none;
+}
+
+.back-button::before {
+  content: '\2039';
+  margin-right: 10px;
+}
+
+.back-button:hover {
+  color:#001eff;
+  border-radius: 50%;
+}
+.confirm-container{
+  margin-right: 50vh;
+  white-space: nowrap;
+  margin-top:10px;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+hr{
+  height: 3px; 
+  background-color: #000; 
+  margin: 20px 0; 
+  margin-top:10%;
+}
+/*  color: #888;*/
