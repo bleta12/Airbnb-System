@@ -1,4 +1,4 @@
-package airbnbProperty.models;
+package com.example.Spring.airbnbProperty.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,6 +8,8 @@ import java.util.Set;
 
 
 @Entity
+@Getter
+@Setter
 @Table(name = "Users")
 public class Users {
 
@@ -20,7 +22,6 @@ public class Users {
     private String password;
     private String username;
 
-///ghhhhhh
 
 }
 
