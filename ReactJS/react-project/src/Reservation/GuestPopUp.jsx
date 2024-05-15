@@ -45,6 +45,7 @@ function GuestPopUp({ onClose,onSave }) {
             </option>
           ))}
         </select>
+        
       </div>
       <button className="confirm-button" onClick={handleConfirm}>Save</button>
       <button className="cancel-button" onClick={onClose}>Cancel</button>
