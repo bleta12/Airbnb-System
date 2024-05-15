@@ -13,7 +13,7 @@ import Navbar from './NavbarFooter/Navbar';
 /*import Home from './components/Home';*/
 import Icones from './components/Icones';
 import Cards from './components/Cards';
-
+import Slider from './components/Slider';
 
 function App() {
 
@@ -33,6 +33,7 @@ function App() {
         <Route exact path="/components/Icones" element={<Icones />} />
         <Route exact path="/NavbarFooter/Navbar" element={<Navbar />} />
         <Route exact path="/components/Cards" element={<Cards />} />
+        <Route exact path="/components/Slider" element={<Slider />} />
 
 
       </Routes>
