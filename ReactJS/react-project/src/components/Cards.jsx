@@ -4,17 +4,16 @@ import Navbar from '../NavbarFooter/Navbar';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 const Cards = () => {
-    // Array of card properties
-    const [favorites, setFavorites] = useState([]); // State to store favorite card IDs
+    const [favorites, setFavorites] = useState([]);
     const [showNotification, setShowNotification] = useState(false);
 
     const toggleFavorite = (cardId) => {
         if (favorites.includes(cardId)) {
-            setFavorites(favorites.filter(id => id !== cardId)); // Remove from favorites if already favorited
+            setFavorites(favorites.filter(id => id !== cardId));
         } else {
-            setFavorites([...favorites, cardId]); // Add to favorites if not favorited
-            setShowNotification(true); // Show notification when favorited
-            setTimeout(() => setShowNotification(false), 2000); // Hide notification after 2 seconds
+            setFavorites([...favorites, cardId]);
+            setShowNotification(true);
+            setTimeout(() => setShowNotification(false), 2000);
         }
     };
 
@@ -26,12 +25,12 @@ const Cards = () => {
             description: "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
         },
 
-        // Add more card objects as needed
+
     ];
 
     return (
         <>
-            <Navbar />
+
             <div className="container mt-4">
                 <div className="row row-cols-1 row-cols-md-4 g-4">
                     {cards.map((card) => (

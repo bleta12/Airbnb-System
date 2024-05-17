@@ -19,14 +19,14 @@ const Icones = () => {
 
     return (
         <>
-            <Navbar />
-            <div className="container mt-4">
-                <div className="row justify-content-start gap-3 sm-gap-4">
+
+            <div className="container mt-5 mb-5">
+                <div className="row justify-content-start sm-gap-1">
                     {sorting.map((item, index) => (
                         <div key={index} className="col-auto">
                             <button className="btn btn-light rounded-lg d-flex flex-column align-items-center" type="button" style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.15)' }}>
-                                <img src={item.icon} alt={item.title} style={{ width: '50px', height: '50px', marginBottom: '5px' }} />
-                                <span style={{ fontSize: '14px' }}>{item.title}</span>
+                                <img src={item.icon} alt={item.title} style={{ width: '20px', height: '20px', marginBottom: '5px' }} />
+                                <span style={{ fontSize: '10px' }}>{item.title}</span>
                             </button>
                         </div>
                     ))}
