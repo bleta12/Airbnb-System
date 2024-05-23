@@ -4,10 +4,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 
 
-function Navbar(){
+function Navbar() {
 
-    return(             
-        <nav className="navbar navbar-expand-md navbar-light bg-light">
+    return (
+        <nav className="navbar navbar-expand-md navbar-light bg-light mb-5">
             <div className="container-xl">
                 <Link className="navbar-brand" to="/Home/Home">
                     <span className="fw-bold text-info">ExploreStay</span>
@@ -39,17 +39,17 @@ function Navbar(){
                             <Link className="btn btn-outline-primary ms-1 rounded-pill mt-1" to="/LogInSignUp/SignUp">Sign up</Link>
                         </li>
                         <li className="nav-item d-none d-md-inline">
-                          <Link to="/profile" className="nav-link ms-3">
-                         <img src={require("./icons8-account-48.png")} alt="Profile" style={{ width: '35px', height: '35px' }} />
-                          </Link>
+                            <Link to="/profile" className="nav-link ms-3">
+                                <img src={require("./icons8-account-48.png")} alt="Profile" style={{ width: '35px', height: '35px' }} />
+                            </Link>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-  
+
     );
-    
+
 }
 export default Navbar;
 
