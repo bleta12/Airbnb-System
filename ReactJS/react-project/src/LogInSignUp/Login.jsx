@@ -1,4 +1,4 @@
-import React from 'react'
+
 import './stylels.css'
 import { Link ,useNavigate,useParams} from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';

@@ -14,7 +14,7 @@ import Navbar from './NavbarFooter/Navbar';
 import Icones from './components/Icones';
 import Cards from './components/Cards';
 import Slider from './components/Slider';
-
+import Dashboard from './Dashboard/Dashboard';
 function App() {
 
   return (
@@ -34,6 +34,7 @@ function App() {
         <Route exact path="/NavbarFooter/Navbar" element={<Navbar />} />
         <Route exact path="/components/Cards" element={<Cards />} />
         <Route exact path="/components/Slider" element={<Slider />} />
+        <Route exact path="/Dashboard/Dashboard" element={<Dashboard />} />
 
 
       </Routes>

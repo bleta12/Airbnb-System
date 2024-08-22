@@ -8,9 +8,6 @@ import {getDownloadURL,ref, uploadBytes } from "firebase/storage";
 import {v4} from "uuid";
 
 
-
-
-
 function AddProperty () {
     
     const [name, setPropertyTitle] = useState('');
@@ -74,31 +71,6 @@ function AddProperty () {
       return hasError;
   };
   
-
-/*
-  const showImages=()=>{
-    listAll(ref(imageDb,"files")).then(imgs=>{
-      console.log(imgs)
-      imgs.items.forEach(val=>{
-          getDownloadURL(val).then(url=>{
-              setImgUrl(data=>[...data,url])
-          })
-      })
-  })
-  }*/
-
-
-/*
-const images=()=>{
-  const imgArray = [];
-  for (let i = 0; i < imgUrl.length; i++) {
-    imgArray.push({ [`photo${i+1}`]: imgUrl[i] });
-}
-return imgArray;
-}
-*/
-
-
 
     
 const handleSubmit = async (event) => {
@@ -176,12 +148,8 @@ const handleSubmit = async (event) => {
       )
     )
   }
- /* console.log("Updated checkbox state:", checkboxState); */
 
 
-  
-
-   
  
   return (
           <>
@@ -310,19 +278,3 @@ const handleSubmit = async (event) => {
 }
 
 export default AddProperty;
-/*<li key={index}>{file.name}</li>*/ 
-/*             <div className="form-group">
-  <strong>Uploaded photos:</strong>
-  <ul className="list-unstyled d-flex flex-wrap">
-    {imgUrl.map((file, index) => (
-      <li key={index} className="m-1">
-        <img 
-          src={(file)} 
-          alt={`Property ${index + 1}`} 
-          className="img-fluid rounded img-thumbnail" 
-          style={{ width: '200px', height: 'auto' }} 
-        />
-      </li>
-    ))}
-  </ul>
-</div>*/

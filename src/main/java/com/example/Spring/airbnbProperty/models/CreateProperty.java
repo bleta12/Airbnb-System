@@ -10,4 +10,6 @@ import lombok.Setter;
 public class CreateProperty {
     AirbnbProperty airbnbProperty;
     PropertyImage propertyImage;
+    User user;
+
 }

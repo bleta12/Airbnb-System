@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Navbar from '../NavbarFooter/Navbar';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import axios from 'axios';
 
-const Cards = () => {
+const Cards = ({ filteredProperties }) => {
     const [favorites, setFavorites] = useState([]);
+    const [cards, setCards] = useState([]);
     const [showNotification, setShowNotification] = useState(false);
-
+   
     const toggleFavorite = (cardId) => {
         if (favorites.includes(cardId)) {
             setFavorites(favorites.filter(id => id !== cardId));
@@ -17,30 +18,42 @@ const Cards = () => {
         }
     };
 
-    const cards = [
-        {
-            id: 1,
-            image: require("./icons8-pool-50.png"),
-            title: "Pool",
-            description: "This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.",
-        },
+ 
+    useEffect(() => {
+        
+        const fetchCards = async () => {
+            try {
+              
+                if (filteredProperties && filteredProperties.length > 0) {
+                   
+                    setCards(filteredProperties);
+                } else {
+                    const response = await axios.get("http://localhost:8080/api/properties/get");
+                    setCards(response.data);
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
 
-
-    ];
+        fetchCards();
+    }, [filteredProperties]); 
 
     return (
         <>
-
             <div className="container mt-4">
                 <div className="row row-cols-1 row-cols-md-4 g-4">
                     {cards.map((card) => (
-                        <div key={card.id} className="col">
-                            <Link to={`#`} className="text-decoration-none">
+                        <div key={card.name} className="col">
+                            <Link to={'../PropertyView/PropertyView'} className="text-decoration-none" >
                                 <div className="card">
-                                    <img src={card.image} className="card-img-top" alt={card.title} />
+
+                                {card.attributes.map((attr, index) => (
+                                    attr.photo1 && <img key={index} src={attr.photo1} className="card-img-top" alt={card.name} style={{ objectFit: 'cover', height: '200px' }} />
+                                ))}
                                     <div className="card-body">
                                         <div className="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 className="card-title">{card.title}</h5>
+                                            <h5 className="card-title">{card.name}</h5>
                                             {favorites.includes(card.id) ? (
                                                 <BsHeartFill onClick={() => toggleFavorite(card.id)} style={{ cursor: 'pointer' }} />
                                             ) : (
