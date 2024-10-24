@@ -13,7 +13,7 @@ import Navbar from './NavbarFooter/Navbar';
 /*import Home from './components/Home';*/
 import Icones from './components/Icones';
 import Cards from './components/Cards';
-import Slider from './components/Slider';
+import Search from './components/Search';
 import Dashboard from './Dashboard/Dashboard';
 function App() {
 
@@ -23,8 +23,8 @@ function App() {
       <Routes>
         <Route exact path="/Reservation/reservation" element={<Reservation />} />
         <Route exact path="/Home/Home" element={<Home />} />
-        <Route exact path="/PropertyView/PropertyView" element={<PropertyView />} />
-        <Route exact path="/LogInSignUp/Login" element={<Login />} />
+        <Route exact path="/product/:id" element={<PropertyView />} />
+        <Route exact path="/Login" element={<Login />} />
         <Route exact path="/LogInSignUp/SignUp" element={<SignUp />} />
         <Route exact path="/AddProperty/AddProperty" element={<AddProperty />} />
         <Route exact path="/NavbarFooter/Footer" element={<Footer />} />
@@ -33,7 +33,7 @@ function App() {
         <Route exact path="/components/Icones" element={<Icones />} />
         <Route exact path="/NavbarFooter/Navbar" element={<Navbar />} />
         <Route exact path="/components/Cards" element={<Cards />} />
-        <Route exact path="/components/Slider" element={<Slider />} />
+        <Route exact path="/components/Search" element={<Search />} />
         <Route exact path="/Dashboard/Dashboard" element={<Dashboard />} />
 
 

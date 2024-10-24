@@ -1,0 +1,42 @@
+
+.container-xl {
+    margin-top: 30px;
+}
+
+h2 {
+    color: #343a40;
+}
+
+h5 {
+    color: #6c757d;
+}
+
+.carousel-inner img {
+    border-radius: 8px;
+}
+
+.form-control {
+    border-radius: 25px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    border-radius: 25px;
+    transition: background-color 0.3s;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.fst-italic.text-danger {
+    font-size: 0.9rem;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}

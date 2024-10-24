@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin("http://localhost:3000")
 public class UserController {
-    @Autowired
+  /*  @Autowired
     private UserRepositoryInterface userRepositoryInterface;
 
     @PostMapping("/user")
@@ -50,6 +50,6 @@ public class UserController {
         }
         userRepositoryInterface.deleteById(id);
         return  "User with id "+id+" has been deleted success.";
-    }
+    }*/
 }
 

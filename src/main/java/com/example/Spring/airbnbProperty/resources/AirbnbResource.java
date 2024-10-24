@@ -8,7 +8,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
+import java.util.List;
 
 
 @RestController
@@ -33,10 +33,22 @@ public class AirbnbResource {
     }
 
     @GetMapping("/getByFilters")
-    public Iterable<AirbnbProperty> getAirbnbPropertyWithFilters( GetAirBnbPropertiesRequest request) {
+    public Iterable<AirbnbProperty> getAirbnbPropertyWithFilters( GetAirBnbPropertiesRequest request) throws BadRequestException {
+        if(request == null){
+        return  getAll();
+        }else {
         return service.getAirbnbPropertyWithFilters(request);
+    }}
+
+    @GetMapping("/search")
+    public List<AirbnbProperty> search(@RequestParam String keyword){
+      return  service.search(keyword);
     }
 
+    @GetMapping("/getById")
+    public AirbnbProperty getById(@RequestParam int id){
+        return  service.getById(id);
+    }
 }
 
 

@@ -1,0 +1,81 @@
+.form_container{
+    width: 30%; 
+    height: auto; 
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    background-color: #fff; 
+    padding: 20px; 
+    
+}
+
+
+@media screen and (max-width: 1000px) {
+  .form_container {
+      width: 60%; 
+  }
+}
+
+
+@media screen and (max-width: 700px) {
+  .form_container {
+      width: 80%; 
+  }
+}
+
+
+@media screen and (max-height: 100px) {
+  .form_container {
+      height: 95%; 
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+  .form_container {
+      width: 95%; 
+  }
+}
+
+.signup{
+    background: linear-gradient(to bottom,#caebf5, #88c7eb);
+    height: 115vh; 
+    width: 100%;
+  }
+
+  .btn1 {
+    background-color: #007bb5; 
+    color: white; 
+    padding: 12px 20px; 
+    font-size: 16px; 
+    border: none; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+  }
+  
+  
+  .btn1:hover {
+    background-color: #005f8c; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  
+  .btn1:active {
+    background-color: #015481; 
+    transform: scale(0.98); 
+  }
+  
+
+  .success-message {
+    margin-top: 10px; 
+    padding: 10px; 
+    background-color: rgba(207, 243, 250, 0.8);; 
+    color: #0a4a6e; 
+    border: 1px solid #8fc9e2; 
+    border-radius: 5px; 
+    font-size: 1rem; 
+    text-align: center; 
+    transition: opacity 0.3s ease; 
+  }
+  
+ 

@@ -1,16 +1,15 @@
 
 import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap';
+
 
 
 function Navbar() {
 
     return (
-        <nav className="navbar navbar-expand-md navbar-light bg-light mb-5">
-            <div className="container-xl">
+        <nav className="navbar navbar-expand-md navbar-light bg-light mb-5 ms-1 p-0">
+            <div className="container-xl p-0">
                 <Link className="navbar-brand" to="/Home/Home">
-                    <span className="fw-bold text-info">ExploreStay</span>
+                    <span className="fw-bold fs-3 text-info">ExploreStay</span>
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
@@ -18,13 +17,13 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="main-nav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item mt-1">
-                            <Link className="nav-link" to="/FavoriteList/Favorit">Favorites</Link>
+                            <Link className="nav-link fw-medium" to="/FavoriteList/Favorit">Favorites</Link>
                         </li>
                         <li className="nav-item mt-1">
-                            <Link className="nav-link" to="/contact">Contact Us</Link>
+                            <Link className="nav-link fw-medium" to="/contact">Contact Us</Link>
                         </li>
                         <li className="nav-item d-md-none">
-                            <Link className="nav-link border-start border-info mt-1 ps-2" to="/login">Log in</Link>
+                            <Link className="nav-link border-start border-info mt-1 ps-2" to="/LogInSignUp/Login">Log in</Link>
                         </li>
                         <li className="nav-item d-md-none">
                             <Link className="nav-link border-start border-info mt-1 ps-2" to="/LogInSignUp/SignUp">Sign up</Link>

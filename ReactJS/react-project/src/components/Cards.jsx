@@ -1,13 +1,12 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
-import axios from 'axios';
 
 const Cards = ({ filteredProperties }) => {
     const [favorites, setFavorites] = useState([]);
     const [cards, setCards] = useState([]);
     const [showNotification, setShowNotification] = useState(false);
-   
+
     const toggleFavorite = (cardId) => {
         if (favorites.includes(cardId)) {
             setFavorites(favorites.filter(id => id !== cardId));
@@ -18,56 +17,55 @@ const Cards = ({ filteredProperties }) => {
         }
     };
 
- 
     useEffect(() => {
-        
-        const fetchCards = async () => {
-            try {
-              
-                if (filteredProperties && filteredProperties.length > 0) {
-                   
-                    setCards(filteredProperties);
-                } else {
-                    const response = await axios.get("http://localhost:8080/api/properties/get");
-                    setCards(response.data);
-                }
-            } catch (error) {
-                console.error("Error fetching data:", error);
-            }
-        };
-
-        fetchCards();
-    }, [filteredProperties]); 
+        setCards(filteredProperties);
+    }, [filteredProperties]);
 
     return (
         <>
             <div className="container mt-4">
-                <div className="row row-cols-1 row-cols-md-4 g-4">
-                    {cards.map((card) => (
-                        <div key={card.name} className="col">
-                            <Link to={'../PropertyView/PropertyView'} className="text-decoration-none" >
-                                <div className="card">
-
-                                {card.attributes.map((attr, index) => (
-                                    attr.photo1 && <img key={index} src={attr.photo1} className="card-img-top" alt={card.name} style={{ objectFit: 'cover', height: '200px' }} />
-                                ))}
-                                    <div className="card-body">
-                                        <div className="d-flex justify-content-between align-items-center mb-2">
-                                            <h5 className="card-title">{card.name}</h5>
-                                            {favorites.includes(card.id) ? (
-                                                <BsHeartFill onClick={() => toggleFavorite(card.id)} style={{ cursor: 'pointer' }} />
-                                            ) : (
-                                                <BsHeart onClick={() => toggleFavorite(card.id)} style={{ cursor: 'pointer' }} />
-                                            )}
+                {cards && cards.length > 0 ? (
+                    <div className="row row-cols-1 row-cols-md-4 g-4">
+                        {cards.map((card) => (
+                            <div key={card.name} className="col">
+                                <Link to={`../product/${card.id}`} className="text-decoration-none">
+                                    <div className="card">
+                                        {card.attributes.map((attr, index) => (
+                                            attr.photo1 && (
+                                                <img
+                                                    key={index}
+                                                    src={attr.photo1}
+                                                    className="card-img-top"
+                                                    alt={card.name}
+                                                    style={{ objectFit: 'cover', height: '200px' }}
+                                                />
+                                            )
+                                        ))} 
+                                        <div className="card-body">
+                                            <div className="d-flex justify-content-between align-items-center mb-2">
+                                                <h5 className="card-title">{card.name}</h5>
+                                                {favorites.includes(card.id) ? (
+                                                    <BsHeartFill onClick={() => toggleFavorite(card.id)} style={{ cursor: 'pointer' }} />
+                                                ) : (
+                                                    <BsHeart onClick={() => toggleFavorite(card.id)} style={{ cursor: 'pointer' }} />
+                                                )}
+                                            </div>
+                                            <p className="card-text">{card.description}</p>
                                         </div>
-                                        <p className="card-text">{card.description}</p>
                                     </div>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-                <div className={`modal ${showNotification ? 'show' : ''}`} style={{ display: `${showNotification ? 'block' : 'none'}`, backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                ) : (
+                    <div className="d-flex justify-content-center align-items-center mt-5 mb-5" style={{ height: '300px' }}>
+                        <p className="text-center text-muted">
+                            There are no properties with these attributes.
+                        </p>
+                    </div>
+                )}
+
+                <div className={`modal ${showNotification ? 'show' : ''}`} style={{ display: showNotification ? 'block' : 'none', backgroundColor: 'rgba(0, 0, 0, 0.5)' }}>
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-body">
@@ -76,9 +74,8 @@ const Cards = ({ filteredProperties }) => {
                         </div>
                     </div>
                 </div>
-                <div className="text-center mt-4">
-                    <button className="btn btn-primary">Show More</button>
-                </div>
+
+              
             </div>
         </>
     );

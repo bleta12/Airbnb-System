@@ -22,6 +22,7 @@ public class AirbnbProperty {
     private int id;
     private String name;
     private String description;
+    private String location;
     private Boolean GardenView;
     private Boolean Kitchen;
     private Boolean DedicatedWorkspace;
@@ -58,6 +59,7 @@ public class AirbnbProperty {
                 ", firstAidKit=" + FirstAidKit +
                 ", gardenView=" + GardenView +
                 ", name='" + name + '\'' +
+                ", location='" + location + '\'' +
                 ", description='" + description + '\'' +
                 ", userId=" + user +
                 '}';
