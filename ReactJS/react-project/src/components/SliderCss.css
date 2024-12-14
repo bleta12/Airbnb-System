@@ -1,24 +1,24 @@
-/* Slider Image Styling */
+
 .slider-image {
-    max-height: 500px; /* Set a fixed height for all images */
+    max-height: 500px; 
     width: 100%;
-    object-fit: cover; /* Ensures images maintain their aspect ratio */
+    object-fit: cover; 
 }
 
-/* Search Input Styling */
+
 .search-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100%; /* Set width to auto */
-    max-width: 500px; /* Set a maximum width */
+    width: 100%; 
+    max-width: 500px; 
     z-index: 2; 
 }
 @media (max-width: 768px) {
     .search-container {
-        width: 40%; /* Use 80% of the screen width */
-        max-width: none; /* Remove max-width constraint */
+        width: 40%; 
+        max-width: none; 
       
     }
     .t{
@@ -28,7 +28,7 @@
 
 @media (max-width: 100px) {
     .search-container {
-        width: 50%; /* Use 90% of the screen width on very small screens */
+        width: 50%;
     }
     .t{
         visibility: hidden;
@@ -36,13 +36,13 @@
 }
 
 .search-input {
-    width: 100%; /* Keep width at 100% of the container */
+    width: 100%; 
     padding: 0.75rem;
     border-radius: 5px;
-    font-size: 1rem; /* Optional: Adjust font size */
+    font-size: 1rem; 
 }
 
-/* Carousel Caption Styling */
+
 .carousel-caption {
     position: absolute;
     top: 0;
@@ -53,72 +53,72 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5); /* Optional background for better readability */
+    background: rgba(0, 0, 0, 0.5); 
     color: #fff;
     text-align: center;
-    z-index: 1; /* Lower z-index to let search results appear on top */
+    z-index: 1; 
 }
 
-/* Search Results Styling */
+
 .search-results {
-    max-height: calc(3 * 50px); /* Limit the dropdown to 3 items' height */
-    overflow-y: auto; /* Enable scrolling when there are more than 3 items */
+    max-height: calc(3 * 50px); 
+    overflow-y: auto; 
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 5px;
     margin-top: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
-    z-index: 3; /* Ensure this appears above other elements */
+    z-index: 3;
 }
 
-/* Search Results Image */
+
 .search-result-image {
-    width: 40px; /* Small size for the property image */
+    width: 40px; 
     height: 40px;
-    object-fit: cover; /* Maintain aspect ratio */
-    border-radius: 5px; /* Optional: round corners for a better look */
-    margin-right: 10px; /* Space between the image and the text */
+    object-fit: cover; 
+    border-radius: 5px; 
+    margin-right: 10px; 
 }
 
-/* Adjust the list item to align items */
+
 .search-results .list-group-item {
-    display: flex; /* Use flexbox to align image and text */
-    align-items: center; /* Center items vertically */
-    padding: 10px 15px; /* Add padding for better spacing */
-    border-bottom: 1px solid #ddd; /* Add a border between items */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-    cursor: pointer; /* Change cursor to pointer */
+    display: flex;
+    align-items: center; 
+    padding: 10px 15px; 
+    border-bottom: 1px solid #ddd; 
+    transition: background-color 0.3s ease; 
+    cursor: pointer; 
 }
 
 .search-results .list-group-item:last-child {
-    border-bottom: none; /* Remove border on the last item */
+    border-bottom: none;
 }
 
 .search-results .list-group-item:hover {
-    background-color: #f0f0f0; /* Highlight item on hover */
+    background-color: #f0f0f0; 
 }
 
 .search-result-link {
-    color: #111212; /* Primary color for links */
+    color: #111212; 
     text-decoration: none;
-     /* Remove underline */
+     
 }
 
 .search-result-link:hover {
-    color: #111212; /* Underline on hover */
+    color: #111212; 
     text-decoration: none;
 }
 
-/* No Results Message Styling */
+
 .no-results-message {
     padding: 15px;
     text-align: center;
-    color: #999; /* Subtle gray color for no results text */
-    font-style: italic; /* Make it stand out */
+    color: #999; 
+    font-style: italic; 
 }
 
-/* Ensuring good layout and spacing */
+
 .carousel-caption {
-    z-index: 1; /* Lower z-index so search list appears on top of the caption */
+    z-index: 1; 
 }

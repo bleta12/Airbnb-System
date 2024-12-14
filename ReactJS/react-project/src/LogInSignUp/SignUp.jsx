@@ -129,45 +129,98 @@ function SignUp() {
 
     },[successMessage,navigate]);
 
-  return (
-    <div className='signup template d-flex justify-content-center align-items-center '>
-        <div className='form_container p-5 rounded '>
-<form onSubmit={handleSubmit}>
-    <h3  className='text-center mb-5 fs-2'>Sign up</h3>
-    <div className='mb-2'>
-    <label htmlFor='fname' className='ms-2'>First Name:</label>
-       <input type='text' name='name'autoComplete='name' placeholder='' className='form-control'value={inputFields.name} onChange={handleChange} onBlur={handleBlur}></input>
-    </div>
-    {errors.name ? (<p className="error fs-6"> {errors.name}</p>) : null}
-    <div className='mb-2'>
-    <label htmlFor='lname' className='ms-2'>Last Name:</label>
-       <input type='text' name='lastname' placeholder='' className='form-control'value={inputFields.lastname} onChange={handleChange} onBlur={handleBlur}></input>
-    </div>
-    {errors.lastname ? (<p className="error fs-6"> {errors.lastname}</p>) : null}
-    <div className='mb-2'>
-    <label htmlFor='email' className='ms-2'>Email:</label>
-       <input type='email' name='email'autoComplete='email' placeholder='e.g., name@example.com' className='form-control' value={inputFields.email} onChange={handleChange} onBlur={handleBlur}></input>
-    </div>
-    {errors.email ? (<p className="error fs-6"> {errors.email}</p>) : null}
-    <div className='mb-2'>
-    <label htmlFor='email' className='ms-2'>Username:</label>
-       <input type='text' name='username' placeholder='' autoComplete='username' className='form-control' value={inputFields.username} onChange={handleChange} onBlur={handleBlur}></input>
-    </div>
-    {errors.username ? (<p className="error fs-6"> {errors.username}</p>) : null}
-    <div className='mb-2'>
-    <label htmlFor='password' className='ms-2'>Password:</label>
-       <input type='password' name='password'autocomplete="password" placeholder='Create a strong password' className='form-control' value={inputFields.password} onChange={handleChange} onBlur={handleBlur}></input>
-    </div>
-    {errors.password ? (<p className="error fs-6"> {errors.password}</p>) : null}
-    <div className='d-grid mt-5' >
-            <button className='btn1' type='submit'>Sign up</button>
-            {successMessage && <p className="success-message">{successMessage}</p>}
-    </div>
-   
-</form>
-</div>
-    </div>
-  )
+    return (
+      <div className='background'>
+        <div className='overlay'>
+          <div className='signup template d-flex justify-content-center align-items-center'>
+            <div className='form_container ps-5 pe-5 rounded'>
+              <form onSubmit={handleSubmit}>
+                <h3 className='text-center mb-5 fs-2'>Sign up</h3>
+                <div className='mb-2'>
+                  <label htmlFor='fname' className='ms-2'>First Name:</label>
+                  <input
+                    type='text'
+                    name='name'
+                    autoComplete='name'
+                    placeholder=''
+                    className='form-control'
+                    value={inputFields.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.name && <p className="error fs-7">{errors.name}</p>}
+                
+                <div className='mb-2'>
+                  <label htmlFor='lname' className='ms-2'>Last Name:</label>
+                  <input
+                    type='text'
+                    name='lastname'
+                    placeholder=''
+                    className='form-control'
+                    value={inputFields.lastname}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.lastname && <p className="error fs-7">{errors.lastname}</p>}
+                
+                <div className='mb-2'>
+                  <label htmlFor='email' className='ms-2'>Email:</label>
+                  <input
+                    type='email'
+                    name='email'
+                    autoComplete='email'
+                    placeholder='e.g., name@example.com'
+                    className='form-control'
+                    value={inputFields.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.email && <p className="error fs-7">{errors.email}</p>}
+                
+                <div className='mb-2'>
+                  <label htmlFor='username' className='ms-2'>Username:</label>
+                  <input
+                    type='text'
+                    name='username'
+                    placeholder=''
+                    autoComplete='username'
+                    className='form-control'
+                    value={inputFields.username}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.username && <p className="error fs-7">{errors.username}</p>}
+                
+                <div className='mb-2'>
+                  <label htmlFor='password' className='ms-2'>Password:</label>
+                  <input
+                    type='password'
+                    name='password'
+                    autoComplete="password"
+                    placeholder='Create a strong password'
+                    className='form-control'
+                    value={inputFields.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                  />
+                </div>
+                {errors.password && <p className="error fs-7">{errors.password}</p>}
+                
+                <div className='d-grid mt-5'>
+                  <button className='btn1' type='submit'>Sign up</button>
+                  {successMessage && <p className="success-message">{successMessage}</p>}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+    
 }
 
 export default SignUp;

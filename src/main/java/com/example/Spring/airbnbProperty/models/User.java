@@ -1,5 +1,6 @@
 package com.example.Spring.airbnbProperty.models;
 
+import com.example.Spring.airbnbProperty.models.enums.Role;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -26,6 +27,10 @@ public class User {
     private String password;
     private String username;
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)

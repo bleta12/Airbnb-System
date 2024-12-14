@@ -9,6 +9,7 @@ import com.example.Spring.airbnbProperty.repository.UserRepositoryInterface;
 import com.example.Spring.airbnbProperty.services.UserService;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,6 +32,10 @@ public class UserResource {
     public User insertOne(@RequestBody User user) throws BadRequestException {
         return service.insertOne(user);
     }
+    @PostMapping("/login")
+    public String login(@RequestBody User user) throws BadRequestException {
+        return service.verify(user);
+    }
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) throws UserNotFoundException {
         return service.getUserById(id);
@@ -50,5 +55,7 @@ public class UserResource {
     public void deleteUser(@PathVariable Long id) throws UserNotFoundException {
         service.deleteUser(id);
     }
+
+
 
 }

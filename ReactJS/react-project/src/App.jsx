@@ -15,6 +15,10 @@ import Icones from './components/Icones';
 import Cards from './components/Cards';
 import Search from './components/Search';
 import Dashboard from './Dashboard/Dashboard';
+import withAuth from './withAuth';
+
+
+
 function App() {
 
   return (
@@ -26,7 +30,7 @@ function App() {
         <Route exact path="/product/:id" element={<PropertyView />} />
         <Route exact path="/Login" element={<Login />} />
         <Route exact path="/LogInSignUp/SignUp" element={<SignUp />} />
-        <Route exact path="/AddProperty/AddProperty" element={<AddProperty />} />
+        <Route exact path="/AddProperty/AddProperty" element={withAuth(<AddProperty />)} />
         <Route exact path="/NavbarFooter/Footer" element={<Footer />} />
         <Route exact path="/FavoriteList/Favorit" element={<Favorit />} />
         <Route exact path="/components/Home" element={<Home />} />
@@ -35,6 +39,8 @@ function App() {
         <Route exact path="/components/Cards" element={<Cards />} />
         <Route exact path="/components/Search" element={<Search />} />
         <Route exact path="/Dashboard/Dashboard" element={<Dashboard />} />
+       
+
 
 
       </Routes>

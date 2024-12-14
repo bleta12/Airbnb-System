@@ -6,9 +6,9 @@ import com.example.Spring.airbnbProperty.exception.UserNotFoundException;
 import com.example.Spring.airbnbProperty.repository.UserRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-@RestController
-@CrossOrigin("http://localhost:3000")
+//
+//@RestController
+//@CrossOrigin("http://localhost:3000")
 public class UserController {
   /*  @Autowired
     private UserRepositoryInterface userRepositoryInterface;
