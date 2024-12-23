@@ -3,6 +3,8 @@ package com.example.Spring.airbnbProperty.models;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.ArrayList;
+import java.util.List;
 
 import java.util.Set;
 
@@ -23,6 +25,8 @@ public class User {
     private String username;
     private String phoneNumber;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Reservation> attributes = new ArrayList<>();
 
 
 }

@@ -33,7 +33,7 @@ function App() {
         <Route exact path="/components/Icones" element={<Icones />} />
         <Route exact path="/NavbarFooter/Navbar" element={<Navbar />} />
         <Route exact path="/components/Cards" element={<Cards />} />
-
+        
 
       </Routes>
 

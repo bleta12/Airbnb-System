@@ -21,8 +21,13 @@ public class ReserveResources {
 
     @PostMapping("/insert")
     public Reservation insertOne(@RequestBody Reservation reservation) throws BadRequestException {
+        int totalGuests = reservation.getAdults() + reservation.getKids();
+        reservation.setTotalGuests(totalGuests);
+
         return service.insertOne(reservation);
+
+        }
     }
 
 
-}
+

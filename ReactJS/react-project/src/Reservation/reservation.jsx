@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -13,8 +13,11 @@ function Reservation() {
   const [endDate, setEndDate] = useState(null);
   const [expirationDate, setExpirationDate] = useState(null);
   const [selectedCountry, setSelectedCountry] = useState("");
-  const [adults, setAdults] = useState("");
-  const [kids, setKids] = useState("");
+  const [adults, setAdults] = useState(0);
+  const [kids, setKids] = useState(0);
+  const [cvv, setCVV] = useState(null);
+  const [totalGuests, setTotalGuests] = useState("");
+ 
 
   const isValidCreditCardNumber = (cardNumber) => {
     const sanitizedNumber = cardNumber.replace(/\D/g, "");
@@ -62,7 +65,9 @@ function Reservation() {
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
       country: selectedCountry,
-
+      numberOfGuests: totalGuests,
+      adults: adults,
+      kids: kids,
       cardNumber: cardNumber,
       expirationDate: expirationDate,
       cvv: document.getElementById("formCVV").value,
@@ -84,7 +89,10 @@ function Reservation() {
       console.log("Check-out Date:", endDate);
       console.log("Selected Country:", selectedCountry);
       console.log("Card Number:", cardNumber);
-      console.log(" Expiration Date:", expirationDate);
+      console.log("Total Guests:", totalGuests);
+      console.log("Adults:", adults);
+      console.log("Kids:", kids);
+      console.log("Expiration Date:", expirationDate);
       console.log("CVV:", reservationData.cvv);
       window.alert("Reservation confirmed!");
     } catch (error) {
@@ -93,7 +101,8 @@ function Reservation() {
     }
   };
 
-  const formExpiration = () => "MM/YY";
+  
+  const formExpiration = () => "MM/DD";
   const formCVV = () => "CVV";
 
   const countries = [
@@ -109,7 +118,11 @@ function Reservation() {
     "Italy",
   ];
 
-  return (
+  useEffect(() => {
+    setTotalGuests(Number(adults) + Number(kids));
+  }, [adults, kids]);
+
+    return (
     <div>
       <Navbar bg="light" expand="lg">
         <Link className="navbar-brand" to="/Home/Home">
@@ -154,30 +167,30 @@ function Reservation() {
                 minDate={startDate}
                 placeholderText="Check-out"
                 className="date-picker"
+                disabled={!startDate}
               />
             </div>
           </div>
-
 
           <div className="guests-container">
             <h4>Guests</h4>
             <div className="row">
               <div className="col">
                 <Form.Group controlId="adults">
-                  <div class="dropdown">
+                  <div className="input-group">
                     <Form.Control
                       type="text"
                       placeholder={adults ? adults : "Adults"}
                       readOnly
+                      style={{ width: "80%" }}
                     />
-
                     <button
-                      class="btn btn-secondary dropdown-toggle"
+                      className="btn btn-secondary dropdown-toggle"
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     ></button>
-                    <ul class="dropdown-menu">
+                    <ul className="dropdown-menu">
                       {[...Array(10)].map((_, index) => (
                         <li key={index}>
                           <a
@@ -197,20 +210,20 @@ function Reservation() {
               </div>
               <div className="col">
                 <Form.Group controlId="kids">
-                  <div class="dropdown">
+                  <div className="input-group">
                     <Form.Control
                       type="text"
                       placeholder={kids ? kids : "Kids"}
                       readOnly
+                      style={{ width: "80%" }}
                     />
-
                     <button
-                      class="btn btn-secondary dropdown-toggle"
+                      className="btn btn-secondary dropdown-toggle"
                       type="button"
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     ></button>
-                    <ul class="dropdown-menu">
+                    <ul className="dropdown-menu">
                       {[...Array(10)].map((_, index) => (
                         <li key={index}>
                           <a
@@ -231,6 +244,7 @@ function Reservation() {
             </div>
           </div>
           <hr />
+          
           <h3 className="payment-header">Payment Details</h3>
 
           <Form className="payment-form">
@@ -243,13 +257,26 @@ function Reservation() {
               <Form.Label>Expiration Date</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="MM/YY"
+                placeholder="MM/DD"
                 value={expirationDate}
+                maxLength={5}
                 onChange={(e) => {
                   let input = e.target.value;
-                  input = input.replace(/\D/g, ""); //largoj vlerat qe nuk jane numra
+                  input = input.replace(/\D/g, "");
                   if (input.length > 2) {
-                    input = input.slice(0, 2) + "/" + input.slice(2);
+                    //nese jane me shume se 2 inpute vendoset "/"
+                    const month = input.slice(0, 2);
+                    const day = input.slice(2);
+                    
+                    if (parseInt(month) < 1 || parseInt(month) > 12) {
+                      window.alert("Please enter a valid month (1-12).");
+                      return;
+                    }
+                    if (parseInt(day) < 1 || parseInt(day) > 31) {
+                      window.alert("Please enter a valid day (1-31).");
+                      return;
+                    }
+                    input = month + "/" + day;
                   }
                   setExpirationDate(input);
                 }}
@@ -274,17 +301,33 @@ function Reservation() {
 
             <Form.Group controlId="formCVV">
               <Form.Label>CVV</Form.Label>
-              <Form.Control type="password" placeholder="CVV" />
+              <Form.Control
+                type="password"
+                placeholder="CVV"
+                value={cvv}
+                onChange={(e) => {
+                  let input = e.target.value;
+                  if (input.length > 4) {
+                    window.alert("CVV should be no longer than 4 digits");
+                  } else {
+                    setCVV(input);
+                  }
+                }}
+              />
             </Form.Group>
 
             <Button className="payment-button" onClick={handlePay}>
               Confirm and Pay
             </Button>
+           
+           
           </Form>
         </div>
       </div>
     </div>
   );
+
 }
+
 
 export default Reservation;

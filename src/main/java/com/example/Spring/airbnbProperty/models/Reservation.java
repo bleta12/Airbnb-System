@@ -23,6 +23,14 @@ public class Reservation {
     private String cvv;
     private String expirationDate;
     private String country;
-    private int numberOfGuests;
+    private int totalGuests;
+    private int kids;
+    private int adults;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
 
 }
