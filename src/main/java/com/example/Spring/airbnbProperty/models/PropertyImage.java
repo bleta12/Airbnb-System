@@ -1,5 +1,7 @@
 package com.example.Spring.airbnbProperty.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +22,7 @@ public class PropertyImage {
     private String photo4;
     private String photo5;
 
+    @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "property_id")
     private AirbnbProperty property;

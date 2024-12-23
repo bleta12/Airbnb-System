@@ -16,6 +16,7 @@
     "bootstrap-icons": "^1.11.3",
     "firebase": "^10.11.1",
     "fullcalendar": "^6.1.11",
+    "jwt-decode": "^4.0.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.10.2",
     "react-datepicker": "^6.9.0",
@@ -25,6 +26,7 @@
     "react-scripts": "5.0.1",
     "react-slick": "^0.30.2",
     "slick-carousel": "^1.8.1",
+    "styled-components": "^6.1.11",
     "uuid": "^9.0.1",
     "web-vitals": "^2.1.4"
   },

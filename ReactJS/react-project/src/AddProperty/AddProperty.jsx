@@ -1,19 +1,35 @@
 
-import Navbar from "../NavbarFooter/Navbar";
-/*import Footer from "../NavbarFooter/Footer";*/
-import { useState,useRef } from "react";
-import axios from 'axios';
+
+import { useState,useRef , useEffect} from "react";
 import { imageDb } from "./Config";
 import {getDownloadURL,ref, uploadBytes } from "firebase/storage";
 import {v4} from "uuid";
-
-
+import "./AddProperty.css";
+import { jwtDecode } from 'jwt-decode';
+import  axiosInstance  from '../axiosInstance';
 
 
 
 function AddProperty () {
+
+  const token = localStorage.getItem('token');
+  const [decodedToken, setDecodedToken] = useState(null);
+
+  useEffect(() => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setDecodedToken(decoded); 
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    } else {
+      console.log('No token found');
+    }
+  }, [token]);
     
     const [name, setPropertyTitle] = useState('');
+    const [location, setLocation] = useState('');
     const [imgUrl,setImgUrl] =useState([])
     const [description, setPropertyDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -35,26 +51,31 @@ function AddProperty () {
   
 
     const [validationErrorName,setValidationErrorName]=useState('');
+    const [validationErrorLocation,setValidationErrorLocation]=useState('');
     const [validationErrorDescription,setValidationErrorDescription]=useState('');
     const [validationErrorCheck,setValidationErrorCheck]=useState('');
     const [validationErrorPrice,setValidationErrorPrice]=useState('');
     const [fileError,setFileError]=useState('');
     
     const validation = () => {
-      // Reset error states
+      
       setValidationErrorName('');
+      setValidationErrorLocation('');
       setValidationErrorDescription('');
       setValidationErrorCheck('');
       setValidationErrorPrice('');
       setFileError('');
   
-      // Perform validation
       let hasError = false;
   
       if (name.length === 0) {
           setValidationErrorName("Property name must be supplied!");
           hasError = true;
-      } else if (description.length === 0) {
+      }else if (location.length === 0) {
+        setValidationErrorLocation("Location must be supplied");
+        hasError = true; 
+      }
+      else if (description.length === 0) {
           setValidationErrorDescription("Description must be supplied");
           hasError = true;
       } else if (checkboxState.every(item => !item.checked)) {
@@ -70,35 +91,10 @@ function AddProperty () {
           hasError = true;
       }
   
-      // Return whether there are any errors
+     
       return hasError;
   };
   
-
-/*
-  const showImages=()=>{
-    listAll(ref(imageDb,"files")).then(imgs=>{
-      console.log(imgs)
-      imgs.items.forEach(val=>{
-          getDownloadURL(val).then(url=>{
-              setImgUrl(data=>[...data,url])
-          })
-      })
-  })
-  }*/
-
-
-/*
-const images=()=>{
-  const imgArray = [];
-  for (let i = 0; i < imgUrl.length; i++) {
-    imgArray.push({ [`photo${i+1}`]: imgUrl[i] });
-}
-return imgArray;
-}
-*/
-
-
 
     
 const handleSubmit = async (event) => {
@@ -116,13 +112,13 @@ const handleSubmit = async (event) => {
                 });
             });
 
-            
           const uploadedUrls = await Promise.all(uploadPromises);
           setImgUrl(uploadedUrls); 
-            const response = await axios.post('http://localhost:8080/api/properties/insert', {
+            const response = await axiosInstance.post('/properties/insert', {
                 "airbnbProperty": {
                     name: name,
                     description: description,
+                    price:price,
                     ...checkboxState.reduce((acc, checkbox) => {
                         if (checkbox.checked) {
                             const word = checkbox.label.replace(/\s+/g, '');
@@ -130,23 +126,27 @@ const handleSubmit = async (event) => {
                             acc[formattedWord] = checkbox.checked;
                         }
                         return acc;
-                    }, {})
-                    
+                    }, {}),
+                    location:location
                 },
                 "propertyImage": {"photo1": uploadedUrls[0],
                                   "photo2": uploadedUrls[1],
                                    "photo3":uploadedUrls[2],
                                    "photo4":uploadedUrls[3],
-                                   "photo5":uploadedUrls[4]} 
-                              
-            });
-
+                                   "photo5":uploadedUrls[4]} ,
+                "user": {
+                         "id":decodedToken.id
+                     }
+                    });
+            
             console.log("Response:", response.data);
             console.log("Submitting form data...");
             console.log("Name:", name);
+            console.log("Location:", location);
             console.log("Description:", description);
             console.log("Checkbox State:", checkboxState);
             setPropertyTitle('');
+            setLocation('');
             setPropertyDescription('');
             setPrice('');
             setCheckboxState(checkboxState.map((item) => ({ ...item, checked: false })));
@@ -176,26 +176,19 @@ const handleSubmit = async (event) => {
       )
     )
   }
- /* console.log("Updated checkbox state:", checkboxState); */
 
 
-  
-
-   
  
   return (
           <>
-          <Navbar/>
-         
-   
-      
+          
          <div className="container-xl">
            
            <div className="container-xl">
             <div className="row mt-5">
                <div className="col">
             <h2 className="display-3 mt-5">Hi User!</h2>
-            <h5 className="fw-lighter bg-light">Here you can start adding a property by providing details such as the title, description, and uploading images of your property etc... Once you're ready, click the "Submit" button below. </h5>
+            <h5 className="fw-lighter bg-light mt-5">Here you can start adding a property by providing details such as the title, description, and uploading images of your property etc... Once you're ready, click the "Submit" button below. </h5>
             </div>
             <div id="carouselExampleFade" class="carousel slide carousel-fade col" data-bs-ride="carousel">
   <div class="carousel-inner">
@@ -239,6 +232,11 @@ const handleSubmit = async (event) => {
                     <label htmlFor="PropertyTitle">Write your Property name:</label> 
                     <input type="text" id="PropertyTitle" className="form-control w-50 mt-2" name="propertyTitle" value={name}  onChange={(e) => setPropertyTitle(e.target.value)} />
                     <p className="fst-italic text-danger">{validationErrorName}</p>
+                </div>
+                <div className="mb-5">
+                    <label htmlFor="PropertyTitle">Your property location:</label> 
+                    <input type="text" id="PropertyTitle" className="form-control w-50 mt-2" name="location" value={location}  onChange={(e) => setLocation(e.target.value)} />
+                    <p className="fst-italic text-danger">{validationErrorLocation}</p>
                 </div>
                 <div class="form-floating">
                     <textarea class="form-control w-100 mt-1 me-3" placeholder="Leave a comment here" id="floatingTextarea" value={description}  onChange={(e) => setPropertyDescription(e.target.value)}></textarea>
@@ -289,10 +287,10 @@ const handleSubmit = async (event) => {
                 </div>
                 
                 <br /><br />
-               </div>
-                 
-             
-
+                <p className="text-muted text-center mt-5">
+                   If you have any questions about filling out the form, you can contact the page administrator at <a href="mailto:x" className="text-primary">airbnb@gmail.com</a>.
+                </p>
+                   </div>
 
                </div>
                <p className="fst-italic text-danger">{erroriServer}</p>
@@ -310,19 +308,3 @@ const handleSubmit = async (event) => {
 }
 
 export default AddProperty;
-/*<li key={index}>{file.name}</li>*/ 
-/*             <div className="form-group">
-  <strong>Uploaded photos:</strong>
-  <ul className="list-unstyled d-flex flex-wrap">
-    {imgUrl.map((file, index) => (
-      <li key={index} className="m-1">
-        <img 
-          src={(file)} 
-          alt={`Property ${index + 1}`} 
-          className="img-fluid rounded img-thumbnail" 
-          style={{ width: '200px', height: 'auto' }} 
-        />
-      </li>
-    ))}
-  </ul>
-</div>*/
