@@ -1,5 +1,6 @@
 package com.example.Spring.airbnbProperty.models;
 
+import com.example.Spring.airbnbProperty.models.enums.Role;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,5 +49,13 @@ public class MyUser implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Role getRole() {
+        return user.getRole();
+    }
+
+    public long getId() {
+        return user.getId();
     }
 }

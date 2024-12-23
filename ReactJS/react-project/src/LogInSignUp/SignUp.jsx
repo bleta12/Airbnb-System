@@ -120,7 +120,7 @@ function SignUp() {
         
         if(successMessage){
             const timer = setTimeout(() => {
-                navigate('/Login'); 
+                navigate('/LogInSignUp/Login'); 
                 setSuccessMessage(''); 
               }, 2000); 
           

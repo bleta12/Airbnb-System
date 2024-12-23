@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import './login.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 function Login() {
 
@@ -59,10 +60,12 @@ function Login() {
             username: inputFields.username,
             password: inputFields.password
           });
-          // Store token or handle login success (example: store token in localStorage)
+          
 
-          localStorage.setItem('token', response.data.token); 
-          navigate('/dashboard'); // Redirect to a protected route
+          localStorage.setItem('token', response.data); 
+          console.log(localStorage.getItem('token'));
+          navigate('/'); 
+        
       } catch (error) {
           console.error('Error logging in:', error.response ? error.response.data : error.message);
           setErrorMessage('Invalid credentials, please try again.');
@@ -90,6 +93,7 @@ function Login() {
                                 name="username"
                                 placeholder=""
                                 className="form-control"
+                                autoComplete='username'
                                 value={inputFields.username}
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -114,8 +118,12 @@ function Login() {
                         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
                         <div className="d-grid mt-5">
-                            <button className="btn1" type="submit">Log in</button>
+                            <button className="btn1 mb-3" type="submit">Log in</button>
                         </div>
+                        <span className=''>You dont have an account? </span>
+                         <Link className="navbar-brand" to="/LogInSignUp/SignUp">
+                         <span className="fw-bold fs-6 text-info"> Sign up</span>
+                         </Link>
                     </form>
                 </div>
             </div>

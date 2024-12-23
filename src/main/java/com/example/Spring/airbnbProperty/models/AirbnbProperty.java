@@ -10,6 +10,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,8 @@ public class AirbnbProperty {
     private Boolean FreeParking;
     private Boolean CentralAirConditioning;
     private Boolean FirstAidKit;
-
+    @Column(precision = 12, scale = 4)
+    private BigDecimal price;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -60,6 +62,7 @@ public class AirbnbProperty {
                 ", gardenView=" + GardenView +
                 ", name='" + name + '\'' +
                 ", location='" + location + '\'' +
+                ", price='" + price + '\'' +
                 ", description='" + description + '\'' +
                 ", userId=" + user +
                 '}';

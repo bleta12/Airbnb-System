@@ -9,15 +9,17 @@ import React, { useState } from 'react';
 const Home = () => {
    
     const [filteredProperties, setFilteredProperties] = useState([]);
-
+    
+      
     return (
         <>
+         <div className="">
             <div><Navbar /></div>
             <div><Search /></div>
             <div><Icones setFilteredProperties={setFilteredProperties} /></div>
             <div><Cards filteredProperties={filteredProperties} /></div>
             <div><Footer /></div>
-
+         </div>
 
         </>
     );

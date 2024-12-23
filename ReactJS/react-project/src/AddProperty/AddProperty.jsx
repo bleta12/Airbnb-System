@@ -1,14 +1,32 @@
 
-/*import Footer from "../NavbarFooter/Footer";*/
-import { useState,useRef } from "react";
-import axios from 'axios';
+
+import { useState,useRef , useEffect} from "react";
 import { imageDb } from "./Config";
 import {getDownloadURL,ref, uploadBytes } from "firebase/storage";
 import {v4} from "uuid";
 import "./AddProperty.css";
+import { jwtDecode } from 'jwt-decode';
+import  axiosInstance  from '../axiosInstance';
+
 
 
 function AddProperty () {
+
+  const token = localStorage.getItem('token');
+  const [decodedToken, setDecodedToken] = useState(null);
+
+  useEffect(() => {
+    if (token) {
+      try {
+        const decoded = jwtDecode(token);
+        setDecodedToken(decoded); 
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    } else {
+      console.log('No token found');
+    }
+  }, [token]);
     
     const [name, setPropertyTitle] = useState('');
     const [location, setLocation] = useState('');
@@ -94,13 +112,13 @@ const handleSubmit = async (event) => {
                 });
             });
 
-            
           const uploadedUrls = await Promise.all(uploadPromises);
           setImgUrl(uploadedUrls); 
-            const response = await axios.post('http://localhost:8080/api/properties/insert', {
+            const response = await axiosInstance.post('/properties/insert', {
                 "airbnbProperty": {
                     name: name,
                     description: description,
+                    price:price,
                     ...checkboxState.reduce((acc, checkbox) => {
                         if (checkbox.checked) {
                             const word = checkbox.label.replace(/\s+/g, '');
@@ -115,10 +133,12 @@ const handleSubmit = async (event) => {
                                   "photo2": uploadedUrls[1],
                                    "photo3":uploadedUrls[2],
                                    "photo4":uploadedUrls[3],
-                                   "photo5":uploadedUrls[4]} 
-                              
-            });
-
+                                   "photo5":uploadedUrls[4]} ,
+                "user": {
+                         "id":decodedToken.id
+                     }
+                    });
+            
             console.log("Response:", response.data);
             console.log("Submitting form data...");
             console.log("Name:", name);

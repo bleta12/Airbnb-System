@@ -49,7 +49,7 @@ public class SecurityConfig {
         http.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
                         .requestMatchers("properties/get","properties/getByFilters","properties/getById","properties/search"
-                        ,"user/insert","user/login")
+                        ,"user/insert","user/login","auth/refresh")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,9 @@ public class AirbnbService {
         }
         else if (isBlank(createProperty.getAirbnbProperty().getLocation())) {
             throw new BadRequestException("Location must be supplied");
+        }
+        else if ((createProperty.getAirbnbProperty().getPrice())==null || (createProperty.getAirbnbProperty().getPrice().compareTo(BigDecimal.ZERO) == 0)) {
+            throw new BadRequestException("Price must be supplied");
         }
         if (createProperty.getAirbnbProperty().getEssentials() == null) {
             createProperty.getAirbnbProperty().setEssentials(false);
