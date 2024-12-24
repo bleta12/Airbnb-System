@@ -35,22 +35,35 @@ public class JWTService {
     }
 
 
-    public String generateToken(String username, long userId, Role role) {
-
+    public String generateToken(String username, long userId, Role role, String accessOrRefresh) {
+        long expirationTime;
         Map<String, Object> claims = new HashMap<>();
+
+
+        if ("accessToken".equalsIgnoreCase(accessOrRefresh)) {
+            expirationTime = 2 * 60 * 1000;
+            claims.put("role", role);
+            claims.put("token_type", "access");
+        } else if ("refreshToken".equalsIgnoreCase(accessOrRefresh)) {
+            expirationTime = 10 * 60 * 1000;
+            claims.put("token_type", "refresh");
+        } else {
+            throw new IllegalArgumentException("Invalid token type: " + accessOrRefresh);
+        }
+
         claims.put("id", userId);
-        claims.put("role", role);
+
         return Jwts.builder()
                 .claims()
                 .add(claims)
                 .subject(username)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
+                .expiration(new Date(System.currentTimeMillis() + expirationTime))
                 .and()
                 .signWith(getKey())
                 .compact();
-
     }
+
 
     private SecretKey getKey() {
         byte[] keyBytes= Decoders.BASE64.decode(secretKey);

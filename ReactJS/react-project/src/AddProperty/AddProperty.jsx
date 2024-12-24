@@ -12,13 +12,13 @@ import  axiosInstance  from '../axiosInstance';
 
 function AddProperty () {
 
-  const token = localStorage.getItem('token');
+  const accessToken = localStorage.getItem('accessToken');
   const [decodedToken, setDecodedToken] = useState(null);
 
   useEffect(() => {
-    if (token) {
+    if (accessToken) {
       try {
-        const decoded = jwtDecode(token);
+        const decoded = jwtDecode(accessToken);
         setDecodedToken(decoded); 
       } catch (error) {
         console.error('Error decoding token:', error);
@@ -26,7 +26,7 @@ function AddProperty () {
     } else {
       console.log('No token found');
     }
-  }, [token]);
+  }, [accessToken]);
     
     const [name, setPropertyTitle] = useState('');
     const [location, setLocation] = useState('');

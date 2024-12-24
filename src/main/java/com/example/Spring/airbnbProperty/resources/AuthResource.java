@@ -31,18 +31,13 @@ public class AuthResource {
             String username = jwtService.extractUserName(refreshToken);
             MyUser userDetails = (MyUser) myUserService.loadUserByUsername(username);
 
-            if (!jwtService.validateToken(refreshToken, userDetails)) {
+            if (userDetails == null || !jwtService.validateToken(refreshToken, userDetails)) {
                 return ResponseEntity.status(401).body("Invalid or expired refresh token");
             }
 
-
             long id = userDetails.getId();
-
-
             Role role = userDetails.getRole();
-
-
-            String newAccessToken = jwtService.generateToken(username, id, role);
+            String newAccessToken = jwtService.generateToken(username, id, role,"accessToken");
 
             return ResponseEntity.ok(new TokenRefreshResponse(newAccessToken));
         }

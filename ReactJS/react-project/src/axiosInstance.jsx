@@ -6,10 +6,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token');
+        const accessToken = localStorage.getItem('accessToken');
 
-        if (token) {
-            config.headers['Authorization'] = `Bearer ${token}`;
+        if (accessToken) {
+            config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
 
         console.log('Request Config:', config);
@@ -35,7 +35,7 @@ axiosInstance.interceptors.response.use(
                     const { data } = await axios.post('http://localhost:8080/api/auth/refresh', { refreshToken });
 
                  
-                    localStorage.setItem('token', data.accessToken);
+                    localStorage.setItem('accessToken', data.accessToken);
 
                    
                     error.config.headers['Authorization'] = `Bearer ${data.accessToken}`;
@@ -43,9 +43,9 @@ axiosInstance.interceptors.response.use(
                 } catch (refreshError) {
                     console.error('Token refresh failed:', refreshError);
                    
-                    localStorage.removeItem('token');
+                    localStorage.removeItem('accessToken');
                     localStorage.removeItem('refreshToken');
-                    window.location.href = '/login'; 
+                    window.location.href = '/LogInSignUp/Login'; 
                 }
             }
         }

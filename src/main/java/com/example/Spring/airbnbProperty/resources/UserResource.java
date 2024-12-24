@@ -5,6 +5,7 @@ import com.example.Spring.airbnbProperty.models.AirbnbProperty;
 import com.example.Spring.airbnbProperty.models.CreateProperty;
 import com.example.Spring.airbnbProperty.models.User;
 //import com.example.Spring.airbnbProperty.models.CreateProperty;
+import com.example.Spring.airbnbProperty.models.dtos.TokenResponse;
 import com.example.Spring.airbnbProperty.repository.UserRepositoryInterface;
 import com.example.Spring.airbnbProperty.services.UserService;
 import org.apache.coyote.BadRequestException;
@@ -33,7 +34,7 @@ public class UserResource {
         return service.insertOne(user);
     }
     @PostMapping("/login")
-    public String login(@RequestBody User user) throws BadRequestException {
+    public TokenResponse login(@RequestBody User user) throws BadRequestException {
         return service.verify(user);
     }
     @GetMapping("/{id}")
