@@ -5,12 +5,14 @@ import { Link,useNavigate } from 'react-router-dom';
 
 function Navbar() {
 
-    const token = localStorage.getItem('token');
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
     const navigate = useNavigate();
   
     const handleLogout = () => {
       
-      localStorage.removeItem('token');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
       
       navigate('/LogInSignUp/Login');
     };
@@ -32,7 +34,7 @@ function Navbar() {
                         <li className="nav-item mt-1">
                             <Link className="nav-link fw-medium" to="/contact">Contact Us</Link>
                         </li>
-                        {!token ? (
+                        {!accessToken && !refreshToken ? (
                             <>
                         <li className="nav-item d-md-none">
                           <Link className="nav-link border-start border-info mt-1 ps-2" to="/LogInSignUp/Login">
@@ -60,7 +62,7 @@ function Navbar() {
                         </li>
                         {
                        
-                        !token ? (
+                        !accessToken && !refreshToken ? (
                             <>
                         <li className="nav-item d-none d-md-inline">
                           <Link className="btn btn-outline-secondary ms-3 rounded-pill mt-1" to="/LogInSignUp/Login">

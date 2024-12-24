@@ -3,12 +3,15 @@ package com.example.Spring.airbnbProperty.services;
 
 import com.example.Spring.airbnbProperty.exception.UserNotFoundException;
 import com.example.Spring.airbnbProperty.models.User;
+import com.example.Spring.airbnbProperty.models.dtos.TokenResponse;
 import com.example.Spring.airbnbProperty.repository.UserRepositoryInterface;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -76,16 +79,30 @@ public class UserService  {
     }
 
 
-    public String verify(User user) {
-        Authentication authentication = authManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(),user.getPassword()));
+    public TokenResponse verify(User user) {
+        try {
 
-        if (authentication.isAuthenticated()){
-            User completeUser = repo.findByUsername(user.getUsername());
+            Authentication authentication = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
+            );
 
-            return jwtService.generateToken(completeUser.getUsername(),completeUser.getId(),completeUser.getRole());
+            if (authentication.isAuthenticated()) {
+                User completeUser = repo.findByUsername(user.getUsername());
+                if (completeUser == null) {
+                    throw new UsernameNotFoundException("User not found");
+                }
+                String access="accessToken";
+                String refresh="refreshToken";
+
+                String accessToken = jwtService.generateToken(completeUser.getUsername(), completeUser.getId(), completeUser.getRole(),access);
+                String refreshToken = jwtService.generateToken(completeUser.getUsername(), completeUser.getId(),completeUser.getRole(),refresh);
+
+                return new TokenResponse(accessToken, refreshToken);
+            }
+            throw new BadCredentialsException("Authentication failed");
+        } catch (Exception e) {
+            throw new RuntimeException("Authentication error: " + e.getMessage(), e);
         }
-        return "fail";
-
     }
 
 
