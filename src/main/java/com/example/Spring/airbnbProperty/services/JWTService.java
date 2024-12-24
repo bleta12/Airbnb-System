@@ -41,7 +41,7 @@ public class JWTService {
 
 
         if ("accessToken".equalsIgnoreCase(accessOrRefresh)) {
-            expirationTime = 2 * 60 * 1000;
+            expirationTime = 5 * 60 * 1000;
             claims.put("role", role);
             claims.put("token_type", "access");
         } else if ("refreshToken".equalsIgnoreCase(accessOrRefresh)) {

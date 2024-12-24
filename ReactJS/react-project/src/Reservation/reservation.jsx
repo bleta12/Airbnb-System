@@ -5,9 +5,28 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Button, Form, Navbar } from "react-bootstrap";
 import "./button.css";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import { jwtDecode } from 'jwt-decode';
+import  axiosInstance  from '../axiosInstance';
 
 function Reservation() {
+
+  const accessToken = localStorage.getItem('accessToken');
+  const [decodedToken, setDecodedToken] = useState(null);
+  
+  useEffect(() => {
+    if (accessToken) {
+      try {
+        const decoded = jwtDecode(accessToken);
+        setDecodedToken(decoded); 
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    } else {
+      console.log('No token found');
+    }
+  }, [accessToken]);
+
+
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
@@ -74,14 +93,9 @@ function Reservation() {
     };
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/reservation/insert",
-        reservationData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+      const response = await   axiosInstance.post(
+        '/reservation/insert',
+        { reservationData }
       );
       console.log("Response:", response.data);
       console.log("Submitting reservation data...");
@@ -101,7 +115,6 @@ function Reservation() {
     }
   };
 
-  
   const formExpiration = () => "MM/DD";
   const formCVV = () => "CVV";
 
