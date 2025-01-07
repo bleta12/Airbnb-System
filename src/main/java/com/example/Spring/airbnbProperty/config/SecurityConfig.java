@@ -3,6 +3,7 @@ package com.example.Spring.airbnbProperty.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -46,8 +47,10 @@ public class SecurityConfig {
 
         http.csrf(customizer -> customizer.disable())
                 .authorizeHttpRequests(request -> request
+
                         .requestMatchers("properties/get","properties/getByFilters","properties/getById","properties/search"
-                        ,"user/insert","user/login","auth/refresh")
+                        ,"user/insert","user/login","auth/refresh",
+                                "/swagger-ui","/swagger-ui.html","/error")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

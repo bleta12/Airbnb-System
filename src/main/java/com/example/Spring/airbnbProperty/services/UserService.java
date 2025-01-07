@@ -3,7 +3,11 @@ package com.example.Spring.airbnbProperty.services;
 
 import com.example.Spring.airbnbProperty.exception.UserNotFoundException;
 import com.example.Spring.airbnbProperty.models.User;
+import com.example.Spring.airbnbProperty.models.dtos.GeneratePassword;
 import com.example.Spring.airbnbProperty.models.dtos.TokenResponse;
+import com.example.Spring.airbnbProperty.models.dtos.UserDTO;
+import com.example.Spring.airbnbProperty.models.dtos.UserProfilePasswordUpdateDto;
+import com.example.Spring.airbnbProperty.models.enums.Role;
 import com.example.Spring.airbnbProperty.repository.UserRepositoryInterface;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +26,8 @@ import java.util.Optional;
 public class UserService  {
 
     private final UserRepositoryInterface repo;
-    private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
+
 
 
     @Autowired
@@ -46,12 +51,16 @@ public class UserService  {
             throw new BadRequestException("Password must be supplied!");
         }
         user.setPassword(encoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
         return repo.save(user);
     }
-    public User getUserById(Long id) throws UserNotFoundException {
-        Optional<User> user = repo.findById(id);
+
+    public UserDTO getUserProfileById(Long id) throws UserNotFoundException {
+
+        Optional<UserDTO> user = repo.findUserProfileData(id);
         if (user.isPresent()) {
             return user.get();
+           /* return new UserDTO(u.getId(),u.getName(), u.getLastname(),u.getEmail(), u.getUsername(), u.getPhoneNumber(), u.getProfilePicture(), u.getFacebook(), u.getInstagram(), u.getSnapchat(), u.getTwitter());*/
         } else {
             throw new UserNotFoundException("User not found with id: " + id);
         }
@@ -61,13 +70,60 @@ public class UserService  {
         return (List<User>) repo.findAll();
     }
 
-    public User updateUser(Long id, User updatedUser) throws UserNotFoundException {
-        if (repo.existsById(id)) {
-            updatedUser.setId(id);
-            return repo.save(updatedUser);
-        } else {
-            throw new UserNotFoundException("User not found with id: " + id);
+    public UserDTO updateUserProfile(Long id, UserProfilePasswordUpdateDto userProfilePasswordUpdateDto) throws UserNotFoundException {
+
+        User existingUser = repo.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+
+       if (userProfilePasswordUpdateDto.getPassword() != null) {
+           String currentPassword = userProfilePasswordUpdateDto.getPassword().getCurrentPassword();
+           String newPassword = userProfilePasswordUpdateDto.getPassword().getNewPassword();
+
+        if (newPassword != null && currentPassword == null) {
+            throw new IllegalArgumentException("Current password is required to update the password");
         }
+           if (newPassword == null && currentPassword != null) {
+               throw new IllegalArgumentException("New password is required to update the password");
+           }
+        String storedPassword = repo.findPasswordById(id).orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+
+        if (newPassword != null) {
+
+            boolean matches = encoder.matches(currentPassword, storedPassword);
+            if (!matches) {
+                throw new IllegalArgumentException("Current password does not match");
+            }
+
+            String encodedNewPassword = encoder.encode(newPassword);
+            repo.updatePassword(id, encodedNewPassword);
+        }}
+
+        if (userProfilePasswordUpdateDto.getUser().getEmail() != null) {
+            existingUser.setEmail(userProfilePasswordUpdateDto.getUser().getEmail());
+        }else {
+            throw new IllegalArgumentException("Email should not be null");
+        }
+        existingUser.setPhoneNumber(userProfilePasswordUpdateDto.getUser().getPhoneNumber());
+        existingUser.setFacebook(userProfilePasswordUpdateDto.getUser().getFacebook());
+        existingUser.setInstagram(userProfilePasswordUpdateDto.getUser().getInstagram());
+        existingUser.setSnapchat(userProfilePasswordUpdateDto.getUser().getSnapchat());
+        existingUser.setTwitter(userProfilePasswordUpdateDto.getUser().getTwitter());
+
+        repo.save(existingUser);
+
+        return new UserDTO(
+                existingUser.getId(),
+                existingUser.getName(),
+                existingUser.getLastname(),
+                existingUser.getEmail(),
+                existingUser.getUsername(),
+                existingUser.getPhoneNumber(),
+                existingUser.getProfilePicture(),
+                existingUser.getFacebook(),
+                existingUser.getInstagram(),
+                existingUser.getSnapchat(),
+                existingUser.getTwitter()
+        );
     }
 
     public void deleteUser(Long id) throws UserNotFoundException {
@@ -105,6 +161,16 @@ public class UserService  {
         }
     }
 
+
+    public Optional<User> insertPhoto(User user) {
+
+        long id = user.getId();
+        String photo = user.getProfilePicture();
+        int updateId= repo.updateProfilePicture(id,photo);
+        return repo.findById((long) updateId);
+
+
+    }
 
 }
 

@@ -29,6 +29,12 @@ public class User {
     private String password;
     private String username;
     private String phoneNumber;
+    private String profilePicture;
+    private String facebook;
+    private String instagram;
+    private String snapchat;
+    private String twitter;
+
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -37,7 +43,6 @@ public class User {
     @JsonManagedReference
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AirbnbProperty> properties = new ArrayList<>();
-
 
 
 

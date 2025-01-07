@@ -12,7 +12,6 @@ axiosInstance.interceptors.request.use(
             config.headers['Authorization'] = `Bearer ${accessToken}`;
         }
 
-        console.log('Request Config:', config);
         return config;
     },
     (error) => {
@@ -40,13 +39,32 @@ axiosInstance.interceptors.response.use(
                    
                     error.config.headers['Authorization'] = `Bearer ${data.accessToken}`;
                     return axios(error.config);
-                } catch (refreshError) {
+                }catch (refreshError) {
                     console.error('Token refresh failed:', refreshError);
-                   
+                    
+                  
                     localStorage.removeItem('accessToken');
                     localStorage.removeItem('refreshToken');
-                    window.location.href = '/LogInSignUp/Login'; 
+                    
+                    
+                    const messageDiv = document.createElement('div');
+                    messageDiv.innerText = 'Your session has expired. You will be redirected to the login page in a few seconds...';
+                    messageDiv.style.position = 'fixed';
+                    messageDiv.style.top = '50%';
+                    messageDiv.style.left = '50%';
+                    messageDiv.style.transform = 'translate(-50%, -50%)';
+                    messageDiv.style.backgroundColor = 'white';
+                    messageDiv.style.padding = '20px';
+                    messageDiv.style.border = '1px solid #ccc';
+                    messageDiv.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.1)';
+                    document.body.appendChild(messageDiv);
+                
+                  
+                    setTimeout(() => {
+                        window.location.href = '/LogInSignUp/Login';
+                    }, 3000);
                 }
+                
             }
         }
         return Promise.reject(error);

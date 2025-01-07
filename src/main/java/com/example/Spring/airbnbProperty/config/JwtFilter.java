@@ -18,6 +18,8 @@ import org.springframework.context.ApplicationContext;
 
 
 import java.io.IOException;
+import java.security.SignatureException;
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -33,20 +35,28 @@ public class JwtFilter extends OncePerRequestFilter {
         String token=null;
         String username = null;
 
-        if (authHeader!=null && authHeader.startsWith("Bearer")){
-              token=authHeader.substring(7);
-              username=jwtService.extractUserName(token);
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            token = authHeader.substring(7);
+            try {
+                username = jwtService.extractUserName(token);
+            } catch (Exception e) {
+
+                System.out.println("JWT processing error: " + e.getMessage());
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                return;
+            }
         }
 
         if (username !=null && SecurityContextHolder.getContext().getAuthentication()==null){
-
+            System.out.println("Authenticating user: " + username);
             UserDetails userDetails =applicationContext.getBean(MyUserService.class).loadUserByUsername(username);
 
             if (jwtService.validateToken(token,userDetails)){
                 UsernamePasswordAuthenticationToken authtoken= new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
-
+                System.out.println("Auth token: " + authtoken);
                 authtoken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authtoken);
+
             }
         }
         filterChain.doFilter(request,response);

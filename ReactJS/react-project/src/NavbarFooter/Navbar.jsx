@@ -58,7 +58,7 @@ function Navbar() {
                        )}
                         
                         <li className="nav-item d-md-none">
-                            <Link className="nav-link border-start border-info mt-1 ps-2" to="/login">My Account</Link>
+                            <Link className="nav-link border-start border-info mt-1 ps-2" to="/Profile">My Account</Link>
                         </li>
                         {
                        
@@ -86,7 +86,7 @@ function Navbar() {
                        )}
                        
                         <li className="nav-item d-none d-md-inline">
-                            <Link to="/profile" className="nav-link ms-3">
+                            <Link to="/Profile" className="nav-link ms-3">
                                 <img src={require("./icons8-account-48.png")} alt="Profile" style={{ width: '35px', height: '35px' }} />
                             </Link>
                         </li>

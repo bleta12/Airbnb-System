@@ -7,6 +7,7 @@ import {v4} from "uuid";
 import "./AddProperty.css";
 import { jwtDecode } from 'jwt-decode';
 import  axiosInstance  from '../axiosInstance';
+import Dashboard from "../Dashboard/Dashboard";
 
 
 
@@ -181,30 +182,49 @@ const handleSubmit = async (event) => {
  
   return (
           <>
+               <div className="container-fluid d-flex p-0"
+               style={{
+                margin: 0, padding: 0,
+                minHeight: "100vh",
+                width: "100%",
+             
+               
+               }}>
+                  <div
+          className="navbar-nav sidebar sidebar-dark accordion"
+          style={{ margin: 0, padding: 0,width: "150px", }}
+        >
+          <Dashboard />
+        </div>
           
-         <div className="container-xl">
+         <div className="main-body flex-grow-1 d-flex flex-column"
+          style={{
+            marginLeft: "150px", 
+            marginRight: "150px",
+            padding: "15px",
+          }}>
            
-           <div className="container-xl">
+           <div className="container me-5">
             <div className="row mt-5">
                <div className="col">
-            <h2 className="display-3 mt-5">Hi User!</h2>
+            <h3 className="display-3 mt-5">Hi!</h3>
             <h5 className="fw-lighter bg-light mt-5">Here you can start adding a property by providing details such as the title, description, and uploading images of your property etc... Once you're ready, click the "Submit" button below. </h5>
             </div>
             <div id="carouselExampleFade" class="carousel slide carousel-fade col" data-bs-ride="carousel">
   <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="3000">
+    <div class="carousel-item active" data-bs-interval="2000">
       <img src={require("./23.jpg")}  style={{height:'400px'}} class="d-block w-100" alt="..."/>
     </div>
-    <div class="carousel-item" data-bs-interval="3000">
+    <div class="carousel-item" data-bs-interval="2000">
       <img src={require("./home.jpg")}  style={{height:'400px'}} class="d-block w-100" alt="..."/>
     </div>
-    <div class="carousel-item" data-bs-interval="3000">
+    <div class="carousel-item" data-bs-interval="2000">
       <img src={require("./55.jpg")}  style={{height:'400px'}} class="d-block w-100" alt="..."/>
     </div>
-    <div class="carousel-item" data-bs-interval="3000">
+    <div class="carousel-item" data-bs-interval="2000">
       <img src={require("./44.jpg")}  style={{height:'400px'}}class="d-block w-100" alt="..."/>
     </div>
-    <div class="carousel-item">
+    <div class="carousel-item" data-bs-interval="2000">
       <img src={require("./5.jpg")}style={{height:'400px'}}class="d-block w-100" alt="..."/>
     </div>
   </div>
@@ -301,7 +321,7 @@ const handleSubmit = async (event) => {
            </div>
          </div>
        
-        
+        </div>
          </>
  
   );

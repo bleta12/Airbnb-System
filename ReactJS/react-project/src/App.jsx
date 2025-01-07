@@ -5,17 +5,19 @@ import SignUp from './LogInSignUp/SignUp';
 import Home from './Home/Home';
 import Reservation from './Reservation/reservation';
 import Login from './LogInSignUp/Login';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import AddProperty from './AddProperty/AddProperty';
 import Footer from './NavbarFooter/Footer';
 import Favorit from './FavoriteList/Favorit';
 import Navbar from './NavbarFooter/Navbar';
-/*import Home from './components/Home';*/
 import Icones from './components/Icones';
 import Cards from './components/Cards';
 import Search from './components/Search';
 import Dashboard from './Dashboard/Dashboard';
-import WithAuth from './WithAuth';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import MyProfile from './Dashboard/MyProfile';
+
+
 
 
 
@@ -37,7 +39,10 @@ function App() {
         <Route exact path="/NavbarFooter/Navbar" element={<Navbar />} />
         <Route exact path="/components/Cards" element={<Cards />} />
         <Route exact path="/components/Search" element={<Search />} />
-        <Route exact path="/Dashboard/Dashboard" element={<Dashboard />} />
+        <Route exact path="/Dashboard" element={<Dashboard />} />
+        <Route exact path="/Profile" element={<MyProfile />} />
+      
+        
     
        
 
