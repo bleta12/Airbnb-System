@@ -20,4 +20,8 @@ public interface AirbnbRepositoryInterface extends CrudRepository<AirbnbProperty
     @Query("SELECT p FROM AirbnbProperty p WHERE p.id = :id")
     AirbnbProperty getById(@Param("id") int id);
 
+    @Query("SELECT p FROM AirbnbProperty p WHERE p.user.id = :id")
+    List<AirbnbProperty> getByUserId(@Param("id") long id);
+
+
 }

@@ -79,8 +79,8 @@ function Dashboard() {
               aria-expanded="false"
               aria-controls="collapseTwo"
             >
-              <i className="fas fa-fw fa-cog"></i>
-              <span>Components</span>
+              <i className="fas fa-address-book"></i>
+              <span>Activity</span>
             </button>
             <div
               id="collapseTwo"
@@ -89,13 +89,13 @@ function Dashboard() {
               data-parent="#accordionSidebar"
             >
               <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Custom Components:</h6>
-                <a className="collapse-item" href="buttons.html">
-                  Buttons
-                </a>
-                <a className="collapse-item" href="cards.html">
-                  Cards
-                </a>
+                <h6 className="collapse-header">Components:</h6>
+                <Link className="collapse-item" to={"/MyProperty"}>
+                  My Property
+                </Link>
+                <Link className="collapse-item" to={"/FavoriteList/Favorit"}>
+                  My Favorites
+                </Link>
               </div>
             </div>
           </li>
@@ -108,8 +108,8 @@ function Dashboard() {
               aria-expanded="false"
               aria-controls="collapseUtilities"
             >
-              <i className="fas fa-fw fa-wrench"></i>
-              <span>Utilities</span>
+              <i className="fas fa-angle-right"></i>
+              <span>Reservations</span>
             </button>
             <div
               id="collapseUtilities"
@@ -118,12 +118,12 @@ function Dashboard() {
               data-parent="#accordionSidebar"
             >
               <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Custom Utilities:</h6>
+                <h6 className="collapse-header">Reservations:</h6>
                 <a className="collapse-item" href="utilities-color.html">
-                  Colors
+                  My Reservations
                 </a>
                 <a className="collapse-item" href="utilities-border.html">
-                  Borders
+                  My Property Reservations
                 </a>
                 <a className="collapse-item" href="utilities-animation.html">
                   Animations

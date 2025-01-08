@@ -16,6 +16,7 @@ import Dashboard from './Dashboard/Dashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import MyProfile from './Dashboard/MyProfile';
+import MyProperty from './Dashboard/MyProperty';
 
 
 
@@ -41,7 +42,7 @@ function App() {
         <Route exact path="/components/Search" element={<Search />} />
         <Route exact path="/Dashboard" element={<Dashboard />} />
         <Route exact path="/Profile" element={<MyProfile />} />
-      
+        <Route exact path="/MyProperty" element={<MyProperty />} />
         
     
        

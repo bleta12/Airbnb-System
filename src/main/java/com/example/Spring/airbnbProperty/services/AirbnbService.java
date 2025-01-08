@@ -141,6 +141,13 @@ public class AirbnbService {
     public AirbnbProperty getById(int id){
        return repo.getById(id);
     }
+
+
+    public List<AirbnbProperty> getByUserId(long id){
+
+        return repo.getByUserId(id);
+
+    }
 }
 
 /* GardenView;

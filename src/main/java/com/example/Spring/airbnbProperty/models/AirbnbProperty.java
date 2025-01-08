@@ -34,7 +34,7 @@ public class AirbnbProperty {
     private Boolean FreeParking;
     private Boolean CentralAirConditioning;
     private Boolean FirstAidKit;
-    @Column(precision = 12, scale = 4)
+    @Column(precision = 12, scale = 2)
     private BigDecimal price;
     @JsonBackReference
     @ManyToOne(fetch = FetchType.LAZY)

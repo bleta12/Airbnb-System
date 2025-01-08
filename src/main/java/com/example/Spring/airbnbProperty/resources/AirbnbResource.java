@@ -49,6 +49,13 @@ public class AirbnbResource {
     public AirbnbProperty getById(@RequestParam int id){
         return  service.getById(id);
     }
+
+
+    @GetMapping("/getByUserId")
+    public List<AirbnbProperty> getByUserId(@RequestParam long id){
+        return  service.getByUserId(id);
+    }
+
 }
 
 
