@@ -3,7 +3,6 @@ package com.example.Spring.airbnbProperty.services;
 
 import com.example.Spring.airbnbProperty.exception.UserNotFoundException;
 import com.example.Spring.airbnbProperty.models.User;
-import com.example.Spring.airbnbProperty.models.dtos.GeneratePassword;
 import com.example.Spring.airbnbProperty.models.dtos.TokenResponse;
 import com.example.Spring.airbnbProperty.models.dtos.UserDTO;
 import com.example.Spring.airbnbProperty.models.dtos.UserProfilePasswordUpdateDto;

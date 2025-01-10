@@ -8,8 +8,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CreateProperty {
-    AirbnbProperty airbnbProperty;
-    PropertyImage propertyImage;
-    User user;
+    private AirbnbProperty airbnbProperty;
+    private PropertyImage propertyImage;
+    private User user;
 
 }
