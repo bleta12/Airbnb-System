@@ -56,6 +56,17 @@ public class AirbnbResource {
         return  service.getByUserId(id);
     }
 
+
+    @PutMapping("/editProperty")
+    public AirbnbProperty editProperty(@RequestBody CreateProperty property)  {
+        return service.editProperty(property);
+    }
+
+    @DeleteMapping("/deleteProperty")
+    public void deleteProperty(@RequestParam int id){
+         service.delete(id);
+    }
+
 }
 
 
