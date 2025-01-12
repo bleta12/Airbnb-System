@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 
 const Cards = ({ filteredProperties }) => {
     const [favorites, setFavorites] = useState([]);
     const [cards, setCards] = useState([]);
     const [showNotification, setShowNotification] = useState(false);
+    const navigate = useNavigate();
 
     const toggleFavorite = (cardId) => {
         if (favorites.includes(cardId)) {
@@ -20,6 +21,10 @@ const Cards = ({ filteredProperties }) => {
     useEffect(() => {
         setCards(filteredProperties);
     }, [filteredProperties]);
+
+    const goToWishlist = () => {
+        navigate('/wishlist'); // Navigate to Wishlist page
+    };
 
     return (
         <div className="container mt-4">
@@ -111,6 +116,13 @@ const Cards = ({ filteredProperties }) => {
                     </div>
                 </div>
             )}
+            {/* Button to navigate to wishlist */}
+            <button
+                className="btn btn-primary mt-3"
+                onClick={goToWishlist}
+            >
+                Go to Wishlist
+            </button>
         </div>
     );
 };
