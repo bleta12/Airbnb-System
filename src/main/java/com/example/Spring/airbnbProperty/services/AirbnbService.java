@@ -1,16 +1,17 @@
 package com.example.Spring.airbnbProperty.services;
 
-import com.example.Spring.airbnbProperty.models.AirbnbProperty;
+import com.example.Spring.airbnbProperty.exception.ResourceNotFoundException;
+import com.example.Spring.airbnbProperty.exception.UnauthorizedException;
+import com.example.Spring.airbnbProperty.models.*;
 
-import com.example.Spring.airbnbProperty.models.CreateProperty;
-
-import com.example.Spring.airbnbProperty.models.User;
 import com.example.Spring.airbnbProperty.models.dtos.GetAirBnbPropertiesRequest;
 import com.example.Spring.airbnbProperty.repository.AirbnbRepositoryInterface;
 import org.apache.coyote.BadRequestException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -93,7 +94,7 @@ public class AirbnbService {
     }
 
 
-    public Iterable<AirbnbProperty> getAirbnbPropertyWithFilters(GetAirBnbPropertiesRequest request)throws BadRequestException {
+    public Iterable<AirbnbProperty> getAirbnbPropertyWithFilters(GetAirBnbPropertiesRequest request) {
         AirbnbProperty probe = new AirbnbProperty();
 
         if (request.getCentralAirConditioning() != null) {
@@ -148,6 +149,40 @@ public class AirbnbService {
         return repo.getByUserId(id);
 
     }
+
+    public AirbnbProperty editProperty(CreateProperty property) {
+
+        int propertyToEdit=property.getAirbnbProperty().getId();
+         AirbnbProperty airbnbProperty=repo.getById(propertyToEdit);
+
+
+        String[] ignoreProperties = {"id", "user", "attributes"};
+        BeanUtils.copyProperties(property.getAirbnbProperty(), airbnbProperty, ignoreProperties);
+
+        if (property.getPropertyImage() != null) {
+            PropertyImage newImage = property.getPropertyImage();
+            imageService.insertOne(airbnbProperty,newImage);
+            airbnbProperty.getAttributes().clear();
+            airbnbProperty.getAttributes().add(newImage);
+        }
+
+        return airbnbProperty;
+    }
+
+    public void delete(int id) {
+
+        MyUser currentUser = (MyUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        AirbnbProperty airbnbProperty = repo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("AirbnbProperty with ID " + id + " not found"));
+
+        if (airbnbProperty.getUser().getId() != currentUser.getId()) {
+            throw new UnauthorizedException("You are not authorized to delete this property");
+        }
+        repo.deleteById(airbnbProperty.getId());
+    }
+
+
 }
 
 /* GardenView;
@@ -160,3 +195,4 @@ public class AirbnbService {
      FreeParking;
      CentralAirConditioning;
    */
+
