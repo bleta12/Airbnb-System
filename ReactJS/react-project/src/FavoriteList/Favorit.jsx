@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Dashboard from "../Dashboard/Dashboard";
+
 
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -35,73 +37,92 @@ const FavoriteList = () => {
   };
 
   return (
-    <div className="container mt-5">
-      <h1 className="text-center mb-4">Favorite List</h1>
+    <>
+      <div className="container d-flex p-0" style={{ margin: 0, padding: 0 }}>
 
-      {/* Category Selector */}
-      <div className="mb-4">
-        <h4>Select Category</h4>
-        <div className="btn-group">
-          {categories.map(category => (
-            <button
-              key={category.id}
-              className={`btn btn-${selectedCategory === category.id ? 'primary' : 'outline-primary'}`}
-              onClick={() => setSelectedCategory(category.id)}
-            >
-              {category.name}
-            </button>
-          ))}
+        <div
+          className="navbar-nav sidebar sidebar-dark accordion"
+          style={{ margin: 0, padding: 0 }}
+        >
+          <Dashboard />
         </div>
-      </div>
+        <div
+          className="main-body flex-grow-1 ms-lg-5 mt-5"
+          style={{
+            marginLeft: "150px",
+            padding: "15px",
+          }}
+        >
+          <div className="container mt-5">
+            <h1 className="text-center mb-4">Favorite List</h1>
 
-      {/* Items List */}
-      {selectedCategory && (
-        <div>
-          <h4>Items in {categories.find(cat => cat.id === selectedCategory)?.name}</h4>
-          <div className="row">
-            {items.map(item => (
-              <div key={item.id} className="col-md-4 mb-4">
-                <div className="card">
-                  <img src={item.imageUrl} className="card-img-top" alt={item.name} />
-                  <div className="card-body">
-                    <h5 className="card-title">{item.name}</h5>
-                    <p className="card-text">{item.description}</p>
+            {/* Category Selector */}
+            <div className="mb-4">
+              <h4>Select Category</h4>
+              <div className="btn-group">
+                {categories.map(category => (
+                  <button
+                    key={category.id}
+                    className={`btn btn-${selectedCategory === category.id ? 'primary' : 'outline-primary'}`}
+                    onClick={() => setSelectedCategory(category.id)}
+                  >
+                    {category.name}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Items List */}
+            {selectedCategory && (
+              <div>
+                <h4>Items in {categories.find(cat => cat.id === selectedCategory)?.name}</h4>
+                <div className="row">
+                  {items.map(item => (
+                    <div key={item.id} className="col-md-4 mb-4">
+                      <div className="card">
+                        <img src={item.imageUrl} className="card-img-top" alt={item.name} />
+                        <div className="card-body">
+                          <h5 className="card-title">{item.name}</h5>
+                          <p className="card-text">{item.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Add Item */}
+                <div className="mt-4">
+                  <h4>Add New Item</h4>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      placeholder="Item Name"
+                      value={newItem.name}
+                      onChange={e => setNewItem({ ...newItem, name: e.target.value })}
+                    />
+                    <textarea
+                      className="form-control mb-2"
+                      placeholder="Description"
+                      value={newItem.description}
+                      onChange={e => setNewItem({ ...newItem, description: e.target.value })}
+                    ></textarea>
+                    <input
+                      type="text"
+                      className="form-control mb-2"
+                      placeholder="Image URL"
+                      value={newItem.imageUrl}
+                      onChange={e => setNewItem({ ...newItem, imageUrl: e.target.value })}
+                    />
+                    <button className="btn btn-success" onClick={handleAddItem}>Add Item</button>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
-
-          {/* Add Item */}
-          <div className="mt-4">
-            <h4>Add New Item</h4>
-            <div className="form-group">
-              <input
-                type="text"
-                className="form-control mb-2"
-                placeholder="Item Name"
-                value={newItem.name}
-                onChange={e => setNewItem({ ...newItem, name: e.target.value })}
-              />
-              <textarea
-                className="form-control mb-2"
-                placeholder="Description"
-                value={newItem.description}
-                onChange={e => setNewItem({ ...newItem, description: e.target.value })}
-              ></textarea>
-              <input
-                type="text"
-                className="form-control mb-2"
-                placeholder="Image URL"
-                value={newItem.imageUrl}
-                onChange={e => setNewItem({ ...newItem, imageUrl: e.target.value })}
-              />
-              <button className="btn btn-success" onClick={handleAddItem}>Add Item</button>
-            </div>
+            )}
           </div>
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 
