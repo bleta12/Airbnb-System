@@ -1,129 +1,103 @@
-import React, { useState, useEffect } from 'react';
-import Dashboard from "../Dashboard/Dashboard";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { BsHeartFill } from 'react-icons/bs';
 
+const Favorites = ({ favorites = [], properties = [], toggleFavorite }) => {
 
-import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-const FavoriteList = () => {
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [items, setItems] = useState([]);
-  const [newItem, setNewItem] = useState({ name: '', description: '', imageUrl: '' });
-
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/categories')
-      .then(response => setCategories(response.data))
-      .catch(error => console.error('Error fetching categories:', error));
-  }, []);
-
-
-  useEffect(() => {
-    if (selectedCategory) {
-      axios.get(`http://localhost:5000/api/items?category=${selectedCategory}`)
-        .then(response => setItems(response.data))
-        .catch(error => console.error('Error fetching items:', error));
-    }
-  }, [selectedCategory]);
-
-  const handleAddItem = () => {
-    axios.post('http://localhost:5000/api/items', { ...newItem, category: selectedCategory })
-      .then(response => {
-        setItems([...items, response.data]);
-        setNewItem({ name: '', description: '', imageUrl: '' });
-      })
-      .catch(error => console.error('Error adding item:', error));
-  };
+  const favoriteProperties = properties.filter((property) => favorites.includes(property.id));
 
   return (
-    <>
-      <div className="container d-flex p-0" style={{ margin: 0, padding: 0 }}>
+    <div className="favorites-page">
+      {/* Hero Section */}
+      <div className="hero-section text-center text-white py-5" style={{
+        background: 'linear-gradient(45deg, #ff6b6b, #feca57)',
+        borderRadius: '10px',
+        marginBottom: '30px',
+      }}>
+        <h1>Your Favorite Properties</h1>
+        <p className="lead">Discover the properties you love most</p>
+      </div>
 
-        <div
-          className="navbar-nav sidebar sidebar-dark accordion"
-          style={{ margin: 0, padding: 0 }}
-        >
-          <Dashboard />
-        </div>
-        <div
-          className="main-body flex-grow-1 ms-lg-5 mt-5"
-          style={{
-            marginLeft: "150px",
-            padding: "15px",
-          }}
-        >
-          <div className="container mt-5">
-            <h1 className="text-center mb-4">Favorite List</h1>
-
-            {/* Category Selector */}
-            <div className="mb-4">
-              <h4>Select Category</h4>
-              <div className="btn-group">
-                {categories.map(category => (
-                  <button
-                    key={category.id}
-                    className={`btn btn-${selectedCategory === category.id ? 'primary' : 'outline-primary'}`}
-                    onClick={() => setSelectedCategory(category.id)}
-                  >
-                    {category.name}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Items List */}
-            {selectedCategory && (
-              <div>
-                <h4>Items in {categories.find(cat => cat.id === selectedCategory)?.name}</h4>
-                <div className="row">
-                  {items.map(item => (
-                    <div key={item.id} className="col-md-4 mb-4">
-                      <div className="card">
-                        <img src={item.imageUrl} className="card-img-top" alt={item.name} />
-                        <div className="card-body">
-                          <h5 className="card-title">{item.name}</h5>
-                          <p className="card-text">{item.description}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Add Item */}
-                <div className="mt-4">
-                  <h4>Add New Item</h4>
-                  <div className="form-group">
-                    <input
-                      type="text"
-                      className="form-control mb-2"
-                      placeholder="Item Name"
-                      value={newItem.name}
-                      onChange={e => setNewItem({ ...newItem, name: e.target.value })}
+      {favoriteProperties.length > 0 ? (
+        <div className="row row-cols-1 row-cols-md-3 g-4">
+          {favoriteProperties.map((property) => (
+            <div key={property.id} className="col">
+              <div
+                className="card shadow-sm rounded border-0"
+                style={{
+                  overflow: 'hidden',
+                  transition: 'transform 0.3s, box-shadow 0.3s',
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.05)';
+                  e.currentTarget.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.1)';
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                {property.attributes.map(
+                  (attr, index) =>
+                    attr.photo1 && (
+                      <Link to={`../product/${property.id}`} key={index}>
+                        <img
+                          src={attr.photo1}
+                          className="card-img-top"
+                          alt={property.name}
+                          style={{
+                            objectFit: 'cover',
+                            height: '200px',
+                            filter: 'brightness(90%)',
+                          }}
+                        />
+                      </Link>
+                    )
+                )}
+                <div className="card-body">
+                  <div className="d-flex justify-content-between align-items-center mb-2">
+                    <h5
+                      className="card-title text-truncate"
+                      title={property.name}
+                      style={{ color: '#2c3e50', fontWeight: 'bold' }}
+                    >
+                      {property.name}
+                    </h5>
+                    <BsHeartFill
+                      onClick={() => toggleFavorite(property.id)}
+                      className="text-danger"
+                      style={{ cursor: 'pointer', fontSize: '1.5rem' }}
                     />
-                    <textarea
-                      className="form-control mb-2"
-                      placeholder="Description"
-                      value={newItem.description}
-                      onChange={e => setNewItem({ ...newItem, description: e.target.value })}
-                    ></textarea>
-                    <input
-                      type="text"
-                      className="form-control mb-2"
-                      placeholder="Image URL"
-                      value={newItem.imageUrl}
-                      onChange={e => setNewItem({ ...newItem, imageUrl: e.target.value })}
-                    />
-                    <button className="btn btn-success" onClick={handleAddItem}>Add Item</button>
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <p className="card-text text-muted m-0">{property.location}</p>
+                    <span className="fw-bold text-success">€{property.price}</span>
                   </div>
                 </div>
               </div>
-            )}
-          </div>
+            </div>
+          ))}
         </div>
-      </div>
-    </>
+      ) : (
+        <div
+          className="d-flex flex-column justify-content-center align-items-center mt-5 mb-5"
+          style={{ height: '300px' }}
+        >
+          <img
+            src="https://via.placeholder.com/150"
+            alt="No favorites"
+            style={{ width: '150px', marginBottom: '20px' }}
+          />
+          <p className="text-center text-muted fs-4">
+            No favorites added yet. Start exploring properties now!
+          </p>
+          <Link to="/" className="btn btn-primary">
+            Browse Properties
+          </Link>
+        </div>
+      )}
+    </div>
   );
 };
 
-export default FavoriteList;
+export default Favorites;

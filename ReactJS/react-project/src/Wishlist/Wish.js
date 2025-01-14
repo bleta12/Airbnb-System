@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Cards from './components/Cards';
 import Wishlist from './wishlist/Wishlist';
@@ -29,4 +29,4 @@ function App() {
     );
 }
 
-export default App;
+export default App;*/
