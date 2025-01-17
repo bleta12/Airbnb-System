@@ -17,7 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import MyProfile from './Dashboard/MyProfile';
 import MyProperty from './Dashboard/MyProperty';
-import Wishlist from './Wishlist/Wishlist';
+
 
 
 
@@ -44,7 +44,7 @@ function App() {
         <Route exact path="/Dashboard" element={<Dashboard />} />
         <Route exact path="/Profile" element={<MyProfile />} />
         <Route exact path="/MyProperty" element={<MyProperty />} />
-        <Route exact path="/WishList" element={<Wishlist />} />
+    
 
 
 

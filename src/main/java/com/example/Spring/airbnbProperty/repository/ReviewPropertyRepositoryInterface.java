@@ -1,6 +1,6 @@
 package com.example.Spring.airbnbProperty.repository;
 
-import com.example.Spring.airbnbProperty.models.AirbnbProperty;
+
 import com.example.Spring.airbnbProperty.models.ReviewProperty;
 import com.example.Spring.airbnbProperty.models.dtos.ReviewPropertyWithUsername;
 import org.springframework.data.jpa.repository.Query;

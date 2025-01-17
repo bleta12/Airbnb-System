@@ -14,7 +14,7 @@ import java.util.Optional;
 public class FavoritePropertyResources {
 
 
-/*
+
     @Autowired
     private FavoritePropertyService favoritePropertyService;
 
@@ -59,5 +59,5 @@ public class FavoritePropertyResources {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }*/
+    }
 }

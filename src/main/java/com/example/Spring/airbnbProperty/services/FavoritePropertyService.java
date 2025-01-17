@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class FavoritePropertyService {
-   /* @Autowired
+    @Autowired
     private final FavoritePropertyInterface favoritePropertyRepository;
 
     public FavoritePropertyService(FavoritePropertyInterface favoritePropertyRepository) {
@@ -44,5 +44,5 @@ public class FavoritePropertyService {
 
     public boolean existsById(Long id) {
         return favoritePropertyRepository.existsById(Math.toIntExact(id));
-    }*/
+    }
 }

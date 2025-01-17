@@ -8,9 +8,7 @@ import java.util.List;
 
 public interface FavoritePropertyInterface  extends CrudRepository<FavoriteProperty,Integer> {
 
- /*   @Query("SELECT f FROM FavoriteProperty f WHERE f.userId = :userId")
-    List<FavoriteProperty> findByUserId(long userId);
-*/
+
 
 
 
