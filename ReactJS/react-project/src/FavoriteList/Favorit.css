@@ -1,0 +1,26 @@
+.favorit-page {
+    padding: 20px;
+}
+
+.hero-section {
+    background-image: linear-gradient(45deg, #ff6b6b, #feca57);
+    color: white;
+    padding: 50px 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.card-title {
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+.text-success {
+    color: #27ae60 !important;
+}
