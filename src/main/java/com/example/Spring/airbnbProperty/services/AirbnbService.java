@@ -150,23 +150,16 @@ public class AirbnbService {
 
     }
 
-    public AirbnbProperty editProperty(CreateProperty property) {
+    public AirbnbProperty editProperty(AirbnbProperty property) {
 
-        int propertyToEdit=property.getAirbnbProperty().getId();
+        int propertyToEdit=property.getId();
          AirbnbProperty airbnbProperty=repo.getById(propertyToEdit);
 
 
-        String[] ignoreProperties = {"id", "user", "attributes"};
-        BeanUtils.copyProperties(property.getAirbnbProperty(), airbnbProperty, ignoreProperties);
+        String[] ignoreProperties = {"id", "user"};
+        BeanUtils.copyProperties(property, airbnbProperty, ignoreProperties);
 
-        if (property.getPropertyImage() != null) {
-            PropertyImage newImage = property.getPropertyImage();
-            imageService.insertOne(airbnbProperty,newImage);
-            airbnbProperty.getAttributes().clear();
-            airbnbProperty.getAttributes().add(newImage);
-        }
-
-        return airbnbProperty;
+        return repo.save(airbnbProperty);
     }
 
     public void delete(int id) {

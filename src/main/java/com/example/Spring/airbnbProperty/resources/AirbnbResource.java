@@ -57,8 +57,8 @@ public class AirbnbResource {
     }
 
 
-    @PutMapping("/editProperty")
-    public AirbnbProperty editProperty(@RequestBody CreateProperty property)  {
+    @PutMapping(value = "/editProperty",consumes ="application/json")
+    public AirbnbProperty editProperty(@RequestBody AirbnbProperty property)  {
         return service.editProperty(property);
     }
 

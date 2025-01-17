@@ -20,4 +20,8 @@ public class PropertyImageService {
         propertyImage.setProperty(property);
         imageRepo.save(propertyImage);
     }
+
+    public int updatePropertyImage(PropertyImage image){
+        return imageRepo.updatePropertyImages(image.getId(), image.getPhoto1(), image.getPhoto2(), image.getPhoto3(), image.getPhoto4(), image.getPhoto5());
+    }
 }
