@@ -22,7 +22,6 @@ import MyProperty from './Dashboard/MyProperty';
 
 
 
-
 function App() {
 
   return (

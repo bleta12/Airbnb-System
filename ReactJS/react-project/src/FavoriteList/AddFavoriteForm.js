@@ -1,4 +1,4 @@
-/*import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const AddFavoriteForm = ({ onAdd, editIndex, favorites }) => {
   const [name, setName] = useState('');
@@ -39,4 +39,10 @@ const AddFavoriteForm = ({ onAdd, editIndex, favorites }) => {
       </div>
       <button type="submit" className="btn btn-primary">{editIndex !== null ? 'Update' : 'Add'}</button>
       {editIndex !== null && (
-        <button type="button" className="btn btn-secondary ml-2" /*onClick={() => setEditIndex(null)}*/
+        <button type="button" className="btn btn-secondary ml-2" /*onClick={() => setEditIndex(null)}*/>Cancel</button>
+      )}
+    </form>
+  );
+};
+
+export default AddFavoriteForm;
