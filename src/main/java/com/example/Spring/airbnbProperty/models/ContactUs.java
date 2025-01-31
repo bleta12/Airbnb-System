@@ -1,4 +1,4 @@
-package com.example.contactform.models;
+package com.example.Spring.airbnbProperty.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

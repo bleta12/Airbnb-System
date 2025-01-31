@@ -1,8 +1,11 @@
-package com.example.Spring.airbnbProperty.repository;
+package com.example.airbnbProperty.services;
 
-import com.example.contactform.models.ContactUs;
-import com.example.contactform.repository.ContactUsRepository;
+import com.example.airbnbProperty.models.ContactUs;
+import com.example.airbnbProperty.repository.ContactUsRepository;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ContactUsService {
@@ -13,8 +16,21 @@ public class ContactUsService {
         this.contactUsRepository = contactUsRepository;
     }
 
-    // Save message to database
+    // Save message to the database with basic error handling
     public ContactUs saveMessage(ContactUs message) {
-        return contactUsRepository.save(message); // Ensure this method is inherited properly
+        try {
+            return contactUsRepository.save(message);
+        } catch (DataIntegrityViolationException e) {
+            // Handle any specific DB errors here
+            throw new RuntimeException("Message could not be saved: Integrity violation");
+        } catch (Exception e) {
+            // Handle other exceptions
+            throw new RuntimeException("An error occurred while saving the message");
+        }
+    }
+
+    // Retrieve all messages
+    public List<ContactUs> getAllMessages() {
+        return contactUsRepository.findAll();
     }
 }

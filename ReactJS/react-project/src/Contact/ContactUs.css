@@ -21,23 +21,19 @@
 .contact-info {
     flex: 1;
     background: #ADD8E6;
-    /* Light Blue */
     color: rgb(0, 0, 0);
 }
 
 .btn-custom {
     background-color: #2b9fe2;
-    /* Violet */
     color: white;
     border: none;
 }
 
 .btn-custom:hover {
     background-color: #1b4e9a;
-    /* Dark Violet */
 }
 
 .bg-custom {
     background-color: #addce6;
-    /* Light Blue */
 }

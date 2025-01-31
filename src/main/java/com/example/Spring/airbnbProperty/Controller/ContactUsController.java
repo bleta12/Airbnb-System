@@ -1,23 +1,31 @@
-package com.example.contactform.controller;
+package com.example.Spring.airbnbProperty.Controller;
 
-import com.example.contactform.models.ContactUs;
-import com.example.contactform.service.ContactService;
+/*import com.example.airbnbProperty.models.ContactUs;*/
+import com.example.airbnbProperty.services.ContactUsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/contact")
-@CrossOrigin(origins = "http://localhost:3000") // Allows frontend to access the backend
-public class ContactUsController {
-    private final ContactService contactService;
+@CrossOrigin(origins = "http://localhost:3000") // Lejon frontend-in të komunikojë me backend-in
+public class  ContactUsController {
+    private final ContactUsService contactService;
 
-    public ContactUsController(ContactService contactService) {
+    public ContactUsController(ContactUsService contactService) {
         this.contactService = contactService;
     }
 
     @PostMapping
     public ResponseEntity<String> submitMessage(@RequestBody ContactUs contactMessage) {
-        contactService.saveMessage(contactMessage);  // Fix: Using correct variable name
+        contactService.saveMessage(contactMessage);
         return ResponseEntity.ok("Message received! We will contact you soon.");
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ContactUs>> getAllMessages() {
+        List<ContactUs> messages = contactService.getAllMessages();
+        return ResponseEntity.ok(messages);
     }
 }

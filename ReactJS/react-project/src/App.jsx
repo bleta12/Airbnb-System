@@ -20,7 +20,7 @@ import MyProperty from './Dashboard/MyProperty';
 import ContactUs from './Contact/ContactUs';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-
+import UserManagement from './Users/UserManagement';
 
 function App() {
 
@@ -44,7 +44,7 @@ function App() {
         <Route exact path="/Profile" element={<MyProfile />} />
         <Route exact path="/MyProperty" element={<MyProperty />} />
         <Route exact path="/ContactUs/Contact" element={<ContactUs />} />
-
+        <Route exact path="/UserManagement/Users" element={<UserManagement />} />
 
 
 
