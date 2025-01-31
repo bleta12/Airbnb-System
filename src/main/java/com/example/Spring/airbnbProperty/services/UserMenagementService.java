@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserManagementService {
+public class UserMenagementService {
     private final UserManagementRepository userManagementRepository;
 
     // Constructor for dependency injection
-    public UserManagementService(UserManagementRepository userManagementRepository) {
+    public UserMenagementService(UserManagementRepository userManagementRepository) {
         this.userManagementRepository = userManagementRepository;
     }
 
