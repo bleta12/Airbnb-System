@@ -1,7 +1,13 @@
-package com.example.airbnbProperty.services;
+package com.example.Spring.airbnbProperty.services;
 
-import com.example.airbnbProperty.models.ContactUs;
-import com.example.airbnbProperty.repository.ContactUsRepository;
+
+import com.example.Spring.airbnbProperty.models.ContactUs;
+import com.example.Spring.airbnbProperty.models.dtos.TokenResponse;
+import com.example.Spring.airbnbProperty.models.dtos.UserDTO;
+import com.example.Spring.airbnbProperty.models.dtos.UserProfilePasswordUpdateDto;
+import com.example.Spring.airbnbProperty.models.enums.Role;
+import com.example.Spring.airbnbProperty.repository.ContactUsRepository;
+import com.example.Spring.airbnbProperty.repository.UserRepositoryInterface;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 

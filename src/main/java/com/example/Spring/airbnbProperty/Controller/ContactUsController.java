@@ -1,7 +1,8 @@
 package com.example.Spring.airbnbProperty.Controller;
 
-/*import com.example.airbnbProperty.models.ContactUs;*/
-import com.example.airbnbProperty.services.ContactUsService;
+
+import com.example.Spring.airbnbProperty.models.ContactUs;
+import com.example.Spring.airbnbProperty.services.ContactUsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
