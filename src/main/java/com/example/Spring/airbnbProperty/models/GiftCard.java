@@ -6,18 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "contact_messages")
+@Table(name = "gift_cards")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ContactUs {
+public class GiftCard {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    private String email;
-    private String subject;
+    private String amount;
+    private String recipientEmail;
 
     @Column(columnDefinition = "TEXT")
     private String message;

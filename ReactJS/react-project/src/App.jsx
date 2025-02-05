@@ -21,6 +21,7 @@ import ContactUs from './Contact/ContactUs';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import UserManagement from './Users/UserManagement';
+import GiftCardPage from './Gifts/GiftCardPage';
 
 function App() {
 
@@ -45,7 +46,7 @@ function App() {
         <Route exact path="/MyProperty" element={<MyProperty />} />
         <Route exact path="/ContactUs/Contact" element={<ContactUs />} />
         <Route exact path="/UserManagement/Users" element={<UserManagement />} />
-
+        <Route exact path="/GiftCardPage/Gifts" element={<GiftCardPage />} />
 
 
 
