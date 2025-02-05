@@ -1,27 +1,27 @@
 
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
 import { jwtDecode } from 'jwt-decode';
 import { Link } from 'react-router-dom';
 
 
 function Dashboard() {
 
-   const accessToken = localStorage.getItem('accessToken');
-    const [decodedToken, setDecodedToken] = useState(null);
-    
-    useEffect(() => {
-      if (accessToken) {
-         try {
-            const decoded = jwtDecode(accessToken); 
-            setDecodedToken(decoded); 
-         } catch (error) {
-            console.error('Error decoding token:', error); 
-         }
-      } else {
-         console.log('No token found');
+  const accessToken = localStorage.getItem('accessToken');
+  const [decodedToken, setDecodedToken] = useState(null);
+
+  useEffect(() => {
+    if (accessToken) {
+      try {
+        const decoded = jwtDecode(accessToken);
+        setDecodedToken(decoded);
+      } catch (error) {
+        console.error('Error decoding token:', error);
       }
-   }, [accessToken]);
-   
+    } else {
+      console.log('No token found');
+    }
+  }, [accessToken]);
+
 
   return (
     <div id="page-top">
@@ -29,11 +29,11 @@ function Dashboard() {
         <ul
           className="navbar-nav sidebar sidebar-dark accordion"
           style={{
-            minHeight: "100vh", 
-            position: "fixed",  
-            top: "0",          
-            bottom: "0",       
-            overflowY: "auto", 
+            minHeight: "100vh",
+            position: "fixed",
+            top: "0",
+            bottom: "0",
+            overflowY: "auto",
             background: "linear-gradient(to bottom,rgb(96, 147, 229),rgb(132, 187, 224))"
           }}
           id="accordionSidebar"
@@ -51,11 +51,11 @@ function Dashboard() {
                   transition: 'all 0.3s ease-in-out',
                 }}
               >
-              <span className="d-block">Welcome</span>
-           <span className="d-block fw-normal">{decodedToken ? decodedToken.sub : "Guest"}</span>
-             </Link>
-           </p>
-         </li>
+                <span className="d-block">Welcome</span>
+                <span className="d-block fw-normal">{decodedToken ? decodedToken.sub : "Guest"}</span>
+              </Link>
+            </p>
+          </li>
 
           {/* Divider */}
           <hr className="sidebar-divider my-0" />
@@ -126,13 +126,19 @@ function Dashboard() {
                   My Property Reservations
                 </a>
               </div>
-              
+
             </div>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/AddProperty/AddProperty">
               <i className="fas fa-building h-5"></i>
               <span>Host a Property</span>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/GiftCardPage">
+              <i className="fa fa-gift h-5"></i>
+              <span>Gift Card</span>
             </Link>
           </li>
           {/* Divider */}
@@ -179,7 +185,7 @@ function Dashboard() {
               </div>
             </div>
           </li>
-        
+
           {/* Nav Item - Tables */}
           <li className="nav-item">
             <a className="nav-link" href="tables.html">
