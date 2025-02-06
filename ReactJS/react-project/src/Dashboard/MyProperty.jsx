@@ -4,8 +4,12 @@ import { useState , useEffect} from "react";
 import  axiosInstance  from '../axiosInstance';
 import { Modal, Button, Form } from 'react-bootstrap';
 import Slider from "react-slick";
+import EditPropertyModal from "./EditPropertyModal";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { Link } from 'react-router-dom';
+
+
 
 
 const MyProperty = () => {
@@ -19,6 +23,10 @@ const MyProperty = () => {
   const [selectedDescription, setSelectedDescription] = useState('');
   const [showAttributesModal, setShowAttributesModal] = useState(false);
   const [selectedAttributes, setSelectedAttributes] = useState({});
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedProperty, setSelectedProperty] = useState(null);
+
 
   useEffect(() => {
     if (accessToken) {
@@ -42,6 +50,7 @@ const MyProperty = () => {
           console.log(response.data);  
 
           const fetchedProperties = response.data.map((property) => ({
+            id:property.id,
             name: property.name,
             description: property.description,
             location: property.location,
@@ -65,8 +74,11 @@ const MyProperty = () => {
                   property.attributes[0].photo3,
                   property.attributes[0].photo4,
                   property.attributes[0].photo5
-                ]
-              : []
+                ] 
+              : [],
+             photoIds : property.attributes && property.attributes.length > 0
+                  ? [property.attributes[0].id]
+                   : [],
           }));
 
           console.log(fetchedProperties); 
@@ -110,14 +122,20 @@ const MyProperty = () => {
 
   const handleCloseAttributesModal = () => setShowAttributesModal(false);
 
-  const handleEdit = (row) => {
-    console.log('Edit row:', row);
+
+  const handleDelete = async (row) => {
+    console.log("id e row ",row.id);
+    try {
+      const response = await axiosInstance.delete(`/properties/deleteProperty?id=${row.id}`);
+      if (response.status === 200) {
+        console.log('Deleted row:', row);
+        setProperties((prevProperties) => prevProperties.filter(property => property.id !== row.id)); 
+      }
+    } catch (error) {
+      console.error('Error deleting the property:', error.message);
+    }
   };
-
-  const handleDelete = (row) => {
-    console.log('Delete row:', row);
-
-  }
+  
 
   const settings = {
     dots: true,
@@ -131,10 +149,71 @@ const MyProperty = () => {
 
 
     const handleLocationClick = (location) => {
-      const formattedLocation = encodeURIComponent(location); // Ensure the location is properly encoded for a URL
+      const formattedLocation = encodeURIComponent(location); 
       const googleMapsUrl = `https://www.google.com/maps?q=${formattedLocation}`;
-      window.open(googleMapsUrl, '_blank'); // Opens Google Maps in a new tab
+      window.open(googleMapsUrl, '_blank');
      };
+
+   
+     const handleEditClick = (property) => {
+       setSelectedProperty(property);
+       setShowModal(true);
+     };
+   
+     const handleClose = () => {
+       setShowModal(false);
+       setSelectedProperty(null);
+     };
+
+
+   
+     const handleSave = async (updatedProperty) => {
+      console.log("Updated Property:", updatedProperty);
+    
+      const formattedData = {
+        id: updatedProperty.id,
+        name: updatedProperty.name,
+        description: updatedProperty.description,
+        location: updatedProperty.location,
+        price: updatedProperty.price.toString(),
+        attributes: [
+          {
+            id:     updatedProperty.photoIds[0],
+            photo1: updatedProperty.photos[0] || null,
+            photo2: updatedProperty.photos[1] || null,
+            photo3: updatedProperty.photos[2] || null,
+            photo4: updatedProperty.photos[3] || null,
+            photo5: updatedProperty.photos[4] || null,
+          },
+        ],
+        ...updatedProperty.properties, 
+      };
+    
+      try {
+        const response = await axiosInstance.put(
+          `/properties/editProperty?id=${updatedProperty.id}`, 
+          formattedData 
+        );
+    
+        if (response.status === 200) {
+          console.log("Property successfully updated");
+          setProperties((prevProperties) => {
+            return prevProperties.map((property) =>
+              property.id === updatedProperty.id ? updatedProperty : property
+            );
+          });
+        } else {
+          console.error("Unexpected response:", response);
+        }
+      } catch (error) {
+        console.error("Error updating the property:", error.message);
+      }
+    
+      setShowModal(false);
+    };
+    
+    
+   
 
 
   
@@ -180,6 +259,7 @@ const MyProperty = () => {
       </div>
         <div className="card-body">
           <div className="table-responsive">
+          {properties && properties.length > 0 ? (
             <table className="table table-bordered" width="100%" cellspacing="0">
               <thead>
                 <tr>
@@ -248,7 +328,7 @@ const MyProperty = () => {
                     <td>
                       <button
                         className="btn btn-primary btn-sm ml-2 mt-1"
-                        onClick={() => handleEdit(row)}
+                        onClick={() => handleEditClick(row)}
                       >
                         Edit
                       </button>
@@ -260,9 +340,29 @@ const MyProperty = () => {
                       </button>
                     </td>
                   </tr>
-                ))}
+                ))} 
               </tbody>
             </table>
+            ) : (
+              <div className="text-center p-4 bg-light rounded border">
+              <p className="text-muted fs-5">
+              Looks like you don’t have any properties yet. Start by adding one → 
+                <Link to="/AddProperty/AddProperty" className="text-primary fw-bold ms-1">
+                Host a Property
+                </Link>
+              </p>
+            </div>
+            )}
+
+       {/* Pass the modal to this page */}
+      {showModal && (
+        <EditPropertyModal
+          show={showModal}
+          onClose={handleClose}
+          onSave={handleSave}
+          property={selectedProperty}
+        />
+      )}
 
 
       {/* View Full Description Modal */}

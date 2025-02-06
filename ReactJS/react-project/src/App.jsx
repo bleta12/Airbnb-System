@@ -7,7 +7,7 @@ import Reservation from './Reservation/reservation';
 import Login from './LogInSignUp/Login';
 import AddProperty from './AddProperty/AddProperty';
 import Footer from './NavbarFooter/Footer';
-import Favorit from './FavoriteList/Favorit';
+import MyFavorite from './FavoriteList/MyFavorite';
 import Navbar from './NavbarFooter/Navbar';
 import Icones from './components/Icones';
 import Cards from './components/Cards';
@@ -35,7 +35,6 @@ function App() {
         <Route exact path="/LogInSignUp/SignUp" element={<SignUp />} />
         <Route exact path="/AddProperty/AddProperty" element={<AddProperty />} />
         <Route exact path="/NavbarFooter/Footer" element={<Footer />} />
-        <Route exact path="/FavoriteList/Favorit" element={<Favorit />} />
         <Route exact path="/components/Icones" element={<Icones />} />
         <Route exact path="/NavbarFooter/Navbar" element={<Navbar />} />
         <Route exact path="/components/Cards" element={<Cards />} />
@@ -43,6 +42,9 @@ function App() {
         <Route exact path="/Dashboard" element={<Dashboard />} />
         <Route exact path="/Profile" element={<MyProfile />} />
         <Route exact path="/MyProperty" element={<MyProperty />} />
+
+
+        <Route exact path="/MyFavorite" element={<MyFavorite />} />
     
 
 

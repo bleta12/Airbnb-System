@@ -18,4 +18,11 @@ public interface ReviewPropertyRepositoryInterface extends CrudRepository<Review
             "WHERE r.property.id = :propertyId")
     List<ReviewPropertyWithUsername> findReviewsWithUsernameByPropertyId(@Param("propertyId") Integer propertyId);
 
+
+    @Query("SELECT AVG(r.ratingValue), COUNT(r.ratingValue) FROM ReviewProperty r WHERE r.property.id = :propertyId")
+    Object[] findAverageRatingAndReviewCount(@Param("propertyId") int propertyId);
+
+
+
+
 }

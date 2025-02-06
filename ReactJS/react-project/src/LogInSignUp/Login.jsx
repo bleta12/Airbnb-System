@@ -64,7 +64,6 @@ function Login() {
 
           localStorage.setItem('accessToken', response.data.accessToken);  
           localStorage.setItem('refreshToken', response.data.refreshToken);
-          console.log("qka osht tu u rujt"+response); 
           navigate('/'); 
         
       } catch (error) {

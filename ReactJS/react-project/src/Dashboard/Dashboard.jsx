@@ -93,7 +93,7 @@ function Dashboard() {
                 <Link className="collapse-item" to={"/MyProperty"}>
                   My Property
                 </Link>
-                <Link className="collapse-item" to={"/FavoriteList/Favorit"}>
+                <Link className="collapse-item" to={"/MyFavorite"}>
                   My Favorites
                 </Link>
               </div>
@@ -125,14 +125,15 @@ function Dashboard() {
                 <a className="collapse-item" href="utilities-border.html">
                   My Property Reservations
                 </a>
-                <a className="collapse-item" href="utilities-animation.html">
-                  Animations
-                </a>
-                <a className="collapse-item" href="utilities-other.html">
-                  Other
-                </a>
               </div>
+              
             </div>
+          </li>
+          <li className="nav-item">
+            <Link className="nav-link" to="/AddProperty/AddProperty">
+              <i className="fas fa-building h-5"></i>
+              <span>Host a Property</span>
+            </Link>
           </li>
           {/* Divider */}
           <hr className="sidebar-divider" />
@@ -178,13 +179,7 @@ function Dashboard() {
               </div>
             </div>
           </li>
-          {/* Nav Item - Charts */}
-          <li className="nav-item">
-            <Link className="nav-link" to="/AddProperty/AddProperty">
-              <i className="fas fa-building h-5"></i>
-              <span>New Property</span>
-            </Link>
-          </li>
+        
           {/* Nav Item - Tables */}
           <li className="nav-item">
             <a className="nav-link" href="tables.html">

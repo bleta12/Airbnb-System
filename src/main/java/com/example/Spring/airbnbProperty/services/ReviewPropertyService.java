@@ -11,7 +11,9 @@ import com.example.Spring.airbnbProperty.repository.UserRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ReviewPropertyService {
@@ -47,6 +49,22 @@ public class ReviewPropertyService {
 
         return repo.findReviewsWithUsernameByPropertyId(idProperty);
 
+    }
+
+    public Map<String , Object> getAvgReview(int propertyId){
+
+      Object [] resultArray= repo.findAverageRatingAndReviewCount(propertyId);
+
+        Object[] result = (Object[]) resultArray[0];
+        Double avgReview = (Double) result[0];
+        Long countReview = (Long) result[1];
+
+
+        Map<String , Object> response = new HashMap<>();
+
+        response.put("avgReview",avgReview);
+        response.put("countReview",countReview);
+        return response;
     }
 
 }

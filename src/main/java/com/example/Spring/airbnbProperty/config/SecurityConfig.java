@@ -50,7 +50,7 @@ public class SecurityConfig {
 
                         .requestMatchers("properties/get","properties/getByFilters","properties/getById","properties/search"
                         ,"user/insert","user/login","auth/refresh",
-                                "/swagger-ui","/swagger-ui.html","/error")
+                                "/swagger-ui","/swagger-ui.html","/error","reviews/getReview","reviews/getAvgReview")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

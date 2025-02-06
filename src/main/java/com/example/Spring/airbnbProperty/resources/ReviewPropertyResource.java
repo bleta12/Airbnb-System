@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/reviews")
@@ -30,5 +31,11 @@ public class ReviewPropertyResource {
     public List<ReviewPropertyWithUsername> getReview(@RequestParam int idProperty){
          return   service.getReviews(idProperty);
     }
+
+    @GetMapping("/getAvgReview")
+    public Map<String, Object> getAvgReview(@RequestParam int idProperty){
+        return   service.getAvgReview(idProperty);
+    }
+
 
 }

@@ -72,7 +72,7 @@ const Search = () => {
                                                         <img key={index} src={attr.photo1} alt={result.name} className="search-result-image" />
                                                     ))}
                                                     <a href={`/product/${result.id}`} className="search-result-link ml-2">
-                                                        <span className='font-monospace'>{result.name}</span>
+                                                        <span className='font-serif'>{result.name}</span>
                                                         <p className='fst-italic'>{result.location}</p>
                                                     </a>
                                                 </div>

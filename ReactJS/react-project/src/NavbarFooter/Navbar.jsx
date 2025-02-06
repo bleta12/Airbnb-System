@@ -20,7 +20,7 @@ function Navbar() {
     return (
         <nav className="navbar navbar-expand-md navbar-light bg-light mb-5 ms-1 p-0">
             <div className="container-xl p-0 mt-3 mb-3">
-                <Link className="navbar-brand" to="">
+                <Link className="navbar-brand" to="/">
                     <span className="fw-bold fs-3 text-info">ExploreStay</span>
                 </Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main-nav" aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="main-nav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item mt-1">
-                            <Link className="nav-link fw-medium" to="/FavoriteList/Favorit">Favorites</Link>
+                            <Link className="nav-link fw-medium" to="/MyFavorite">Favorites</Link>
                         </li>
                         <li className="nav-item mt-1">
                             <Link className="nav-link fw-medium" to="/contact">Contact Us</Link>

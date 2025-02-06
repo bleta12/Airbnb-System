@@ -62,7 +62,7 @@ axiosInstance.interceptors.response.use(
                   
                     setTimeout(() => {
                         window.location.href = '/LogInSignUp/Login';
-                    }, 3000);
+                    }, 2500);
                 }
                 
             }

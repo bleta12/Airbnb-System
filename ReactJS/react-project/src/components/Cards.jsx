@@ -1,36 +1,94 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
+import  axiosInstance  from '../axiosInstance';
+import { jwtDecode } from 'jwt-decode';
 
-/*const Cards = ({ filteredProperties }) => {
-    const [favorites, setFavorites] = useState([]);
+const Cards = ({ filteredProperties }) => {
     const [cards, setCards] = useState([]);
     const [showNotification, setShowNotification] = useState(false);
 
-    const toggleFavorite = (cardId) => {
-        if (favorites.includes(cardId)) {
-            setFavorites(favorites.filter((id) => id !== cardId));
+    const accessToken = localStorage.getItem('accessToken');
+    const [decodedToken, setDecodedToken] = useState(null);
+
+    const [favoriteIds, setFavoriteIds] = useState(new Set());
+
+  useEffect(() => {
+    if (accessToken) {
+      try {
+        const decoded = jwtDecode(accessToken);
+        setDecodedToken(decoded); 
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    } else {
+      console.log('No token found');
+    }
+  }, [accessToken]);
+
+
+
+  useEffect(() => {
+    if (!decodedToken?.id) return; 
+
+    axiosInstance.get(`/favorite`, { params: { userId: decodedToken.id } })
+        .then(response => {
+            
+            const ids = new Set(response.data.map(fav => fav.property.id)); 
+            setFavoriteIds(ids);
+        })
+        .catch(error => console.error('Error fetching favorites:', error));
+}, [decodedToken]);
+
+
+const toggleFavorite = (cardId) => {
+    setFavoriteIds(prevFavorites => {
+        const newFavorites = new Set(prevFavorites);
+        const isFavorite = newFavorites.has(cardId);
+
+        if (isFavorite) {
+            newFavorites.delete(cardId);
+            axiosInstance.delete('/favorite', {
+                data: { 
+                    user: { id: decodedToken.id },
+                    property: { id: cardId }
+                }
+            })
+            .then(response => {
+                console.log('Property removed from favorites:', response?.data);
+            })
+            .catch(error => {
+                console.error('Error removing favorite:', error);
+            });
         } else {
-            setFavorites([...favorites, cardId]);
-            setShowNotification(true);
-            setTimeout(() => setShowNotification(false), 2000);
+            newFavorites.add(cardId);
+            axiosInstance.post('/favorite', {
+                user: { id: decodedToken.id },
+                property: { id: cardId },
+            })
+            .then(response => {
+                console.log('Property added to favorites:', response?.data);
+            })
+            .catch(error => {
+                console.error('Error adding favorite:', error);
+            });
+            
+           setShowNotification(true);
+           setTimeout(() => setShowNotification(false), 2000);
         }
-    };*/
 
-const Cards = ({ filteredProperties, favorites, toggleFavorite }) => {
-    const [cards, setCards] = useState([]);
-    const [showNotification, setShowNotification] = useState(false);
+        return newFavorites;
+    });
 
-    const handleFavoriteClick = (cardId) => {
-        toggleFavorite(cardId);
-        setShowNotification(true);
-        setTimeout(() => setShowNotification(false), 2000);
-    };
+};
+
+
 
 
     useEffect(() => {
         setCards(filteredProperties);
     }, [filteredProperties]);
+    
 
     return (
         <div className="container mt-4">
@@ -67,23 +125,25 @@ const Cards = ({ filteredProperties, favorites, toggleFavorite }) => {
                                         <h5 className="card-title text-truncate" title={card.name}>
                                             {card.name}
                                         </h5>
-                                        {favorites.includes(card.id) ? (
+                                        {[...favoriteIds].includes(card.id) ? (
                                             <BsHeartFill
                                                 onClick={() => toggleFavorite(card.id)}
                                                 className="text-danger"
                                                 style={{ cursor: 'pointer', fontSize: '1.5rem' }}
                                             />
                                         ) : (
-                                            <BsHeart
-                                                onClick={() => toggleFavorite(card.id)}
-                                                className="text-muted"
-                                                style={{ cursor: 'pointer', fontSize: '1.5rem' }}
-                                            />
-                                        )}
+                                           <BsHeart
+                                               onClick={() => toggleFavorite(card.id)}
+                                               className="text-muted"
+                                               style={{ cursor: 'pointer', fontSize: '1.5rem' }}
+                                           />
+                                       )}
                                     </div>
                                     <div className="d-flex justify-content-between align-items-center">
-                                        <p className="card-text text-muted m-0">{card.location}</p>
-                                        <span className="fw-bold fs-6">€{card.price}</span>
+                                        <p className="card-text text-muted m-0"><i className="fas fa-map-marker-alt"></i> {card.location}</p>
+                                        <p className="card-text">
+                                            <strong>€{card.price}</strong> / night
+                                        </p>
                                     </div>
                                 </div>
                             </div>
