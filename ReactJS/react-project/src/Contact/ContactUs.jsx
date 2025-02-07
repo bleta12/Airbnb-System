@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./ContactUs.css";
 import Dashboard from "../Dashboard/Dashboard";
+import  Navbar  from "../NavbarFooter/Navbar";
 
 
 
@@ -60,7 +61,9 @@ const ContactUs = () => {
     };
 
     return (
-        <div className="contact-container d-flex align-items-center justify-content-center vh-100">
+        <>
+        <Navbar/>
+        <div className="contact-container d-flex align-items-center justify-content-center" style={{marginTop:"100px"}}>
             <div className="contact-box shadow-lg d-flex">
                 <div className="contact-form p-4">
                     <h2 className="mb-4">Send us a message</h2>
@@ -84,6 +87,7 @@ const ContactUs = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

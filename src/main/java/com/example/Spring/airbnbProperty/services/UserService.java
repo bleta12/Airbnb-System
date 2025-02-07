@@ -2,11 +2,13 @@ package com.example.Spring.airbnbProperty.services;
 
 
 import com.example.Spring.airbnbProperty.exception.UserNotFoundException;
+import com.example.Spring.airbnbProperty.models.AirbnbProperty;
 import com.example.Spring.airbnbProperty.models.User;
 import com.example.Spring.airbnbProperty.models.dtos.TokenResponse;
 import com.example.Spring.airbnbProperty.models.dtos.UserDTO;
 import com.example.Spring.airbnbProperty.models.dtos.UserProfilePasswordUpdateDto;
 import com.example.Spring.airbnbProperty.models.enums.Role;
+import com.example.Spring.airbnbProperty.repository.AirbnbRepositoryInterface;
 import com.example.Spring.airbnbProperty.repository.UserRepositoryInterface;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,13 @@ public class UserService  {
 
     private final UserRepositoryInterface repo;
     private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
-
+    private final AirbnbRepositoryInterface airbnbRepo;
 
 
     @Autowired
-    public UserService(UserRepositoryInterface repositoryInterface) {
+    public UserService(UserRepositoryInterface repositoryInterface, AirbnbRepositoryInterface airbnbRepo) {
         this.repo = repositoryInterface;
+        this.airbnbRepo = airbnbRepo;
     }
 
     @Autowired
@@ -171,5 +174,13 @@ public class UserService  {
 
     }
 
+    public UserDTO getOwner(int propertyId) {
+
+        AirbnbProperty property = airbnbRepo.getById(propertyId);
+         long userId = property.getUser().getId();
+           System.out.println(userId);
+        return repo.findUserProfileData(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+    }
 }
 

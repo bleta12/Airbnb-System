@@ -61,6 +61,10 @@ public class UserResource {
         service.deleteUser(id);
     }
 
+    @GetMapping("/getOwner/{propertyId}")
+    public UserDTO getOwner(@PathVariable int propertyId) {
+        return service.getOwner(propertyId);
+    }
 
 
 }

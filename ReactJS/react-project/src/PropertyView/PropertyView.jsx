@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useParams } from "react-router-dom";
-import axios from 'axios';
 import Footer from "../NavbarFooter/Footer";
 import  axiosInstance  from '../axiosInstance';
 
@@ -17,12 +16,12 @@ const PropertyView = () => {
     slidesToScroll: 1,
   };
 
-  const [property, setProperty] = useState(null); 
+  const [property, setProperty] = useState(""); 
   const[review , setReviews] = useState("");
   const[avgReview,setAvgReview] = useState("");
-
   const params = useParams();
   const value = params.id;
+  const[user,setUser] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,12 +48,31 @@ const PropertyView = () => {
 
   console.log(property); 
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!value) return;
+      try {
+        const response = await axiosInstance.get(`/user/getOwner/${value}`);
+        if (response.data) {
+          setUser(response.data);
+          console.log(response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+
+    fetchUser();
+  }, [value]);
+
   console.log("revie",review);
   const hasAttributes = property && Array.isArray(property.attributes) && property.attributes.length > 0;
 
-
-   
-
+  const selectedFilters = Object.keys(property).filter(
+    (key) => typeof property[key] === "boolean" && property[key] === true
+  );
+  
+  
 
 
   return (
@@ -174,14 +192,22 @@ const PropertyView = () => {
   <p className="fs-4 fw-medium">Description:</p>
   <p className="fs-5 fw-light">{property?.description}</p>
   
-  {/* Flex container for Location and Overall Rating */}
-  <div className="d-flex justify-content-between align-items-center">
+  <div className="d-flex justify-content-between align-items-center mb-0">
     <div>
       <p className="fs-4 fw-medium mb-0">Location:</p>
       <p className="fs-5 fw-light mb-0">{property?.location}</p>
     </div>
+    <div>
+    <p className="fs-4 fw-medium mb-0 mt-5">Some great things about this place:</p>
+    <p className="fs-5 fw-light mb-0">
+  {selectedFilters.map((filter, index) => (
+    <span key={index}>{filter} <br /></span>
+  ))}
+</p>
 
-    {/* Overall Rating Section */}
+</div>
+
+
     <div className="text-end">
       <h4 className="fs-4 fw-medium mb-0 me-5"> Rating: {avgReview.avgReview}/5</h4>
       <p className="fs-6 text-muted mb-0">({avgReview.countReview} reviews)</p>
@@ -195,7 +221,7 @@ const PropertyView = () => {
     </div>
   </div>
 
-  
+  <hr />
 
 
 </div>
@@ -232,6 +258,12 @@ const PropertyView = () => {
         <p>No reviews available</p>
       )}
     </div>
+
+
+    <hr />
+
+    <p>Meet your host</p>
+
 
       </div>
 

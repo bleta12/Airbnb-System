@@ -52,7 +52,7 @@ function Dashboard() {
                 }}
               >
                 <span className="d-block">Welcome</span>
-                <span className="d-block fw-normal">{decodedToken ? decodedToken.sub : "Guest"}</span>
+                <span className="d-block fw-normal">{decodedToken ? decodedToken.role : "Guest"}</span>
               </Link>
             </p>
           </li>
