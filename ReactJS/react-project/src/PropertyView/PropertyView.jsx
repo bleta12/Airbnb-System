@@ -6,6 +6,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { useParams } from "react-router-dom";
 import Footer from "../NavbarFooter/Footer";
 import  axiosInstance  from '../axiosInstance';
+import MeetYourHost from "./MeetYourHost"; 
+
 
 const PropertyView = () => {
   const settings = {
@@ -198,7 +200,7 @@ const PropertyView = () => {
       <p className="fs-5 fw-light mb-0">{property?.location}</p>
     </div>
     <div>
-    <p className="fs-4 fw-medium mb-0 mt-5">Some great things about this place:</p>
+    <p className="fs-4 fw-medium mb-1 mt-5">What this place offers:</p>
     <p className="fs-5 fw-light mb-0">
   {selectedFilters.map((filter, index) => (
     <span key={index}>{filter} <br /></span>
@@ -235,40 +237,50 @@ const PropertyView = () => {
 
         
 <div>
-      <h2 className="mb-4 mt-5">Reviews</h2>
-      {/* Render the array of reviews */}
-      {review.length > 0 ? (
-        review.map((review, index) => (
-          <div key={index} className="card p-3 ms-0 mb-3 mx-auto" style={{ maxWidth: '400px' }}>
-            <h5 className="card-title">{review.username}'s Review</h5>
-            <div className="card-text">
-              <strong>Rating: </strong>
-              <div className="d-inline-block">
-                {[...Array(5)].map((_, i) => (
-                  <span key={i} className={i < review.ratingValue ? 'text-warning' : 'text-muted'}>
-                    &#9733; {/* Star symbol */}
-                  </span>
-                ))}
+  <h2 className="mb-4 mt-5">Reviews</h2>
+  {review.length > 0 ? (
+    <div className="container">
+      <div className="row">
+        {review.map((review, index) => (
+          <div key={index} className="col-md-6 mb-3">
+            <div className="card p-3 bg-light">
+              <h5 className="card-title">{review.username}'s Review</h5>
+              <div className="card-text">
+                <strong>Rating: </strong>
+                <div className="d-inline-block">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className={i < review.ratingValue ? 'text-warning' : 'text-muted'}>
+                      &#9733; {/* Star symbol */}
+                    </span>
+                  ))}
+                </div>
               </div>
+              <p className="card-text">
+                <strong>Comment: </strong>
+                {review.comment}
+              </p>
             </div>
-            <p className="card-text"><strong>Comment: </strong>{review.comment}</p>
           </div>
-        ))
-      ) : (
-        <p>No reviews available</p>
-      )}
+        ))}
+      </div>
     </div>
+  ) : (
+    <p>No reviews available</p>
+  )}
+</div>
+
 
 
     <hr />
-
-    <p>Meet your host</p>
-
-
+     <div className="mb-5 ms-5">
+     <p className="fs-5 fw-medium mb-5 ms-5 mt-5 ">Hosted by:</p>
+     {user && avgReview && <MeetYourHost host={user} avgReview={avgReview} />}
+    </div>
       </div>
 
-
+      <div style={{ marginTop:"150px" }}>
       <Footer></Footer>
+      </div>
     </>
   );
 };
