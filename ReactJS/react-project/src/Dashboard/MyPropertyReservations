@@ -1,0 +1,42 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const MyPropertyReservations = ({ hostId }) => {
+  const [reservations, setReservations] = useState([]);
+
+  useEffect(() => {
+    const fetchReservations = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/reservations/host/${hostId}`);
+        setReservations(response.data);
+      } catch (error) {
+        console.error("Error fetching reservations:", error);
+      }
+    };
+    fetchReservations();
+  }, [hostId]);
+
+  return (
+    <div>
+      <h1>My Property Reservations</h1>
+      {reservations.length > 0 ? (
+        <ul>
+          {reservations.map((reservation) => (
+            <li key={reservation.id}>
+              <p><strong>Reservation ID:</strong> {reservation.id}</p>
+              <p><strong>Property ID:</strong> {reservation.propertyId}</p>
+              <p><strong>User ID:</strong> {reservation.userId}</p>
+              <p><strong>Check-In Date:</strong> {reservation.checkInDate}</p>
+              <p><strong>Check-Out Date:</strong> {reservation.checkOutDate}</p>
+              <hr />
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No reservations found for your properties.</p>
+      )}
+    </div>
+  );
+};
+
+export default MyPropertyReservations;
