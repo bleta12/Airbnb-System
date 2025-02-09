@@ -8,7 +8,7 @@ import EditPropertyModal from "./EditPropertyModal";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { Link } from 'react-router-dom';
-
+import axios from "axios";
 
 
 
