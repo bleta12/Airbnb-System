@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 
-function Navbar() {
+function Navbar({onLogOut}) {
 
   const accessToken = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
@@ -13,7 +13,7 @@ function Navbar() {
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-
+   onLogOut();
     navigate('/LogInSignUp/Login');
   };
 
@@ -51,11 +51,12 @@ function Navbar() {
                 <button
                   className="nav-link border-start border-info mt-1 ps-2"
                   onClick={handleLogout}
+                  
                 >
                   Log Out
                 </button>
               </li>
-            )}
+            ) }
 
             <li className="nav-item d-md-none">
               <Link className="nav-link border-start border-info mt-1 ps-2" to="/Profile">My Account</Link>

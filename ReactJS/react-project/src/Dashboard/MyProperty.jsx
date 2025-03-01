@@ -363,7 +363,7 @@ const MyProperty = () => {
           property={selectedProperty}
         />
       )}
-
+  
 
       {/* View Full Description Modal */}
             <Modal show={showViewDescriptionModal} onHide={handleCloseViewDescriptionModal}>

@@ -7,9 +7,32 @@ import { useParams } from "react-router-dom";
 import Footer from "../NavbarFooter/Footer";
 import  axiosInstance  from '../axiosInstance';
 import MeetYourHost from "./MeetYourHost"; 
+import AddReviewModal from "./AddReviewModal";
+import { Button } from "react-bootstrap";
+import { jwtDecode } from "jwt-decode";
+
 
 
 const PropertyView = () => {
+ 
+  const accessToken = localStorage.getItem('accessToken');
+  const [decodedToken, setDecodedToken] = useState(null);
+
+  useEffect(() => {
+    if (accessToken) {
+       try {
+          const decoded = jwtDecode(accessToken); 
+          setDecodedToken(decoded); 
+       } catch (error) {
+          console.error('Error decoding token:', error); 
+       }
+    } else {
+       console.log('No token found');
+    }
+ }, [accessToken]);
+
+
+
   const settings = {
     dots: true,
     infinite: true,
@@ -24,6 +47,12 @@ const PropertyView = () => {
   const params = useParams();
   const value = params.id;
   const[user,setUser] = useState(null);
+
+
+  const [showModal, setShowModal] = useState(false);
+
+  const [refreshTrigger, setRefreshTrigger] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -46,7 +75,7 @@ const PropertyView = () => {
     };
 
     fetchData();
-  }, [value]); 
+  }, [value,refreshTrigger]); 
 
   console.log(property); 
 
@@ -57,7 +86,7 @@ const PropertyView = () => {
         const response = await axiosInstance.get(`/user/getOwner/${value}`);
         if (response.data) {
           setUser(response.data);
-          console.log(response.data);
+          console.log("hosti",response.data);
         }
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -75,6 +104,18 @@ const PropertyView = () => {
   );
   
   
+
+
+
+  const handleClose = () => {
+    setShowModal(false);
+    setRefreshTrigger((prev) => !prev);
+   
+  };
+
+  const handleCreateReview = () => {
+    setShowModal(true);
+  };
 
 
   return (
@@ -211,7 +252,7 @@ const PropertyView = () => {
 
 
     <div className="text-end">
-      <h4 className="fs-4 fw-medium mb-0 me-5"> Rating: {avgReview.avgReview}/5</h4>
+      <h4 className="fs-4 fw-medium mb-0 me-5"> Rating: {avgReview.avgReview ? avgReview.avgReview.toFixed(1) : "-"}/5</h4>
       <p className="fs-6 text-muted mb-0">({avgReview.countReview} reviews)</p>
       <div className="d-flex justify-content-end">
         {[...Array(5)].map((_, index) => (
@@ -223,7 +264,7 @@ const PropertyView = () => {
     </div>
   </div>
 
-  <hr />
+  <hr  className="mt-5"/>
 
 
 </div>
@@ -237,7 +278,7 @@ const PropertyView = () => {
 
         
 <div>
-  <h2 className="mb-4 mt-5">Reviews</h2>
+  <h2 className="mt-4 mb-5">Reviews</h2>
   {review.length > 0 ? (
     <div className="container">
       <div className="row">
@@ -266,12 +307,37 @@ const PropertyView = () => {
     </div>
   ) : (
     <p>No reviews available</p>
-  )}
+  )} 
+
+
+  {accessToken && (
+        <div className="d-flex flex-column align-items-center justify-content-end mt-5 ">
+  <p className="mb-2 mt-5 text-muted">Would you like to share your thoughts about this property? 😊</p>
+  <Button
+    variant="primary"
+    size="md"
+    className="px-4"
+    onClick={handleCreateReview}
+  >
+    Leave a Review ✍️
+  </Button>
+</div>
+   )}
+
+    {showModal && decodedToken && (
+      <AddReviewModal
+      show={showModal}
+      onClose={handleClose}
+      userId={decodedToken.id}       
+      propertyId={property.id} 
+    />
+)}
+
 </div>
 
 
 
-    <hr />
+    <hr className="mb-0 mt-3" />
      <div className="mb-5 ms-5">
      <p className="fs-5 fw-medium mb-5 ms-5 mt-5 ">Hosted by:</p>
      {user && avgReview && <MeetYourHost host={user} avgReview={avgReview} />}

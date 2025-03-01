@@ -13,7 +13,7 @@ const MeetYourHost = ({ host, avgReview }) => {
     twitter,
   } = host;
 
-  // Determine host status based on avgReview
+  
   let hostStatus = "";
   let hostDescription = "";
 
@@ -45,7 +45,7 @@ const MeetYourHost = ({ host, avgReview }) => {
         <h4 className="text-muted">@{username}</h4>
         <p className="fs-5 fw-semibold text-success">{hostStatus}</p>
         <p className="text-dark">{hostDescription}</p>
-        <p className="text-muted">Based on {avgReview?.countReview} reviews with an average rating of {avgReview?.avgReview}</p>
+        <p className="text-muted">Based on {avgReview?.countReview} reviews with an average rating of {avgReview?.avgReview.toFixed(1)}</p>
         <div className="d-flex gap-3 mt-2">
           {facebook && (
             <a href={facebook} target="_blank" rel="noopener noreferrer">

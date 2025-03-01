@@ -1,5 +1,5 @@
-
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useState, useEffect } from "react";
 import PropertyView from "./PropertyView/PropertyView";
 import SignUp from './LogInSignUp/SignUp';
 import Home from './Home/Home';
@@ -8,7 +8,7 @@ import Login from './LogInSignUp/Login';
 import AddProperty from './AddProperty/AddProperty';
 import Footer from './NavbarFooter/Footer';
 import MyFavorite from './FavoriteList/MyFavorite';
-import Navbar from './NavbarFooter/Navbar';
+import Navbar from './NavbarFooter/Navbar';  // Navbar as part of the layout
 import Icones from './components/Icones';
 import Cards from './components/Cards';
 import Search from './components/Search';
@@ -19,47 +19,68 @@ import MyProfile from './Dashboard/MyProfile';
 import MyProperty from './Dashboard/MyProperty';
 import ContactUs from './Contact/ContactUs';
 import GiftCardPage from './Dashboard/GiftCardPage';
-
-
-
-
+import LoginPrompt from "./LoginPrompt";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const handleLogin = () => {
+    setIsAuthenticated(true); 
+  };
+
+  const handleLogout = () => {
+    setIsAuthenticated(false); 
+  };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+    const refreshToken = localStorage.getItem('refreshToken');
+    if (accessToken && refreshToken) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  console.log("isAuthenticated", isAuthenticated);
+
+  
+  const Layout = ({ children }) => (
+    <>
+      <Navbar onLogOut={handleLogout} />
+      <main>{children}</main> 
+     
+    </>
+  );
 
   return (
     <Router>
-
       <Routes>
-        <Route exact path="/Reservation/reservation" element={<Reservation />} />
-        <Route exact path="" element={<Home />} />
-        <Route exact path="/product/:id" element={<PropertyView />} />
-        <Route exact path="/LogInSignUp/Login" element={<Login />} />
-        <Route exact path="/LogInSignUp/SignUp" element={<SignUp />} />
-        <Route exact path="/AddProperty/AddProperty" element={<AddProperty />} />
-        <Route exact path="/NavbarFooter/Footer" element={<Footer />} />
-        <Route exact path="/components/Icones" element={<Icones />} />
-        <Route exact path="/NavbarFooter/Navbar" element={<Navbar />} />
-        <Route exact path="/components/Cards" element={<Cards />} />
-        <Route exact path="/components/Search" element={<Search />} />
-        <Route exact path="/Dashboard" element={<Dashboard />} />
-        <Route exact path="/Profile" element={<MyProfile />} />
-        <Route exact path="/MyProperty" element={<MyProperty />} />
-        <Route exact path="/ContactUs" element={<ContactUs />} />
-        <Route exact path="/GiftCardPage" element={<GiftCardPage />} />
-        <Route exact path="/MyFavorite" element={<MyFavorite />} />
+        {/* Public Routes */}
+        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/product/:id" element={<PropertyView />} />
+        <Route path="/LogInSignUp/Login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/LogInSignUp/SignUp" element={<SignUp />} />
+        <Route path="/components/Icones" element={<Icones />} />
+        <Route path="/components/Cards" element={<Cards />} />
+        <Route path="/components/Search" element={<Search />} />
+        <Route path="/ContactUs" element={<ContactUs />} />
 
-
-
-
-
-
-
+        {/* Protected Routes */}
+        {isAuthenticated ? (
+          <>
+            <Route path="/AddProperty/AddProperty" element={<AddProperty />} />
+            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route path="/Profile" element={<MyProfile />} />
+            <Route path="/MyProperty" element={<MyProperty />} />
+            <Route path="/GiftCardPage" element={<GiftCardPage />} />
+            <Route path="/MyFavorite" element={<MyFavorite />} />
+            <Route path="/Reservation/reservation" element={<Reservation />} />
+          </>
+        ) : (
+          <Route path="*" element={<LoginPrompt />} />  
+        )}
       </Routes>
-
     </Router>
-
   );
 }
 
 export default App;
-/*<Route exact path="/Reservation/reservation" element={<Reservation />}/>  */
