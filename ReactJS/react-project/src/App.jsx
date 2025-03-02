@@ -8,7 +8,7 @@ import Login from './LogInSignUp/Login';
 import AddProperty from './AddProperty/AddProperty';
 import Footer from './NavbarFooter/Footer';
 import MyFavorite from './FavoriteList/MyFavorite';
-import Navbar from './NavbarFooter/Navbar';  // Navbar as part of the layout
+import Navbar from './NavbarFooter/Navbar';  
 import Icones from './components/Icones';
 import Cards from './components/Cards';
 import Search from './components/Search';
@@ -20,6 +20,7 @@ import MyProperty from './Dashboard/MyProperty';
 import ContactUs from './Contact/ContactUs';
 import GiftCardPage from './Dashboard/GiftCardPage';
 import LoginPrompt from "./LoginPrompt";
+import MyReservations from "./Dashboard/MyReservations";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -54,7 +55,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        {/* Public Routes */}
+      
         <Route path="/" element={<Layout><Home /></Layout>} />
         <Route path="/product/:id" element={<PropertyView />} />
         <Route path="/LogInSignUp/Login" element={<Login onLogin={handleLogin} />} />
@@ -64,7 +65,7 @@ function App() {
         <Route path="/components/Search" element={<Search />} />
         <Route path="/ContactUs" element={<ContactUs />} />
 
-        {/* Protected Routes */}
+      
         {isAuthenticated ? (
           <>
             <Route path="/AddProperty/AddProperty" element={<AddProperty />} />
@@ -74,6 +75,8 @@ function App() {
             <Route path="/GiftCardPage" element={<GiftCardPage />} />
             <Route path="/MyFavorite" element={<MyFavorite />} />
             <Route path="/Reservation/reservation" element={<Reservation />} />
+            <Route path="/MyReservation" element={<MyReservations />} />
+
           </>
         ) : (
           <Route path="*" element={<LoginPrompt />} />  

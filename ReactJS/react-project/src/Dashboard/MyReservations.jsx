@@ -13,6 +13,7 @@ const ReservationsPage = ({ userId }) => {
   }, [userId]);
 
   return (
+   
     <div>
       <h1>My Reservations</h1>
       <ul>
@@ -26,6 +27,7 @@ const ReservationsPage = ({ userId }) => {
       </ul>
     </div>
   );
+
 };
 
 export default ReservationsPage;
