@@ -21,6 +21,7 @@ import ContactUs from './Contact/ContactUs';
 import GiftCardPage from './Dashboard/GiftCardPage';
 import LoginPrompt from "./LoginPrompt";
 import MyReservations from "./Dashboard/MyReservations";
+import ManageUsers from './Dashboard/ManageUsers';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -76,6 +77,8 @@ function App() {
             <Route path="/MyFavorite" element={<MyFavorite />} />
             <Route path="/Reservation/reservation" element={<Reservation />} />
             <Route path="/MyReservation" element={<MyReservations />} />
+            <Route path="/ManageUsers" element={<ManageUsers />} />
+
 
           </>
         ) : (

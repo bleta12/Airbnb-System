@@ -67,6 +67,12 @@ public class AirbnbResource {
          service.delete(id);
     }
 
+
+    @GetMapping("/paged")
+    public Iterable<AirbnbProperty> getAllProductsPaged(@RequestParam int page, @RequestParam int size) {
+        return service.findAllProductsPagedAndSorted(page, size);
+    }
+
 }
 
 

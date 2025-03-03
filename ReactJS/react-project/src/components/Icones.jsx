@@ -1,65 +1,61 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import treesIcon from './icons8-trees-94.png';
+import tablewareIcon from './icons8-tableware-94.png';
+import clerkIcon from './icons8-clerk-94.png';
+import petsIcon from './icons8-pets-94.png';
+import toothKitIcon from './icons8-tooth-cleaning-kit-94.png';
+import parkIcon from './icons8-national-park-94.png';
+import wifiIcon from './icons8-wifi-94.png';
+import parkingIcon from './icons8-parking-94.png';
+import airConditionerIcon from './icons8-air-conditioner-94.png';
+import doctorsBagIcon from './icons8-doctors-bag-94.png';
+
 const Icones = ({ setFilteredProperties }) => {
     const sorting = [
-        { title: "Garden view", icon: require("./icons8-trees-94.png") },
-        { title: "Kitchen", icon: require("./icons8-tableware-94.png") },
-        { title: "Dedicated Workspace", icon: require("./icons8-clerk-94.png") },
-        { title: "Pets allowed", icon: require("./icons8-pets-94.png") },
-        { title: "Essentials", icon: require("./icons8-tooth-cleaning-kit-94.png") },
-        { title: "Mountain view", icon: require("./icons8-national-park-94.png") },
-        { title: "Wifi", icon: require("./icons8-wifi-94.png") },
-        { title: "Free parking", icon: require("./icons8-parking-94.png") },
-        { title: "Central air conditioning", icon: require("./icons8-air-conditioner-94.png") },
-        { title: "Aid kit", icon: require("./icons8-doctors-bag-94.png") },
+        { title: "Garden view", icon: treesIcon },
+        { title: "Kitchen", icon: tablewareIcon },
+        { title: "Dedicated Workspace", icon: clerkIcon },
+        { title: "Pets allowed", icon: petsIcon },
+        { title: "Essentials", icon: toothKitIcon },
+        { title: "Mountain view", icon: parkIcon },
+        { title: "Wifi", icon: wifiIcon },
+        { title: "Free parking", icon: parkingIcon },
+        { title: "Central air conditioning", icon: airConditionerIcon },
+        { title: "First Aid kit", icon: doctorsBagIcon },
     ];
 
     const [property, setProperty] = useState({});
     const [activeButtons, setActiveButtons] = useState({});
 
-    
     useEffect(() => {
-        const fetchAllProperties = async () => {
+        const fetchProperties = async () => {
             try {
-                const response = await axios.get("http://localhost:8080/api/properties/get");
+                let url = "http://localhost:8080/api/properties/get";
+                let response;
+                
+                if (Object.keys(property).length > 0) {
+                    url = "http://localhost:8080/api/properties/getByFilters";
+                    response = await axios.get(url, { params: property });
+                } else {
+                    response = await axios.get(url);
+                }
+
                 setFilteredProperties(response.data);
             } catch (error) {
-                console.error('Error fetching all properties:', error);
+                console.error('Error fetching properties:', error);
             }
         };
 
-        fetchAllProperties();
-    }, [setFilteredProperties]);  
-
-    
-    useEffect(() => {
-        const fetchFilteredProperties = async () => {
-            if (Object.keys(property).length === 0) {
-                
-                const response = await axios.get("http://localhost:8080/api/properties/get");
-                setFilteredProperties(response.data);
-            } else {
-                const baseURL = 'http://localhost:8080/api/properties/getByFilters';
-                try {
-                    const response = await axios.get(baseURL, { params: property });
-                    const prop = response.data;
-                    setFilteredProperties(prop.length === 0 ? [] : prop);
-                } catch (error) {
-                    console.error('Error fetching properties:', error);
-                }
-            }
-        };
-
-        fetchFilteredProperties();
+        fetchProperties();
     }, [property, setFilteredProperties]);  
 
-    const formatFilterName = (filterName) => {
-        return filterName
+    const formatFilterName = (filterName) =>
+        filterName
             .split(' ')
             .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
             .join('');
-    };
 
     const filter = (filterName) => {
         const formattedWord = formatFilterName(filterName);
@@ -76,9 +72,9 @@ const Icones = ({ setFilteredProperties }) => {
             return newProperty;
         });
 
-        setActiveButtons((prevActiveButtons) => ({
-            ...prevActiveButtons,
-            [formattedWord]: !prevActiveButtons[formattedWord],  
+        setActiveButtons((prev) => ({
+            ...prev,
+            [formattedWord]: !prev[formattedWord],
         }));
     };
 
@@ -91,7 +87,7 @@ const Icones = ({ setFilteredProperties }) => {
                     return (
                         <div key={index} className="col-auto">
                             <button
-                                className={`btn rounded-lg d-flex flex-column align-items-center mr-0  mb-1 ${
+                                className={`btn rounded-lg d-flex flex-column align-items-center mr-0 mb-1 ${
                                     activeButtons[formattedWord] ? 'active' : 'btn-light'
                                 }`}
                                 onClick={() => filter(item.title)}

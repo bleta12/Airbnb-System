@@ -52,7 +52,7 @@ function Dashboard() {
                 }}
               >
                 <span className="d-block">Welcome</span>
-                <span className="d-block fw-normal">{decodedToken ? decodedToken.role : "Guest"}</span>
+                <span className="d-block fw-normal">{decodedToken ? decodedToken.sub : "Guest"}</span>
               </Link>
             </p>
           </li>
@@ -142,61 +142,38 @@ function Dashboard() {
             </Link>
           </li>
           {/* Divider */}
-          <hr className="sidebar-divider" />
-          {/* Heading */}
-          <div className="sidebar-heading">Addons</div>
-          {/* Nav Item - Pages Collapse Menu */}
-          <li className="nav-item">
-            <button
-              className="nav-link collapsed"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapsePages"
-              aria-expanded="false"
-              aria-controls="collapsePages"
-            >
-              <i className="fas fa-fw fa-folder"></i>
-              <span>Pages</span>
-            </button>
-            <div
-              id="collapsePages"
-              className="collapse"
-              aria-labelledby="headingPages"
-              data-parent="#accordionSidebar"
-            >
-              <div className="bg-white py-2 collapse-inner rounded">
-                <h6 className="collapse-header">Login Screens:</h6>
-                <a className="collapse-item" href="login.html">
-                  Login
-                </a>
-                <a className="collapse-item" href="register.html">
-                  Register
-                </a>
-                <a className="collapse-item" href="forgot-password.html">
-                  Forgot Password
-                </a>
-                <div className="collapse-divider"></div>
-                <h6 className="collapse-header">Other Pages:</h6>
-                <a className="collapse-item" href="404.html">
-                  404 Page
-                </a>
-                <a className="collapse-item" href="blank.html">
-                  Blank Page
-                </a>
-              </div>
-            </div>
-          </li>
-
-          {/* Nav Item - Tables */}
-          <li className="nav-item">
-            <a className="nav-link" href="tables.html">
-              <i className="fas fa-fw fa-table"></i>
-              <span>Tables</span>
-            </a>
-          </li>
-          {/* Divider */}
-          <hr className="sidebar-divider d-none d-md-block" />
-          {/* Sidebar Toggler (Sidebar) */}
-          {/* Sidebar Message */}
+          {decodedToken?.role === 'ADMIN' && (
+  <>
+    <hr className="sidebar-divider" />
+    {/* Heading */}
+    <div className="sidebar-heading">
+      <span className="d-block fw-normal">Hi {decodedToken?.role}</span>
+    </div>
+    
+    {/* Admin-only Nav Item */}
+    <li className="nav-item">
+      <button
+        className="nav-link collapsed"
+        data-bs-toggle="collapse"
+        data-bs-target="#adminPanel"
+        aria-expanded="false"
+        aria-controls="adminPanel"
+      >
+        <i className="fas fa-fw fa-cogs"></i>
+        <span>Admin Panel</span>
+      </button>
+      <div id="adminPanel" className="collapse" aria-labelledby="headingAdmin" data-parent="#accordionSidebar">
+        <div className="bg-white py-2 collapse-inner rounded">
+          <h6 className="collapse-header">Admin Features:</h6>
+          <Link className="collapse-item" to="/ManageUsers">
+              <span>Manage Users</span>
+         </Link>          
+         <a className="collapse-item" href="settings.html">Settings</a>
+        </div>
+      </div>
+    </li>
+  </>
+)}
         </ul>
       </div>
     </div>

@@ -5,6 +5,8 @@ import Slider3 from './Slider3.png';
 import Slider4 from './Slider4.png';
 import axios from 'axios';
 import './SliderCss.css'; 
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 
 const sliderItems = [
     { src: Slider1, caption: "MOST POPULAR AROUND THE WORLD" },

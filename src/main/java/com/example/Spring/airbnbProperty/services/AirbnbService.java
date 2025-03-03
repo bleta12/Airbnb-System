@@ -6,11 +6,11 @@ import com.example.Spring.airbnbProperty.models.*;
 
 import com.example.Spring.airbnbProperty.models.dtos.GetAirBnbPropertiesRequest;
 import com.example.Spring.airbnbProperty.repository.AirbnbRepositoryInterface;
+import com.example.Spring.airbnbProperty.repository.ProductPagingAndSortingRepository;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.*;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +32,11 @@ public class AirbnbService {
         this.imageService = imageService;
 
     }
+
+    @Autowired
+    private ProductPagingAndSortingRepository productPagingAndSortingRepository;
+
+
 
     public boolean isBlank(String name) {
         return name == null || name.equals("");
@@ -173,6 +178,12 @@ public class AirbnbService {
             throw new UnauthorizedException("You are not authorized to delete this property");
         }
         repo.deleteById(airbnbProperty.getId());
+    }
+
+
+    public Iterable<AirbnbProperty> findAllProductsPagedAndSorted(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("price").ascending());
+        return productPagingAndSortingRepository.findAll(pageable);
     }
 
 
