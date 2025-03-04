@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserRepositoryInterface extends CrudRepository<User,Long> {
@@ -31,6 +32,14 @@ public interface UserRepositoryInterface extends CrudRepository<User,Long> {
     @Transactional
     @Query("UPDATE User u SET u.password = :password WHERE u.id = :id")
     void updatePassword(@Param("id") Long id, @Param("password") String password);
+
+    @Query("SELECT new com.example.Spring.airbnbProperty.models.dtos.UserDTO(u.id, u.name, u.lastname, u.email, u.username, u.phoneNumber) FROM User u")
+    List<UserDTO> getAllUserDtos();
+
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM User u WHERE u.username = :username ")
+    void deleteUser(@Param("username") String username);
 
 
 }

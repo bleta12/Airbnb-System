@@ -2,7 +2,6 @@ package com.example.Spring.airbnbProperty.resources;
 
 import com.example.Spring.airbnbProperty.exception.UserNotFoundException;
 import com.example.Spring.airbnbProperty.models.User;
-import com.example.Spring.airbnbProperty.models.dtos.GeneratePassword;
 import com.example.Spring.airbnbProperty.models.dtos.TokenResponse;
 import com.example.Spring.airbnbProperty.models.dtos.UserDTO;
 import com.example.Spring.airbnbProperty.models.dtos.UserProfilePasswordUpdateDto;
@@ -65,6 +64,12 @@ public class UserResource {
     public UserDTO getOwner(@PathVariable int propertyId) {
         return service.getOwner(propertyId);
     }
+
+    @GetMapping("/getAllUserDto")
+    public List<UserDTO> getOwner() {
+        return service.getAllUserDto();
+    }
+
 
 
 }

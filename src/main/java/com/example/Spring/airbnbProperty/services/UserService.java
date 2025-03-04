@@ -182,5 +182,13 @@ public class UserService  {
         return repo.findUserProfileData(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
 
     }
+
+    public List<UserDTO> getAllUserDto() {
+      return repo.getAllUserDtos();
+    }
+
+
+
+
 }
 

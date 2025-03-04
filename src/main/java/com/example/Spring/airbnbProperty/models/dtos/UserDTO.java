@@ -36,4 +36,14 @@ public class UserDTO {
     }
 
 
+    public UserDTO(Long id, String name, String lastname, String email, String username, String phoneNumber) {
+        this.id = id;
+        this.name = name;
+        this.lastname = lastname;
+        this.email = email;
+        this.username = username;
+        this.phoneNumber = phoneNumber;
+    }
+
+
 }
