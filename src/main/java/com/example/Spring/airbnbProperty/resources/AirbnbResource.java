@@ -8,6 +8,7 @@ import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -71,6 +72,11 @@ public class AirbnbResource {
     @GetMapping("/paged")
     public Iterable<AirbnbProperty> getAllProductsPaged(@RequestParam int page, @RequestParam int size) {
         return service.findAllProductsPagedAndSorted(page, size);
+    }
+
+    @GetMapping
+    public BigDecimal getPropertyPrice(@RequestParam int propertyId){
+        return service.getPropertyPrice(propertyId);
     }
 
 }

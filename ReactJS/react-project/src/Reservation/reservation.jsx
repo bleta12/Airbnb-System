@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, Form, Navbar } from "react-bootstrap";
@@ -36,6 +36,9 @@ function Reservation() {
   const [kids, setKids] = useState(0);
   const [cvv, setCVV] = useState(null);
   const [totalGuests, setTotalGuests] = useState("");
+  const[cardNumber,setCardNumber]=useState("");
+    const params = useParams();
+    const value = params.value;
  
 
   const isValidCreditCardNumber = (cardNumber) => {
@@ -65,7 +68,7 @@ function Reservation() {
   const handlePay = async (event) => {
     event.preventDefault();
 
-    const cardNumber = document.getElementById("formCardNumber").value;
+     cardNumber = document.getElementById("formCardNumber").value;
     if (!isValidCreditCardNumber(cardNumber)) {
       window.alert("Please enter a valid debit card number.");
       return;
@@ -90,12 +93,21 @@ function Reservation() {
       cardNumber: cardNumber,
       expirationDate: expirationDate,
       cvv: document.getElementById("formCVV").value,
+      cmimi:totalCharge,
+      user:{
+        id:decodedToken.id
+      },
+      airbnbProperty:{
+        id:value
+      },
     };
+    console.log(reservationData);
+
 
     try {
       const response = await   axiosInstance.post(
         '/reservation/insert',
-        { reservationData }
+         reservationData 
       );
       console.log("Response:", response.data);
       console.log("Submitting reservation data...");
@@ -109,6 +121,16 @@ function Reservation() {
       console.log("Expiration Date:", expirationDate);
       console.log("CVV:", reservationData.cvv);
       window.alert("Reservation confirmed!");
+      setStartDate(null);
+      setEndDate(null);
+      setSelectedCountry("");
+      setAdults(0);
+      setKids(0);
+      setCVV("");
+      setExpirationDate("");
+      setTotalGuests(0);
+      setCardNumber("");
+      
     } catch (error) {
       console.error("Error:", error);
       window.alert("Failed to save reservation");
@@ -135,19 +157,61 @@ function Reservation() {
     setTotalGuests(Number(adults) + Number(kids));
   }, [adults, kids]);
 
+
+const [price,setPrice]=useState("");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      if (!value) return;
+      try {
+        const response = await axiosInstance.get(`/properties`,{
+          params : { propertyId: value },
+        });
+        if (response.data) {
+          setPrice(response.data);
+          console.log("price",response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching price:", error);
+      }
+    };
+
+    fetchUser();
+  }, [value]);
+
+
+  const calculateTotalCharge = () => {
+    
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const timeDiff = end - start;
+
+    const daysBetween = timeDiff / (1000 * 3600 * 24);
+
+    const totalCharge = daysBetween * price;
+
+    return { daysBetween, totalCharge };
+  };
+
+  const { daysBetween, totalCharge } = calculateTotalCharge();
+
+
+
     return (
     <div>
-      <Navbar bg="light" expand="lg">
-        <Link className="navbar-brand" to="/Home/Home">
+      <Navbar bg="light" expand="lg" >
+        <Link className="navbar-brand" to="/">
           <span className="fw-bold text-info ml-5">Explore & Stay</span>
         </Link>
       </Navbar>
 
-      <div className="reservation-container">
+     
+      <div className="reservation-container mt-5" style={{ height: "1090px" }}>
         <div className="reservation-header">
           <button
             className="back-button"
-            onClick={() => navigate("/PropertyView/PropertyView")}
+            onClick={() => navigate(`/product/${value}`)}
           ></button>
           <div className="confirm-container">
             <h1 className="confirm">Confirm and Pay</h1>
@@ -184,6 +248,19 @@ function Reservation() {
               />
             </div>
           </div>
+
+          <div className="alert alert-info " role="alert">
+        <h4 className="alert-heading">Total Charge</h4>
+        <p className="mb-0">
+          {daysBetween > 0 ? (
+            <>
+              You will be charged <span className="fw-bold">€{totalCharge}</span> for {daysBetween} day(s) of stay.
+            </>
+          ) : (
+            "Please select both start and end dates. End date cannot be before the start date"
+          )}
+        </p>
+      </div>
 
           <div className="guests-container">
             <h4>Guests</h4>
@@ -257,10 +334,12 @@ function Reservation() {
             </div>
           </div>
           <hr />
+
+          
           
           <h3 className="payment-header">Payment Details</h3>
 
-          <Form className="payment-form">
+          <Form className="payment-form" style={{ height: "600px" }}>
             <Form.Group controlId="formCardNumber">
               <Form.Label>Card Number</Form.Label>
               <Form.Control type="text" placeholder="Enter card number" />
@@ -328,7 +407,7 @@ function Reservation() {
                 }}
               />
             </Form.Group>
-
+           
             <Button className="payment-button" onClick={handlePay}>
               Confirm and Pay
             </Button>

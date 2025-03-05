@@ -187,6 +187,13 @@ public class AirbnbService {
     }
 
 
+    public BigDecimal getPropertyPrice(int propertyId) {
+
+        return repo.findPropertyPrice(propertyId);
+
+    }
+
+
 }
 
 /* GardenView;

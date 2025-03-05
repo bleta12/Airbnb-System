@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.repository.query.QueryByExampleExecutor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 
@@ -22,6 +23,10 @@ public interface AirbnbRepositoryInterface extends CrudRepository<AirbnbProperty
 
     @Query("SELECT p FROM AirbnbProperty p WHERE p.user.id = :id")
     List<AirbnbProperty> getByUserId(@Param("id") long id);
+
+
+    @Query("SELECT p.price FROM AirbnbProperty p WHERE p.id = :propertyId")
+    BigDecimal findPropertyPrice(@Param("propertyId") int propertyId);
 
 
 }

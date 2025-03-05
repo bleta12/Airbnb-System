@@ -75,7 +75,7 @@ function App() {
             <Route path="/MyProperty" element={<MyProperty />} />
             <Route path="/GiftCardPage" element={<GiftCardPage />} />
             <Route path="/MyFavorite" element={<MyFavorite />} />
-            <Route path="/Reservation/reservation" element={<Reservation />} />
+            <Route path="/Reservation/reservation/:value" element={<Reservation />} />
             <Route path="/MyReservation" element={<MyReservations />} />
             <Route path="/ManageUsers" element={<ManageUsers />} />
 

@@ -3,13 +3,15 @@ import Navbar from "../NavbarFooter/Navbar";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { useParams } from "react-router-dom";
+import { useParams,Link } from "react-router-dom";
 import Footer from "../NavbarFooter/Footer";
 import  axiosInstance  from '../axiosInstance';
 import MeetYourHost from "./MeetYourHost"; 
 import AddReviewModal from "./AddReviewModal";
 import { Button } from "react-bootstrap";
 import { jwtDecode } from "jwt-decode";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 
 
@@ -117,6 +119,27 @@ const PropertyView = () => {
     setShowModal(true);
   };
 
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+
+
+  const calculateTotalCharge = () => {
+    
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const timeDiff = end - start;
+
+    const daysBetween = timeDiff / (1000 * 3600 * 24);
+
+    const totalCharge = daysBetween * property.price;
+
+    return { daysBetween, totalCharge };
+  };
+
+  const { daysBetween, totalCharge } = calculateTotalCharge();
+  
 
   return (
     <>
@@ -241,7 +264,7 @@ const PropertyView = () => {
       <p className="fs-5 fw-light mb-0">{property?.location}</p>
     </div>
     <div>
-    <p className="fs-4 fw-medium mb-1 mt-5">What this place offers:</p>
+    <p className="fs-4 fw-medium mb-1">What this place offers:</p>
     <p className="fs-5 fw-light mb-0">
   {selectedFilters.map((filter, index) => (
     <span key={index}>{filter} <br /></span>
@@ -262,6 +285,54 @@ const PropertyView = () => {
         ))}
       </div>
     </div>
+    <div className="col-lg-4">
+          <div className="card p-4 shadow-lg">
+            <h4 className="text-center mb-3">Make a Reservation</h4>
+            <form>
+              <div className="date-container mb-4">
+                <h5 className="ms-2">Date</h5>
+                <div className="calendar-container d-flex justify-content-between">
+                  <DatePicker
+                    selected={startDate}
+                    onChange={(date) => setStartDate(date)}
+                    selectsStart
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={new Date()}
+                    placeholderText="Check-in"
+                    className="date-picker form-control"
+                  />
+                  <DatePicker
+                    selected={endDate}
+                    onChange={(date) => setEndDate(date)}
+                    selectsEnd
+                    startDate={startDate}
+                    endDate={endDate}
+                    minDate={startDate}
+                    placeholderText="Check-out"
+                    className="date-picker form-control"
+                    disabled={!startDate}
+                  />
+                </div>
+                <div className="alert alert-info mt-3" role="alert">
+        <h4 className="alert-heading">Total Charge</h4>
+        <p className="mb-0">
+          {daysBetween > 0 ? (
+            <>
+              You will be charged <span className="fw-bold">€{totalCharge}</span> for {daysBetween} day(s) of stay.
+            </>
+          ) : (
+            "Please select both start and end dates. End date cannot be before the start date"
+          )}
+        </p>
+      </div>
+              </div>
+              <Link to={`../Reservation/reservation/${value}`} className="btn btn-primary w-100">
+                Reserve
+              </Link>
+            </form>
+          </div>
+        </div>
   </div>
 
   <hr  className="mt-5"/>
@@ -304,10 +375,16 @@ const PropertyView = () => {
           </div>
         ))}
       </div>
+      
     </div>
   ) : (
     <p>No reviews available</p>
   )} 
+
+
+
+     
+
 
 
   {accessToken && (
