@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-function Login({ onLogin }) {
+function Login() {
 
     const navigate = useNavigate();
 
@@ -64,7 +64,6 @@ function Login({ onLogin }) {
 
           localStorage.setItem('accessToken', response.data.accessToken);  
           localStorage.setItem('refreshToken', response.data.refreshToken);
-          onLogin();
           navigate('/'); 
         
       } catch (error) {

@@ -22,17 +22,14 @@ import GiftCardPage from './Dashboard/GiftCardPage';
 import LoginPrompt from "./LoginPrompt";
 import MyReservations from "./Dashboard/MyReservations";
 import ManageUsers from './Dashboard/ManageUsers';
+import AddPlayer from './AddPlayer';
+import AddTeam from './AddTeam';
+import EditPlayer from './EditPlayer';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const handleLogin = () => {
-    setIsAuthenticated(true); 
-  };
 
-  const handleLogout = () => {
-    setIsAuthenticated(false); 
-  };
 
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
@@ -44,31 +41,28 @@ function App() {
 
   console.log("isAuthenticated", isAuthenticated);
 
-  
-  const Layout = ({ children }) => (
-    <>
-      <Navbar onLogOut={handleLogout} />
-      <main>{children}</main> 
-     
-    </>
-  );
 
   return (
     <Router>
       <Routes>
       
-        <Route path="/" element={<Layout><Home /></Layout>} />
+        <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<PropertyView />} />
-        <Route path="/LogInSignUp/Login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/LogInSignUp/Login" element={<Login />} />
         <Route path="/LogInSignUp/SignUp" element={<SignUp />} />
         <Route path="/components/Icones" element={<Icones />} />
         <Route path="/components/Cards" element={<Cards />} />
         <Route path="/components/Search" element={<Search />} />
         <Route path="/ContactUs" element={<ContactUs />} />
+        <Route path="/AddPlayer" element={<AddPlayer />} />
+        <Route path="/AddTeam" element={<AddTeam />} />
+        <Route path="/edit" element={<EditPlayer />} />
 
-      
-        {isAuthenticated ? (
-          <>
+
+
+
+
+    
             <Route path="/AddProperty/AddProperty" element={<AddProperty />} />
             <Route path="/Dashboard" element={<Dashboard />} />
             <Route path="/Profile" element={<MyProfile />} />
@@ -79,12 +73,6 @@ function App() {
             <Route path="/MyReservation" element={<MyReservations />} />
             <Route path="/ManageUsers" element={<ManageUsers />} />
 
-
-
-          </>
-        ) : (
-          <Route path="*" element={<LoginPrompt />} />  
-        )}
       </Routes>
     </Router>
   );

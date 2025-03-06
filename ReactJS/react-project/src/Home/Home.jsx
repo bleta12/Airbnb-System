@@ -14,6 +14,7 @@ const Home = () => {
     return (
         <>
          <div className="">
+            <div><Navbar /></div>
             <div><Search /></div>
             <div><Icones setFilteredProperties={setFilteredProperties} /></div>
             <div><Cards filteredProperties={filteredProperties} /></div>

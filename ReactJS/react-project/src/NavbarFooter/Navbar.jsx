@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 
-function Navbar({onLogOut}) {
+function Navbar() {
 
   const accessToken = localStorage.getItem('accessToken');
   const refreshToken = localStorage.getItem('refreshToken');
@@ -13,7 +13,6 @@ function Navbar({onLogOut}) {
 
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
-   onLogOut();
     navigate('/LogInSignUp/Login');
   };
 
