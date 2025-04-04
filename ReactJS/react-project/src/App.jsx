@@ -25,6 +25,10 @@ import ManageUsers from './Dashboard/ManageUsers';
 import AddPlayer from './AddPlayer';
 import AddTeam from './AddTeam';
 import EditPlayer from './EditPlayer';
+import AddUniversiteti from './AddUniversiteti';
+import AddDrejtimi from './AddDrejtimi';
+import EditUni from './EditUni';
+import Drejtimet from './Drejtimet';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -57,6 +61,14 @@ function App() {
         <Route path="/AddPlayer" element={<AddPlayer />} />
         <Route path="/AddTeam" element={<AddTeam />} />
         <Route path="/edit" element={<EditPlayer />} />
+        <Route path="/uni" element={<AddUniversiteti />} />
+        <Route path="/drejtimi" element={<AddDrejtimi />} />
+        <Route path="/editUni" element={<EditUni />} />
+        <Route path="/tabelaDrejtimeve" element={<Drejtimet />} />
+
+
+
+
 
 
 
