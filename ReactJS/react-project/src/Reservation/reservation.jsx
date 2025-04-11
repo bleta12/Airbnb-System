@@ -1,31 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate,useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Button, Form, Navbar } from "react-bootstrap";
 import "./button.css";
 import { Link } from "react-router-dom";
-import { jwtDecode } from 'jwt-decode';
-import  axiosInstance  from '../axiosInstance';
+import { jwtDecode } from "jwt-decode";
+import axiosInstance from "../axiosInstance";
 
 function Reservation() {
-
-  const accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem("accessToken");
   const [decodedToken, setDecodedToken] = useState(null);
-  
+
   useEffect(() => {
     if (accessToken) {
       try {
         const decoded = jwtDecode(accessToken);
-        setDecodedToken(decoded); 
+        setDecodedToken(decoded);
       } catch (error) {
-        console.error('Error decoding token:', error);
+        console.error("Error decoding token:", error);
       }
     } else {
-      console.log('No token found');
+      console.log("No token found");
     }
   }, [accessToken]);
-
 
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(null);
@@ -36,10 +34,9 @@ function Reservation() {
   const [kids, setKids] = useState(0);
   const [cvv, setCVV] = useState(null);
   const [totalGuests, setTotalGuests] = useState("");
-  const[cardNumber,setCardNumber]=useState("");
-    const params = useParams();
-    const value = params.value;
- 
+  const [cardNumber, setCardNumber] = useState("");
+  const params = useParams();
+  const value = params.value;
 
   const isValidCreditCardNumber = (cardNumber) => {
     const sanitizedNumber = cardNumber.replace(/\D/g, "");
@@ -68,7 +65,6 @@ function Reservation() {
   const handlePay = async (event) => {
     event.preventDefault();
 
-     cardNumber = document.getElementById("formCardNumber").value;
     if (!isValidCreditCardNumber(cardNumber)) {
       window.alert("Please enter a valid debit card number.");
       return;
@@ -93,21 +89,20 @@ function Reservation() {
       cardNumber: cardNumber,
       expirationDate: expirationDate,
       cvv: document.getElementById("formCVV").value,
-      cmimi:totalCharge,
-      user:{
-        id:decodedToken.id
+      cmimi: totalCharge,
+      user: {
+        id: decodedToken.id,
       },
-      airbnbProperty:{
-        id:value
+      airbnbProperty: {
+        id: value,
       },
     };
     console.log(reservationData);
 
-
     try {
-      const response = await   axiosInstance.post(
-        '/reservation/insert',
-         reservationData 
+      const response = await axiosInstance.post(
+        "/reservation/insert",
+        reservationData
       );
       console.log("Response:", response.data);
       console.log("Submitting reservation data...");
@@ -130,7 +125,6 @@ function Reservation() {
       setExpirationDate("");
       setTotalGuests(0);
       setCardNumber("");
-      
     } catch (error) {
       console.error("Error:", error);
       window.alert("Failed to save reservation");
@@ -157,19 +151,18 @@ function Reservation() {
     setTotalGuests(Number(adults) + Number(kids));
   }, [adults, kids]);
 
-
-const [price,setPrice]=useState("");
+  const [price, setPrice] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
       if (!value) return;
       try {
-        const response = await axiosInstance.get(`/properties`,{
-          params : { propertyId: value },
+        const response = await axiosInstance.get(`/properties`, {
+          params: { propertyId: value },
         });
         if (response.data) {
           setPrice(response.data);
-          console.log("price",response.data);
+          console.log("price", response.data);
         }
       } catch (error) {
         console.error("Error fetching price:", error);
@@ -179,9 +172,7 @@ const [price,setPrice]=useState("");
     fetchUser();
   }, [value]);
 
-
   const calculateTotalCharge = () => {
-    
     const start = new Date(startDate);
     const end = new Date(endDate);
 
@@ -196,17 +187,14 @@ const [price,setPrice]=useState("");
 
   const { daysBetween, totalCharge } = calculateTotalCharge();
 
-
-
-    return (
+  return (
     <div>
-      <Navbar bg="light" expand="lg" >
+      <Navbar bg="light" expand="lg">
         <Link className="navbar-brand" to="/">
           <span className="fw-bold text-info ml-5">Explore & Stay</span>
         </Link>
       </Navbar>
 
-     
       <div className="reservation-container mt-5" style={{ height: "1090px" }}>
         <div className="reservation-header">
           <button
@@ -250,17 +238,19 @@ const [price,setPrice]=useState("");
           </div>
 
           <div className="alert alert-info " role="alert">
-        <h4 className="alert-heading">Total Charge</h4>
-        <p className="mb-0">
-          {daysBetween > 0 ? (
-            <>
-              You will be charged <span className="fw-bold">€{totalCharge}</span> for {daysBetween} day(s) of stay.
-            </>
-          ) : (
-            "Please select both start and end dates. End date cannot be before the start date"
-          )}
-        </p>
-      </div>
+            <h4 className="alert-heading">Total Charge</h4>
+            <p className="mb-0">
+              {daysBetween > 0 ? (
+                <>
+                  You will be charged{" "}
+                  <span className="fw-bold">€{totalCharge}</span> for{" "}
+                  {daysBetween} day(s) of stay.
+                </>
+              ) : (
+                "Please select both start and end dates. End date cannot be before the start date"
+              )}
+            </p>
+          </div>
 
           <div className="guests-container">
             <h4>Guests</h4>
@@ -335,14 +325,18 @@ const [price,setPrice]=useState("");
           </div>
           <hr />
 
-          
-          
           <h3 className="payment-header">Payment Details</h3>
 
           <Form className="payment-form" style={{ height: "600px" }}>
             <Form.Group controlId="formCardNumber">
               <Form.Label>Card Number</Form.Label>
-              <Form.Control type="text" placeholder="Enter card number" />
+              <Form.Control
+                type="text"
+                id="formCardNumber"
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+                placeholder="Enter card number"
+              />
             </Form.Group>
 
             <Form.Group controlId="formExpiration">
@@ -359,7 +353,7 @@ const [price,setPrice]=useState("");
                     //nese jane me shume se 2 inpute vendoset "/"
                     const month = input.slice(0, 2);
                     const day = input.slice(2);
-                    
+
                     if (parseInt(month) < 1 || parseInt(month) > 12) {
                       window.alert("Please enter a valid month (1-12).");
                       return;
@@ -407,19 +401,15 @@ const [price,setPrice]=useState("");
                 }}
               />
             </Form.Group>
-           
+
             <Button className="payment-button" onClick={handlePay}>
               Confirm and Pay
             </Button>
-           
-           
           </Form>
         </div>
       </div>
     </div>
   );
-
 }
-
 
 export default Reservation;

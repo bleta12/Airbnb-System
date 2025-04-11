@@ -6,12 +6,16 @@ import com.example.Spring.airbnbProperty.models.AirbnbProperty;
 import com.example.Spring.airbnbProperty.models.Reservation;
 
 import com.example.Spring.airbnbProperty.models.User;
+import com.example.Spring.airbnbProperty.models.dtos.FavoritePropertyDTO;
+import com.example.Spring.airbnbProperty.models.dtos.ReservationDTO;
 import com.example.Spring.airbnbProperty.repository.AirbnbRepositoryInterface;
 import com.example.Spring.airbnbProperty.repository.ReserveRepositoryInterface;
 import com.example.Spring.airbnbProperty.repository.UserRepositoryInterface;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ReserveService {
@@ -47,4 +51,11 @@ public class ReserveService {
 
         return repo.save(reservation);
     }
+
+
+    public List<ReservationDTO> getMyReservation(long userId) {
+        return repo.findReservationsByUserId(userId);
+    }
+
+
 }
