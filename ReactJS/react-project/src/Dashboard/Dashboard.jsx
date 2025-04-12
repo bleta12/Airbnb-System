@@ -119,12 +119,9 @@ function Dashboard() {
             >
               <div className="bg-white py-2 collapse-inner rounded">
                 <h6 className="collapse-header">Reservations:</h6>
-                <a className="collapse-item" href="utilities-color.html">
+                <Link className="collapse-item" to={"/MyReservation"}>
                   My Reservations
-                </a>
-                <a className="collapse-item" href="utilities-border.html">
-                  My Property Reservations
-                </a>
+                </Link>
               </div>
 
             </div>
@@ -133,12 +130,6 @@ function Dashboard() {
             <Link className="nav-link" to="/AddProperty/AddProperty">
               <i className="fas fa-building h-5"></i>
               <span>Host a Property</span>
-            </Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link" to="/GiftCardPage">
-              <i className="fa fa-gift h-5"></i>
-              <span>Gift Card</span>
             </Link>
           </li>
           {/* Divider */}
