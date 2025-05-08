@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig {
+public class  SecurityConfig {
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -50,7 +50,7 @@ public class SecurityConfig {
 
                         .requestMatchers("properties/get","properties/getByFilters","properties/getById","properties/search"
                         ,"user/insert","user/login","auth/refresh",
-                                "/swagger-ui","/swagger-ui.html","/error","reviews/getReview","reviews/getAvgReview","user/getOwner/{propertyId}","properties/paged","team/get","/player/{id}","/player/edit/{id}","drejtimi/get")
+                                "/swagger-ui","/swagger-ui.html","/error","reviews/getReview","reviews/getAvgReview","user/getOwner/{propertyId}","properties/paged","team/get","/player/{id}","/player/edit/{id}","drejtimi/get","ligjeruesi/**","ligjerata/**")
                         .permitAll()
                         .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults())

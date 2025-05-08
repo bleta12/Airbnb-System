@@ -8,7 +8,7 @@ import Login from './LogInSignUp/Login';
 import AddProperty from './AddProperty/AddProperty';
 import Footer from './NavbarFooter/Footer';
 import MyFavorite from './FavoriteList/MyFavorite';
-import Navbar from './NavbarFooter/Navbar';  
+import Navbar from './NavbarFooter/Navbar';
 import Icones from './components/Icones';
 import Cards from './components/Cards';
 import Search from './components/Search';
@@ -29,6 +29,14 @@ import AddUniversiteti from './AddUniversiteti';
 import AddDrejtimi from './AddDrejtimi';
 import EditUni from './EditUni';
 import Drejtimet from './Drejtimet';
+import AddFactory from './components/AddFactory';
+import AddDepartment from './components/AddDepartment';
+import AddLigjeruesi from './components/AddLigjeruesi';
+import AddLigjerata from './components/AddLigjerata';
+import AddPostimi from './components/AddPostimi';
+import AddKomenti from './components/AddKomenti';
+
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -49,7 +57,7 @@ function App() {
   return (
     <Router>
       <Routes>
-      
+
         <Route path="/" element={<Home />} />
         <Route path="/product/:id" element={<PropertyView />} />
         <Route path="/LogInSignUp/Login" element={<Login />} />
@@ -65,25 +73,27 @@ function App() {
         <Route path="/drejtimi" element={<AddDrejtimi />} />
         <Route path="/editUni" element={<EditUni />} />
         <Route path="/tabelaDrejtimeve" element={<Drejtimet />} />
+        <Route path="/factory" element={<AddFactory />} />
+        <Route path="/department" element={<AddDepartment />} />
+        <Route path="/ligjeruesi" element={<AddLigjeruesi />} />
+        <Route path="/ligjerata" element={<AddLigjerata />} />
+        <Route path="/postimi" element={<AddPostimi />} />
+        <Route path="/komenti" element={<AddKomenti />} />
 
 
 
 
 
 
-
-
-
-    
-            <Route path="/AddProperty/AddProperty" element={<AddProperty />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/Profile" element={<MyProfile />} />
-            <Route path="/MyProperty" element={<MyProperty />} />
-            <Route path="/GiftCardPage" element={<GiftCardPage />} />
-            <Route path="/MyFavorite" element={<MyFavorite />} />
-            <Route path="/Reservation/reservation/:value" element={<Reservation />} />
-            <Route path="/MyReservation" element={<MyReservations />} />
-            <Route path="/ManageUsers" element={<ManageUsers />} />
+        <Route path="/AddProperty/AddProperty" element={<AddProperty />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
+        <Route path="/Profile" element={<MyProfile />} />
+        <Route path="/MyProperty" element={<MyProperty />} />
+        <Route path="/GiftCardPage" element={<GiftCardPage />} />
+        <Route path="/MyFavorite" element={<MyFavorite />} />
+        <Route path="/Reservation/reservation/:value" element={<Reservation />} />
+        <Route path="/MyReservation" element={<MyReservations />} />
+        <Route path="/ManageUsers" element={<ManageUsers />} />
 
       </Routes>
     </Router>
